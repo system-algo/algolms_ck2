@@ -3,6 +3,8 @@ import { calculateActiveTaskCount, resolveActivityMapUrl } from '../lib/taskExtr
 import customNames from '../config/mapping.json';
 import './StudentHomeDashboard.css';
 
+// CK2 uses CK asset routes, but its unlock schedules are stored under lms_course_id=CK2.
+const LMS_SCHEDULE_COURSE_CODE = 'CK2';
 const COURSE_TITLE = 'Game Development';
 const NEXT_COURSE_TITLE = 'Web Development';
 const PTSY1_REF = 'd8d188a37007437c047d211a0767abad1c2d0d2f';
@@ -334,7 +336,7 @@ export default function StudentHomeDashboard({
     const headers = getHeaders(supabaseKey, creds.accessToken);
 
     fetch(
-      `${supabaseUrl}/rest/v1/student_lesson_schedules?student_email=ilike.${encodeURIComponent(studentEmail)}&lms_course_id=eq.${encodeURIComponent(normalizedCourseId)}&select=topic_id`,
+      `${supabaseUrl}/rest/v1/student_lesson_schedules?student_email=ilike.${encodeURIComponent(studentEmail)}&lms_course_id=eq.${encodeURIComponent(LMS_SCHEDULE_COURSE_CODE)}&select=topic_id`,
       { headers }
     )
       .then((response) => (response.ok ? response.json() : []))
