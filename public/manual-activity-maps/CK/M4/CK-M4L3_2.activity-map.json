@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "pageId": "CK-M4L3_2",
+  "courseId": "CK",
+  "lessonId": "M4",
+  "sourceZip": "CK M4L3_2.zip",
+  "updatedAt": "2026-10-23T03:46:30.806Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-8l1s8": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "fill_blank_task",
+      "suggestedType": "fill-blank-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-8l1s8-3kgkvo": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-yk0hqx": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-1ll2w63": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-gg97hg": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-n6gzx0": {
+          "title": "after-4-icon-control",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-1rl0tiw": {
+          "title": "after-5-Part 1. My solution",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-upe9g3": {
+          "title": "after-6-Part",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-1j2398h": {
+          "title": "after-7-My solution",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-13qstxb": {
+          "title": "after-8-Attempt- 2-2",
+          "selectedType": ""
+        },
+        "task-1-8l1s8-1qy74gx": {
+          "title": "after-11-[object SVGAnimatedString]",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-11-yw34qq": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "mcq_checkbox_task",
+      "suggestedType": "mcq-checkbox",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-11-yw34qq-1iw5m05": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-16g2fn0": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-1aj4yu3": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-1kg8bwi": {
+          "title": "after-3-What is the color of a section",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-1umrmq4": {
+          "title": "after-4-What is the color of a section",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-i1jxvp": {
+          "title": "after-5-What is the color of a section",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-poujqz": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-13g04zj": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-7q8eqn": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-836q62": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-k0bpd6": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-11-yw34qq-e0w8ga": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-23-ifh6uw": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "matching_dragdrop_task",
+      "suggestedType": "matching-dragdrop",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-23-ifh6uw-1kpvdml": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-13i6l0j": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-5qo1di": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-17iwkit": {
+          "title": "after-3-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-1seqx6o": {
+          "title": "after-4-icon-control",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-627h5x": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-1tgxbxj": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-ao1hma": {
+          "title": "after-7-Part 1. My solution",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-t9gtpr": {
+          "title": "after-8-Part",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-b4mik": {
+          "title": "after-9-My solution",
+          "selectedType": ""
+        },
+        "task-23-ifh6uw-cdoqqu": {
+          "title": "after-10-Attempt- 2-2",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

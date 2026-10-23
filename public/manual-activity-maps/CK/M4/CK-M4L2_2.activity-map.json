@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "pageId": "CK-M4L2_2",
+  "courseId": "CK",
+  "lessonId": "M4",
+  "sourceZip": "CK M4L2_2.zip",
+  "updatedAt": "2026-10-23T03:46:30.369Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-rpoko9": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "ide_programming_task",
+      "suggestedType": "ide-programming",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-rpoko9-140wt52": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-1rlflw2": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-kfvdnn": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-1gye0ti": {
+          "title": "after-3-What program is running during",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-188xfen": {
+          "title": "after-4-What program is running during",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-ypmcl0": {
+          "title": "after-5-What program is running during",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-1qaydp7": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-1nqkj5e": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-p1a73b": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-3dxgst": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-1rkev3k": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-rpoko9-1n98k91": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-13-hwjbkq": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "ide_programming_task",
+      "suggestedType": "ide-programming",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-13-hwjbkq-105uuiw": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-1a1b43h": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-opd4xp": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-1pkzsml": {
+          "title": "after-3-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-1ef1ny0": {
+          "title": "after-4-What program is running during",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-evnxsy": {
+          "title": "after-5-What program is running during",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-hre5n4": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-7124qv": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-fzvkv1": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-1oi4aey": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-44gdkr": {
+          "title": "after-10-Part 1. Correct solution What ",
+          "selectedType": ""
+        },
+        "task-13-hwjbkq-1moy7oz": {
+          "title": "after-11-What program is running during",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

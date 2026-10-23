@@ -1,0 +1,140 @@
+.sequence-order-task {
+  width: min(980px, 100%);
+  min-height: 720px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.sequence-order-side-card {
+  min-height: 640px;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.sequence-order-image {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+.sequence-order-side-content {
+  padding: 16px 20px;
+}
+
+.sequence-order-side-content h1 {
+  margin: 0;
+  color: #050b18;
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
+.sequence-order-side-content p {
+  margin: 14px 0 0;
+  color: #050b18;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.sequence-order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sequence-order-row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 52px;
+  gap: 16px;
+  align-items: center;
+}
+
+.sequence-order-number {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #fff;
+  color: #050b18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 500;
+  user-select: none;
+}
+
+.sequence-order-block {
+  min-height: 88px;
+  border: 0;
+  border-radius: 7px;
+  background: #fff;
+  color: #050b18;
+  padding: 18px 28px;
+  text-align: left;
+  font-size: 17px;
+  line-height: 1.28;
+  cursor: grab;
+  box-shadow: 0 10px 22px rgba(28, 16, 64, 0.08);
+}
+
+.sequence-order-block:active {
+  cursor: grabbing;
+}
+
+.sequence-order-row.is-correct .sequence-order-block {
+  outline: 4px solid rgba(22, 163, 74, 0.35);
+}
+
+.sequence-order-row.is-wrong .sequence-order-block {
+  outline: 4px solid rgba(220, 38, 38, 0.35);
+}
+
+.sequence-order-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0.2;
+  transition: opacity 0.12s ease;
+}
+
+.sequence-order-row:hover .sequence-order-controls {
+  opacity: 1;
+}
+
+.sequence-order-controls button {
+  width: 34px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: #fff;
+  color: #050b18;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .sequence-order-task {
+    grid-template-columns: 1fr;
+  }
+
+  .sequence-order-side-card {
+    min-height: auto;
+  }
+
+  .sequence-order-row {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .sequence-order-controls {
+    grid-column: 2;
+    flex-direction: row;
+  }
+}

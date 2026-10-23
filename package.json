@@ -1,0 +1,23 @@
+{
+  "name": "algolms_ck2",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "import": "node scripts/importZip.mjs",
+    "import:watch": "node scripts/importZip.mjs --watch",
+    "import:force": "node scripts/importZip.mjs --force",
+    "import:clean": "node scripts/importZip.mjs --clean --force"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "adm-zip": "^0.6.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "sharp": "latest",
+    "vite": "latest"
+  }
+}

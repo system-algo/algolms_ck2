@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.vite/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Google Drive / ZIP input
+input/
+input_backup/
+*.zip
+
+# Import cache
+.import-cache.json
+public/courses/.import-cache.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*

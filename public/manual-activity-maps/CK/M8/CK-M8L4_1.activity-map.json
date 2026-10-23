@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "pageId": "CK-M8L4_1",
+  "courseId": "CK",
+  "lessonId": "M8",
+  "sourceZip": "CK M8L4_1.zip",
+  "updatedAt": "2026-10-23T03:46:39.819Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-y1y5du": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-y1y5du-16l4qr4": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-16ie5i0": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-1wzpdyv": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-1pta4gb": {
+          "title": "after-3-Which command do the Dog's and",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-1uu2a16": {
+          "title": "after-4-Which command do the Dog's and",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-ovig87": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-9x0cbs": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-1fts72a": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-1kfdu1p": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-1t80zyc": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-1airvvw": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-y1y5du-qbt5bj": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-13-26p8vn": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-13-26p8vn-1sxdkbb": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-1ly04d0": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-1loq7l5": {
+          "title": "after-2-top-toolbar-button",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-19vloek": {
+          "title": "after-3-top-toolbar-button",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-1hh43t6": {
+          "title": "after-4-Part",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-mqz6im": {
+          "title": "after-5-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-b7mp34": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-sjro04": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-13-26p8vn-b60tkn": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "pageId": "CK-M3L2_2",
+  "courseId": "CK",
+  "lessonId": "M3",
+  "sourceZip": "CK M3L2_2.zip",
+  "updatedAt": "2026-10-23T03:46:25.779Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1lips4t": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1lips4t-qx7v5b": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-1sg5tyt": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-3bv235": {
+          "title": "after-2-Part 1. My correct solution Fi",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-17bd5fc": {
+          "title": "after-3-Find the program",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-7w7ev5": {
+          "title": "after-4-Find the program",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-nihpdw": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-wfeapa": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-y4fri6": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-1o2kx6p": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-15xjlx7": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-hgt06a": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-87z8tm": {
+          "title": "after-11-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1lips4t-1qxmmss": {
+          "title": "after-12-Part",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-14-16hseyt": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-14-16hseyt-1aktzie": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-1ehwc14": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-1ypup5z": {
+          "title": "after-2-Part 1. My solution Find the p",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-1k31t9y": {
+          "title": "after-3-Find the program A mistake has",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-3b6b37": {
+          "title": "after-4-Find the program",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-168i3w1": {
+          "title": "after-5-Find the program",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-6rkw2r": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-bxb2k3": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-oqqr1z": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-fpgxew": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-1ollur2": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-n5s911": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        },
+        "task-14-16hseyt-17v8705": {
+          "title": "after-12-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-27-ssrjh4": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-27-ssrjh4-nrmf3a": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-1bh7byz": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-18nxe0i": {
+          "title": "after-2-Part 1. My solution Find the p",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-1jm7gjd": {
+          "title": "after-3-Find the program A mistake has",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-1vzei2l": {
+          "title": "after-4-Find the program",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-17os1pe": {
+          "title": "after-5-Find the program",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-qe76yt": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-d8s1df": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-1hdn86z": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-1kmrhwz": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-zxqvfp": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-1bmd4fe": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ssrjh4-evz5em": {
+          "title": "after-12-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

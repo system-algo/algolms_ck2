@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "pageId": "CK-M5L4_1",
+  "courseId": "CK",
+  "lessonId": "M5",
+  "sourceZip": "CK M5L4_1.zip",
+  "updatedAt": "2026-10-23T03:46:33.617Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1e8rrc2": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1e8rrc2-s9gvo5": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-sjswg6": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-1vx1z6c": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-z7unse": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-166nrae": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-gfxo06": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-184t6g3": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-pas9qr": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-1-1e8rrc2-8h7a28": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-10-1n28t8y": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "mcq_checkbox_task",
+      "suggestedType": "mcq-checkbox",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-10-1n28t8y-1h305fu": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-q7miba": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-10dvfj7": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-y4r40x": {
+          "title": "after-3-What order should you observe ",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-ts4co6": {
+          "title": "after-4-What order should you observe ",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-1b1pqx3": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-v5p0bv": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-1pjunbw": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-2l4q2v": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-yds17v": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-11k6q4l": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1n28t8y-1gtmpr7": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

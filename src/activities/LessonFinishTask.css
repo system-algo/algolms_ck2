@@ -1,0 +1,52 @@
+.lesson-finish-task {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 40px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+  min-height: 480px;
+}
+
+.lesson-finish-task__image-wrap {
+  margin-bottom: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.lesson-finish-task__image {
+  max-width: 520px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.lesson-finish-task__btn {
+  background-color: #834bf2;
+  color: white;
+  border: none;
+  padding: 14px 48px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 4px 14px rgba(131, 75, 242, 0.35);
+}
+
+.lesson-finish-task__btn:hover {
+  background-color: #7237e3;
+  transform: translateY(-2px);
+}
+
+.lesson-finish-task__btn:active {
+  transform: translateY(0);
+}

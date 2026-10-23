@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "pageId": "CK-M3L1_1",
+  "courseId": "CK",
+  "lessonId": "M3",
+  "sourceZip": "CK M3L1_1.zip",
+  "updatedAt": "2026-10-23T03:46:22.832Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1hgbgc3": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "matching_dragdrop_task",
+      "suggestedType": "matching-dragdrop",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1hgbgc3-1cwif2o": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-3o2gn5": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-1airug9": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-ylndc5": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-1u35cqa": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-110zzsh": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-873uxz": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-o9m939": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-yfmfwz": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-f8aeiv": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-16hn0p3": {
+          "title": "after-14-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-1vzupzd": {
+          "title": "after-15-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-heq2b5": {
+          "title": "after-17-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1hgbgc3-1iv13he": {
+          "title": "after-18-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-15-1lve2lr": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-15-1lve2lr-mv0l3k": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-zqg15v": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-13sz6pf": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-oo2ymo": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-pnv0cw": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-hbsoyp": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-16wc184": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-1dj6anl": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-8t66ws": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-17nse6d": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-i2b2f7": {
+          "title": "after-14-icon-control",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-i1kg6e": {
+          "title": "after-15-icon-control",
+          "selectedType": ""
+        },
+        "task-15-1lve2lr-10v00q": {
+          "title": "after-16-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-28-1emx1e0": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-28-1emx1e0-4g90m4": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-13ohrhf": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-ybgg3x": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-jedanq": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-46s3hv": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-xi5c4d": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-142po1a": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-1xp8vp6": {
+          "title": "after-7-Attempt- 2-2",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-8y3guh": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-1t7skjg": {
+          "title": "after-15-icon-control",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-f412qw": {
+          "title": "after-16-icon-control",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-1sflyks": {
+          "title": "after-17-icon-control",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-jcb3tg": {
+          "title": "after-18-icon-control",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-e23h03": {
+          "title": "after-19-sc-1ef0l2z-2 hfdlwj",
+          "selectedType": ""
+        },
+        "task-28-1emx1e0-xfdic8": {
+          "title": "after-20-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-43-a6jcur": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-43-a6jcur-1afb2dv": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-14fg7l5": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-10clw36": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-jbmfm5": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-1397ps3": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-11wsykm": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-d9lrw2": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-1xiztcx": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-rl9hs": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-1cgrx26": {
+          "title": "after-15-icon-control",
+          "selectedType": ""
+        },
+        "task-43-a6jcur-1cx1xyc": {
+          "title": "after-16-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

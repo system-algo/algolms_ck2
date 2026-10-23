@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "pageId": "CK-M3L1_4",
+  "courseId": "CK",
+  "lessonId": "M3",
+  "sourceZip": "CK M3L1_4.zip",
+  "updatedAt": "2026-10-23T03:46:24.855Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-a6jcur": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-a6jcur-1d46aid": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-1kbo82y": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-ctkpfu": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-1xvurkg": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-1lehr0m": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-mod63": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-1wz5w28": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-1g1pfpz": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-1-a6jcur-163os2x": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-10-1lve2lr": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-10-1lve2lr-ndbzou": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-1pd1nrw": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-1qlb21x": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-sxjqfv": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-rj2h7h": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-1cnrz78": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-553xvi": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-7xcb45": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-1ilsu6s": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-10-1lve2lr-17cbl5q": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-20-1emx1e0": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-20-1emx1e0-1qj88up": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-e510mi": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-58krsc": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-tr160s": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-l2ogwd": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-edv3qy": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-6mqj7r": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-1ow60z3": {
+          "title": "after-7-Attempt- 2-2",
+          "selectedType": ""
+        },
+        "task-20-1emx1e0-6qiqb2": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-29-a6jcur": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-29-a6jcur-75h73t": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-1ermgic": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-65wspn": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-9ydtvo": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-cxc9q7": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-1tmvnem": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-6ii5ua": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-d2of0z": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-29-a6jcur-7guqll": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

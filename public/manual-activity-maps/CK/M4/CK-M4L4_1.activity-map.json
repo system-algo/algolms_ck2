@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "pageId": "CK-M4L4_1",
+  "courseId": "CK",
+  "lessonId": "M4",
+  "sourceZip": "CK M4L4_1.zip",
+  "updatedAt": "2026-10-23T03:46:31.463Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-119ao1d": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-119ao1d-5v6ze6": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1oq6y7j": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1lro16a": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1duniip": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-wdmjgu": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1ayncse": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-16j52ws": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-uoc9ag": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-6dshup": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-10-bkmoo8": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-10-bkmoo8-szjv50": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-14lf1gq": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-15lv993": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-djmwlj": {
+          "title": "after-3-Select the correct program",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-28s63l": {
+          "title": "after-4-Select the correct program",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-u8i5di": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-6twxyk": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-8xkz4p": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-kpyblz": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-w06oad": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-80mep1": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-10-bkmoo8-ctcvfd": {
+          "title": "after-11-Part 1. My correct solution",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-22-1rau489": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-22-1rau489-t5bat0": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-22-1rau489-f5ycsw": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-22-1rau489-ne703s": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-22-1rau489-h984x1": {
+          "title": "after-3-Select the correct program",
+          "selectedType": ""
+        },
+        "task-22-1rau489-1wq44b1": {
+          "title": "after-4-Select the correct program",
+          "selectedType": ""
+        },
+        "task-22-1rau489-qyq8nt": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-22-1rau489-c5zg49": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-22-1rau489-1cdvzq7": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-22-1rau489-1ccws9h": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-22-1rau489-ranndi": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-22-1rau489-1910yli": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-22-1rau489-zbztvw": {
+          "title": "after-11-Part 1. My correct solution",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

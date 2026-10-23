@@ -1,0 +1,450 @@
+.lms-frame {
+  min-height: calc(100vh - 76px);
+  background: linear-gradient(180deg, #8a45ef 0%, #7f39ea 100%);
+  padding: 34px 24px 90px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/*
+  Frame chung cho tất cả activity.
+  Đổi từ width cố định nhỏ sang width linh hoạt theo viewport.
+  Chừa chỗ cho 2 nút vàng hai bên.
+*/
+.lms-frame__inner {
+  position: relative;
+  width: min(1440px, calc(100vw - 170px));
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.lms-frame__inner--narrow {
+  width: min(900px, calc(100vw - 170px));
+}
+
+/*
+  Quan trọng:
+  Không dùng overflow: hidden nữa vì nó cắt IDE/task rộng.
+*/
+.lms-frame__card {
+  width: 100%;
+  min-height: 620px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(18, 24, 40, 0.12);
+  overflow: visible;
+}
+
+/* PTSY1 Style Feedback Banner */
+.ptsy-feedback-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  margin-top: 24px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  animation: ptsyBannerFade 0.25s ease-out;
+}
+
+.ptsy-banner--error {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+}
+
+.ptsy-banner--success {
+  background: #F0FDF4;
+  border: 1px solid #86EFAC;
+}
+
+.ptsy-banner--checking {
+  background: #F5F3FF;
+  border: 1px solid #DDD6FE;
+}
+
+.ptsy-banner__icon-wrap {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.ptsy-banner--error .ptsy-banner__icon-wrap {
+  background: #881337;
+}
+
+.ptsy-banner--success .ptsy-banner__icon-wrap {
+  background: #16A34A;
+}
+
+.ptsy-banner--checking .ptsy-banner__icon-wrap {
+  background: #6D28D9;
+}
+
+.ptsy-banner__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.ptsy-banner__text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ptsy-banner--error .ptsy-banner__title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #881337;
+}
+
+.ptsy-banner--success .ptsy-banner__title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #166534;
+}
+
+.ptsy-banner--checking .ptsy-banner__title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #5B21B6;
+}
+
+.ptsy-banner__desc {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #0F172A;
+}
+
+.ptsy-banner--checking .ptsy-banner__desc {
+  color: #6D28D9;
+}
+
+@keyframes ptsyBannerFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lms-frame__content {
+  width: 100%;
+  min-height: 620px;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/*
+  Chặn child component vượt quá frame.
+  Nếu component quá rộng, nó scale theo container thay vì bị cắt.
+*/
+.lms-frame__content > * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.lms-frame__side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 60px;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #8b5cf6;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+}
+
+.lms-frame__side--left {
+  left: -78px;
+}
+
+.lms-frame__side--right {
+  right: -78px;
+}
+
+.lms-frame__side--ide {
+  position: fixed;
+  z-index: 9999;
+}
+
+.lms-frame__side--ide.lms-frame__side--left {
+  left: 20px;
+}
+
+.lms-frame__side--ide.lms-frame__side--right {
+  right: 20px;
+}
+
+.lms-frame__side:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.lms-frame__floating-actions {
+  position: absolute;
+  top: 16px;
+  right: -56px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+
+.lms-frame__floating-actions--ide {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 9999;
+}
+
+.lms-frame__back-to-course {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.lms-frame__back-to-course:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lms-fab {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.lms-fab svg {
+  width: 24px;
+  height: 24px;
+}
+
+.lms-fab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.lms-fab--check {
+  color: #10b981;
+  border-color: #10b981;
+}
+
+.lms-fab--check:not(:disabled):hover {
+  background: #f0fdf4;
+  transform: translateY(-2px);
+}
+
+.lms-fab--reset {
+  color: #8b5cf6;
+  border-color: #8b5cf6;
+}
+
+.lms-fab--reset:not(:disabled):hover {
+  background: #f5f3ff;
+  transform: translateY(-2px);
+}
+
+.lms-fab--back {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.lms-fab--back:not(:disabled):hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-2px);
+}
+
+@keyframes lms-fab-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.lms-fab-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(16, 185, 129, 0.3);
+  border-top-color: #10b981;
+  border-radius: 50%;
+  animation: lms-fab-spin 0.8s linear infinite;
+}
+
+.lms-frame__next {
+  min-width: 360px;
+  max-width: min(560px, calc(100vw - 80px));
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 28px;
+  background: #f6d031;
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.lms-frame__next:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/*
+  Global safety cho các activity renderer rộng.
+  Áp dụng trong frame thôi, không phá catalog/page khác.
+*/
+.lms-frame pre,
+.lms-frame code,
+.lms-frame textarea,
+.lms-frame input,
+.lms-frame table {
+  max-width: 100%;
+}
+
+.lms-frame img,
+.lms-frame video,
+.lms-frame canvas,
+.lms-frame svg {
+  max-width: 100%;
+}
+
+/*
+  Nếu activity có layout ngang / editor / panel rộng,
+  cho nó co theo frame thay vì bị cắt.
+*/
+.lms-frame .functional-stage,
+.lms-frame .activity-stage,
+.lms-frame .activity-content,
+.lms-frame .task-content,
+.lms-frame .captured-task,
+.lms-frame .ide-task,
+.lms-frame .code-task,
+.lms-frame .matching-task {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/*
+  Responsive.
+*/
+@media (max-width: 1200px) {
+  .lms-frame {
+    padding: 28px 18px 24px;
+  }
+
+  .lms-frame__inner {
+    width: calc(100vw - 140px);
+  }
+
+  .lms-frame__bottom {
+    width: calc(100vw - 140px);
+  }
+
+  .lms-frame__side {
+    width: 48px;
+    height: 54px;
+    font-size: 36px;
+  }
+
+  .lms-frame__side--left {
+    left: -64px;
+  }
+
+  .lms-frame__side--right {
+    right: -64px;
+  }
+}
+
+@media (max-width: 900px) {
+  .lms-frame {
+    padding: 22px 14px 20px;
+  }
+
+  .lms-frame__inner {
+    width: calc(100vw - 28px);
+  }
+
+  .lms-frame__card,
+  .lms-frame__content {
+    min-height: 520px;
+  }
+
+  .lms-frame__content {
+    padding: 18px;
+  }
+
+  .lms-frame__side {
+    width: 42px;
+    height: 48px;
+    font-size: 34px;
+  }
+
+  .lms-frame__side--left {
+    left: 8px;
+  }
+
+  .lms-frame__side--right {
+    right: 8px;
+  }
+
+  .lms-frame__bottom {
+    width: calc(100vw - 28px);
+  }
+
+  .lms-frame__next {
+    min-width: 220px;
+  }
+}
+
+.lms-frame__footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}

@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "pageId": "CK-M5L3_1",
+  "courseId": "CK",
+  "lessonId": "M5",
+  "sourceZip": "CK M5L3_1.zip",
+  "updatedAt": "2026-10-23T03:46:33.364Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1nqq7vq": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "mcq_checkbox_task",
+      "suggestedType": "mcq-checkbox",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1nqq7vq-1x806p8": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-zzrxcs": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-1pw6dir": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-1vz8u59": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-hf8l7v": {
+          "title": "after-4-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-bg1yyh": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-gbl2fi": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-1q45ud1": {
+          "title": "after-7-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-ho1vqe": {
+          "title": "after-8-Part",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-xt7zl2": {
+          "title": "after-9-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1nqq7vq-10cfcrz": {
+          "title": "after-10-Attempt- 1-2",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-12-17w8u0z": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-12-17w8u0z-1esd66l": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-8ie7e": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-146ptkm": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-13jd2xu": {
+          "title": "after-3-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-cspq2g": {
+          "title": "after-4-What programs does the Bear ex",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-1umcao3": {
+          "title": "after-5-What programs does the Bear ex",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-1g7dv95": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-18kt7od": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-smirsk": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-zc3yn2": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-1crwyjx": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-10hamux": {
+          "title": "after-11-Part 1. Correct solution What ",
+          "selectedType": ""
+        },
+        "task-12-17w8u0z-qdiwbb": {
+          "title": "after-12-What programs does the Bear ex",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,156 @@
+.tool-label-task {
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.tool-label-title {
+  margin: 0 0 28px;
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 800;
+  color: #071426;
+}
+
+.tool-label-helper {
+  margin: -12px 0 24px;
+  font-size: 16px;
+  color: #334155;
+}
+
+.tool-label-board {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.tool-label-bank {
+  min-height: 280px;
+  padding: 28px 22px;
+  border-radius: 12px;
+  background: #2d2d2d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+
+.tool-label-card {
+  width: 100%;
+  min-height: 54px;
+  border: 3px solid #ffffff;
+  border-radius: 10px;
+  background: #3b3b3b;
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 800;
+  cursor: grab;
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 0.35);
+}
+
+.tool-label-card:active {
+  cursor: grabbing;
+}
+
+.tool-label-panel {
+  min-height: 280px;
+  padding: 44px 48px;
+  border-radius: 12px;
+  background: #2d2d2d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-label-icons {
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+  gap: 24px;
+  align-items: start;
+  justify-content: center;
+}
+
+.tool-label-icon-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.tool-label-icon {
+  width: 112px;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7db5ff;
+  font-size: 76px;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow:
+    0 0 2px #ffffff,
+    0 0 6px rgba(125, 181, 255, 0.7);
+}
+
+.tool-label-icon.is-scale {
+  border: 8px solid #7db5ff;
+  border-radius: 10px;
+  font-size: 62px;
+}
+
+.tool-label-drop {
+  width: 126px;
+  min-height: 40px;
+  border: 3px solid #ffffff;
+  border-radius: 4px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-label-drop.has-value {
+  border-color: #8b35ea;
+  background: #ffffff;
+}
+
+.tool-label-placed {
+  width: 100%;
+  min-height: 34px;
+  border: 0;
+  border-radius: 4px;
+  background: #8b35ea;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: grab;
+}
+
+.tool-label-placed:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 900px) {
+  .tool-label-board {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-label-bank {
+    min-height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .tool-label-card {
+    width: 170px;
+  }
+
+  .tool-label-panel {
+    padding: 28px 18px;
+  }
+
+  .tool-label-icons {
+    grid-template-columns: repeat(3, minmax(90px, 1fr));
+    gap: 14px;
+  }
+}

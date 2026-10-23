@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "pageId": "CK-M6L2_1",
+  "courseId": "CK",
+  "lessonId": "M6",
+  "sourceZip": "CK M6L2_1.zip",
+  "updatedAt": "2026-10-23T03:46:34.539Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-exz4f4": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-exz4f4-1beb8dc": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-1brtbmb": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-1eeqvqy": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-177egp": {
+          "title": "after-3-What program does the fly exec",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-rip7nq": {
+          "title": "after-4-What program does the fly exec",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-1apdxx7": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-136lacs": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-s53yeh": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-agwmlz": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-zj4otf": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-19uapn9": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-exz4f4-fbr202": {
+          "title": "after-11-Part 1. My correct solution",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-13-f2bj7n": {
+      "title": "Part 1.",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-13-f2bj7n-g4meya": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-11r8pm2": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-1ejv52": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-5hc7as": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-cjvr1": {
+          "title": "after-4-icon-control",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-1ndcp2y": {
+          "title": "after-5-Part 1.",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-132a4q3": {
+          "title": "after-6-Part",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-b3xwb9": {
+          "title": "after-7-Attempt- 1-3",
+          "selectedType": ""
+        },
+        "task-13-f2bj7n-1oehz2g": {
+          "title": "after-10-[object SVGAnimatedString]",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-22-1u5og00": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-22-1u5og00-1klsj26": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-22-1u5og00-7gq7as": {
+          "title": "after-1-icon-control",
+          "selectedType": ""
+        },
+        "task-22-1u5og00-17oj4xe": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

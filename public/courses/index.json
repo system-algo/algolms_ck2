@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-10-23T03:46:40.174Z",
+  "count": 1,
+  "courses": [
+    {
+      "id": "CK",
+      "title": "CK",
+      "lessonCount": 6,
+      "pageCount": 39,
+      "taskCount": 102,
+      "stateCount": 1156,
+      "index": "/courses/CK/index.json",
+      "href": "/?course=CK"
+    }
+  ]
+}

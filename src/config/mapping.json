@@ -1,0 +1,51 @@
+{
+  "courses": {
+    "CK": "Coding Knight",
+    "VP": "Coding Knight"
+  },
+  "modules": {
+    "M1": "Introduction",
+    "M2": "Space",
+    "M3": "Game",
+    "M4": "Logic",
+    "M5": "Variables",
+    "M6": "Clones",
+    "M7": "Final Project",
+    "M8": "Graduation",
+    "CK_M1": "Introduction",
+    "CK_M2": "Space",
+    "CK_M3": "Game",
+    "CK_M4": "Logic",
+    "CK_M5": "Variables",
+    "CK_M6": "Clones",
+    "CK_M7": "Final Project",
+    "CK_M8": "Graduation"
+  },
+  "lessons": {
+    "CK_M3L1": "Conditions and the selection operator",
+    "CK_M3L2": "Changing coordinates",
+    "CK_M3L3": "Procedures",
+    "CK_M3L4": "Game planning",
+    "CK_M4L1": "Logical operators",
+    "CK_M4L2": "Conditional loop",
+    "CK_M4L3": "Random numbers and ranges",
+    "CK_M4L4": "Coordinate areas",
+    "CK_M5L1": "Variables in loops",
+    "CK_M5L2": "Data types and operators",
+    "CK_M5L3": "Variables in games",
+    "CK_M5L4": "Variables as parameters",
+    "CK_M6L1": "Classes and objects",
+    "CK_M6L2": "Local and global variables",
+    "CK_M6L3": "Clones in practice",
+    "CK_M6L4": "Clones mastery",
+    "CK_M7L1": "Preparing for the final project",
+    "CK_M7L2": "Developing the final project",
+    "CK_M7L3": "Polishing the final project",
+    "CK_M7L4": "Project presentation",
+    "CK_M8L1": "Graduation prep",
+    "CK_M8L2": "Graduation showcase",
+    "CK_M8L3": "Graduation evaluation",
+    "CK_M8L4": "Graduation celebration"
+  },
+  "pages": {}
+}

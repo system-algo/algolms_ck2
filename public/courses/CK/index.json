@@ -1,0 +1,83 @@
+{
+  "id": "CK",
+  "title": "CK",
+  "generatedAt": "2026-10-23T03:46:40.173Z",
+  "lessonCount": 6,
+  "pageCount": 39,
+  "taskCount": 102,
+  "stateCount": 1156,
+  "lessons": [
+    {
+      "id": "M3",
+      "lessonId": "M3",
+      "title": "M3",
+      "courseId": "CK",
+      "courseTitle": "CK",
+      "pageCount": 13,
+      "taskCount": 43,
+      "stateCount": 504,
+      "index": "/courses/CK/M3/index.json",
+      "href": "/?course=CK&lesson=M3"
+    },
+    {
+      "id": "M4",
+      "lessonId": "M4",
+      "title": "M4",
+      "courseId": "CK",
+      "courseTitle": "CK",
+      "pageCount": 10,
+      "taskCount": 26,
+      "stateCount": 312,
+      "index": "/courses/CK/M4/index.json",
+      "href": "/?course=CK&lesson=M4"
+    },
+    {
+      "id": "M5",
+      "lessonId": "M5",
+      "title": "M5",
+      "courseId": "CK",
+      "courseTitle": "CK",
+      "pageCount": 4,
+      "taskCount": 8,
+      "stateCount": 83,
+      "index": "/courses/CK/M5/index.json",
+      "href": "/?course=CK&lesson=M5"
+    },
+    {
+      "id": "M6",
+      "lessonId": "M6",
+      "title": "M6",
+      "courseId": "CK",
+      "courseTitle": "CK",
+      "pageCount": 4,
+      "taskCount": 9,
+      "stateCount": 87,
+      "index": "/courses/CK/M6/index.json",
+      "href": "/?course=CK&lesson=M6"
+    },
+    {
+      "id": "M7",
+      "lessonId": "M7",
+      "title": "M7",
+      "courseId": "CK",
+      "courseTitle": "CK",
+      "pageCount": 4,
+      "taskCount": 8,
+      "stateCount": 84,
+      "index": "/courses/CK/M7/index.json",
+      "href": "/?course=CK&lesson=M7"
+    },
+    {
+      "id": "M8",
+      "lessonId": "M8",
+      "title": "M8",
+      "courseId": "CK",
+      "courseTitle": "CK",
+      "pageCount": 4,
+      "taskCount": 8,
+      "stateCount": 86,
+      "index": "/courses/CK/M8/index.json",
+      "href": "/?course=CK&lesson=M8"
+    }
+  ]
+}

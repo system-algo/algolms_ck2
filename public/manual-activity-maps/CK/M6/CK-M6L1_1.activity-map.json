@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "pageId": "CK-M6L1_1",
+  "courseId": "CK",
+  "lessonId": "M6",
+  "sourceZip": "CK M6L1_1.zip",
+  "updatedAt": "2026-10-23T03:46:34.111Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1iq4i28": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1iq4i28-1fgqtnj": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-1w7hgh3": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-5nj6ci": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-ei1kry": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-llgd0c": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-6sj9u7": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-1eab07l": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-563vgd": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-1-1iq4i28-hklsph": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-10-p8w359": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-10-p8w359-1c7qmkk": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-10-p8w359-1wvq53w": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-10-p8w359-1wsck3s": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-10-p8w359-cclm0t": {
+          "title": "after-3-Which sprite executes the prog",
+          "selectedType": ""
+        },
+        "task-10-p8w359-mdivbg": {
+          "title": "after-4-Which sprite executes the prog",
+          "selectedType": ""
+        },
+        "task-10-p8w359-1phmqq1": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-10-p8w359-pdaqp3": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-10-p8w359-krwa5h": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-10-p8w359-1gmkz1i": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-10-p8w359-6lfdn6": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-10-p8w359-1nmqxej": {
+          "title": "after-10-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-10-p8w359-1kk8nnl": {
+          "title": "after-11-Part",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

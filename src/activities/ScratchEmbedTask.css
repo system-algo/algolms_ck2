@@ -1,0 +1,259 @@
+.scratch-embed-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.scratch-stage-window {
+  width: 100%;
+  max-width: 720px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+/* Scratch Top Bar with Green Flag and Stop Button */
+.scratch-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: #e9f0f8;
+  border-bottom: 1px solid #d0dbe7;
+}
+
+.scratch-flag-btn,
+.scratch-stop-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+
+.scratch-flag-btn:hover,
+.scratch-stop-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  transform: scale(1.08);
+}
+
+.scratch-flag-btn:active,
+.scratch-stop-btn:active {
+  transform: scale(0.95);
+}
+
+.scratch-flag-icon {
+  width: 24px;
+  height: 24px;
+  fill: #4cbc4c;
+}
+
+.scratch-flag-btn.active .scratch-flag-icon {
+  fill: #3ca33c;
+  filter: drop-shadow(0 0 4px rgba(76, 188, 76, 0.6));
+}
+
+.scratch-stop-icon {
+  width: 24px;
+  height: 24px;
+  fill: #ff4c4c;
+}
+
+/* Scratch Canvas Area */
+.scratch-stage-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: #ffffff;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border: 2px solid #575e75;
+  border-radius: 4px;
+  margin: 12px;
+  max-width: calc(100% - 24px);
+  box-sizing: border-box;
+}
+
+/* Roblox Sprite */
+.scratch-sprite-container {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.scratch-speech-bubble {
+  position: relative;
+  background: #ffffff;
+  border: 3px solid #d0d7de;
+  border-radius: 20px;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333333;
+  max-width: 280px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  animation: scratch-pop-in 0.3s ease-out;
+}
+
+.scratch-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 30px;
+  border-width: 14px 12px 0 0;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+}
+
+.scratch-speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 28px;
+  border-width: 17px 15px 0 0;
+  border-style: solid;
+  border-color: #d0d7de transparent transparent transparent;
+  display: block;
+  width: 0;
+}
+
+@keyframes scratch-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.scratch-sprite-img {
+  width: 140px;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+.scratch-sprite-crop-wrapper {
+  width: 150px;
+  height: 170px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scratch-sprite-crop-img {
+  position: absolute;
+  width: 480px;
+  height: auto;
+  left: -120px;
+  bottom: -35px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Scratch Bottom Input Bar */
+.scratch-input-bar {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 520px;
+  z-index: 5;
+}
+
+.scratch-input-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.scratch-input-field {
+  width: 100%;
+  height: 44px;
+  padding: 8px 48px 8px 16px;
+  border: 2px solid #4c97ff;
+  border-radius: 22px;
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(76, 151, 255, 0.25);
+  background: #ffffff;
+  color: #222222;
+  box-sizing: border-box;
+}
+
+.scratch-input-field:focus {
+  border-color: #3373e6;
+  box-shadow: 0 2px 12px rgba(76, 151, 255, 0.4);
+}
+
+.scratch-submit-btn {
+  position: absolute;
+  right: 6px;
+  width: 32px;
+  height: 32px;
+  background: #4c97ff;
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.scratch-submit-btn:hover {
+  background: #3373e6;
+  transform: scale(1.06);
+}
+
+.scratch-submit-btn:active {
+  transform: scale(0.94);
+}
+
+.scratch-submit-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: #ffffff;
+}
+
+/* Scratch Iframe Wrap */
+.scratch-iframe-wrap {
+  width: 100%;
+  height: 540px;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.scratch-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

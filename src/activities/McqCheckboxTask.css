@@ -1,0 +1,55 @@
+.mcq-visual-choice-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.mcq-visual-choice {
+  position: relative;
+  min-height: 260px;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+.mcq-choice-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mcq-choice-image-wrap {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.mcq-choice-image {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+}
+
+.mcq-choice-text {
+  display: block;
+  color: #050b18;
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 900;
+  text-align: center;
+}
+
+.mcq-visual-choice.selected {
+  border-color: #7ee7ff;
+  box-shadow: 0 0 0 4px rgba(126, 231, 255, 0.25);
+}
+
+@media (max-width: 900px) {
+  .mcq-visual-choice-list {
+    grid-template-columns: 1fr;
+  }
+}

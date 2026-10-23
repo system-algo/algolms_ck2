@@ -1,0 +1,89 @@
+{
+  "rules": [
+    {
+      "name": "Typing practice intro",
+      "match": {
+        "activityType": "code_typing_task",
+        "titleContains": "Type the text"
+      },
+      "renderer": {
+        "type": "typing-practice",
+        "typingPractice": {
+          "mode": "intro",
+          "title": "Type the text – the faster, the better",
+          "description": "For a programmer, typing speed is very important.",
+          "buttonText": "LET'S GO!"
+        }
+      }
+    },
+    {
+      "name": "Typing practice - python program",
+      "match": {
+        "activityType": "code_typing_task",
+        "titleEquals": "python program python program"
+      },
+      "renderer": {
+        "type": "typing-practice",
+        "typingPractice": {
+          "mode": "typing",
+          "showLineNumbers": true,
+          "lines": [
+            "python program python program",
+            "print data print data"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Matching drag-drop - rule names",
+      "match": {
+        "activityType": "code_typing_task",
+        "anyStateNameContains": "Correlate the rule names"
+      },
+      "renderer": {
+        "type": "matching-dragdrop",
+        "matchingDragdrop": {
+          "title": "Part 1.",
+          "prompt": "Correlate the rule names and their meaning.",
+          "helperText": "One name is superfluous!",
+          "attemptsAllowed": 2,
+          "items": [
+            {
+              "id": "rule-code-design",
+              "text": "Rule of code design"
+            },
+            {
+              "id": "rule-order",
+              "text": "Rule of order"
+            },
+            {
+              "id": "start-rule",
+              "text": "The start rule"
+            },
+            {
+              "id": "parenthesis-rule",
+              "text": "Parenthesis rule"
+            }
+          ],
+          "targets": [
+            {
+              "id": "target-start-rule",
+              "text": "The first command will be written at the beginning of the line.",
+              "correctItemId": "start-rule"
+            },
+            {
+              "id": "target-rule-order",
+              "text": "Commands are executed in order if they are written one under the other.",
+              "correctItemId": "rule-order"
+            },
+            {
+              "id": "target-code-design",
+              "text": "Uppercase letters cannot be changed to lowercase. An extra symbol can break the program.",
+              "correctItemId": "rule-code-design"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

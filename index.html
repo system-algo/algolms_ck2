@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Algo Learning Space - Coding Knight</title>
+
+    <!-- Website favicon/logo shown in the browser tab -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- Google Fonts: Nunito (body) + Baloo 2 (display/headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Prevent sensitive tokens from flashing in the URL -->
+    <script>
+      (function() {
+        try {
+          var p = new URLSearchParams(window.location.search);
+          var sensitiveKeys = ['studentEmail', 'supabaseUrl', 'supabaseKey', 'accessToken', 'backendUrl'];
+          var hasSensitive = false;
+          for (var i = 0; i < sensitiveKeys.length; i++) {
+            if (p.has(sensitiveKeys[i])) { hasSensitive = true; break; }
+          }
+          
+          if (hasSensitive) {
+            if (p.get('studentEmail')) localStorage.setItem('lms_student_email', p.get('studentEmail'));
+            if (p.get('courseId')) localStorage.setItem('lms_course_id', p.get('courseId'));
+            if (p.get('supabaseUrl')) localStorage.setItem('lms_supabase_url', p.get('supabaseUrl'));
+            if (p.get('supabaseKey')) localStorage.setItem('lms_supabase_key', p.get('supabaseKey'));
+            if (p.get('accessToken')) localStorage.setItem('lms_access_token', p.get('accessToken'));
+            if (p.get('backendUrl')) localStorage.setItem('lms_backend_url', p.get('backendUrl'));
+            
+            sessionStorage.setItem('algo_child_session_deadline', String(Date.now() + 3600000));
+            sessionStorage.removeItem('algo_child_session_expired');
+            
+            for (var i = 0; i < sensitiveKeys.length; i++) {
+              p.delete(sensitiveKeys[i]);
+            }
+            
+            var searchStr = p.toString();
+            var cleanUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + (searchStr ? '?' + searchStr : '');
+            window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+          }
+        } catch(e) {}
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

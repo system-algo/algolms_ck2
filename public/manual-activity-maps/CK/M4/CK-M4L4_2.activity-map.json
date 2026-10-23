@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "pageId": "CK-M4L4_2",
+  "courseId": "CK",
+  "lessonId": "M4",
+  "sourceZip": "CK M4L4_2.zip",
+  "updatedAt": "2026-10-23T03:46:32.220Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-119ao1d": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-119ao1d-oe6hx2": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-fo7fol": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1p2akw4": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-embgro": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1xf3quf": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1kdch7x": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-136ey5n": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-2d69ly": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-og2wsf": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1l0laq9": {
+          "title": "after-15-sc-1ef0l2z-2 kynSwU",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-slwmcq": {
+          "title": "after-16-sc-1ef0l2z-2 cWwwMQ",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1vuxu01": {
+          "title": "after-17-icon-control",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-15epesa": {
+          "title": "after-19-sc-1ef0l2z-2 eOLsGF",
+          "selectedType": ""
+        },
+        "task-1-119ao1d-1mbmsnk": {
+          "title": "after-20-sc-1ef0l2z-2 iZfJmn",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-15-bkmoo8": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-15-bkmoo8-z89xyu": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1u0b9p": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-i4liy4": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1yx9xik": {
+          "title": "after-3-Select the correct program",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-5wrbnr": {
+          "title": "after-4-Select the correct program",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1n3b4bm": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-mtxc86": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1tasydy": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-tmkg38": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-14m5o0e": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1s36u44": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-6653vo": {
+          "title": "after-11-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1oii5l1": {
+          "title": "after-12-Part",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-7fphxd": {
+          "title": "after-13-My correct solution",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-g1v9kj": {
+          "title": "after-14-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-ey8nm5": {
+          "title": "after-17-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-w5xa6m": {
+          "title": "after-22-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1j3bv8d": {
+          "title": "after-23-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-167lahj": {
+          "title": "after-24-icon-control",
+          "selectedType": ""
+        },
+        "task-15-bkmoo8-1oegqd": {
+          "title": "after-25-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-35-11hnq1q": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-35-11hnq1q-11pa1hg": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-1j1pu36": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-10x9k8t": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-24lo61": {
+          "title": "after-3-Select the correct program A m",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-1uto4me": {
+          "title": "after-4-Select the correct program",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-1iwp7vz": {
+          "title": "after-5-Select the correct program",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-qg4oxz": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-1m08d9y": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-1qp739w": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-7jm7nu": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-hyedex": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-tod4ye": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-1f2z7ba": {
+          "title": "after-12-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-e3wkww": {
+          "title": "after-13-Part 1. My solution",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-p0w69m": {
+          "title": "after-14-Part",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-alnz8o": {
+          "title": "after-15-My solution",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-a2we3p": {
+          "title": "after-16-Attempt- 2-2",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-zkaao": {
+          "title": "after-19-[object SVGAnimatedString]",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-pgl8r": {
+          "title": "after-24-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-14pbjcl": {
+          "title": "after-25-icon-control",
+          "selectedType": ""
+        },
+        "task-35-11hnq1q-2aszdq": {
+          "title": "after-26-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

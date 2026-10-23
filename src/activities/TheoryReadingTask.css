@@ -1,0 +1,190 @@
+.theory-reading-task {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
+  min-height: 570px;
+  margin: 0;
+  padding: 16px 8px;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.theory-reading-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.theory-reading-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  margin: 0 0 36px 0;
+  line-height: 1.4;
+}
+
+.theory-reading-title .text-red,
+.theory-reading-title span[style*="color: red"],
+.theory-reading-title span[style*="color:red"],
+.theory-reading-title span[style*="color: #e53935"] {
+  color: #e53935 !important;
+  font-weight: 700;
+}
+
+.theory-reading-code-box {
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+}
+
+.theory-reading-code {
+  font-family: 'Consolas', 'Courier New', Monaco, monospace;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #24292f;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.theory-reading-code .squiggle-green {
+  text-decoration: underline wavy #2e7d32;
+  text-underline-offset: 4px;
+}
+
+.theory-reading-code .squiggle-blue {
+  text-decoration: underline wavy #1565c0;
+  text-underline-offset: 4px;
+}
+
+.theory-reading-code .squiggle-red {
+  text-decoration: underline wavy #e53935;
+  text-underline-offset: 4px;
+}
+
+.theory-reading-table-container {
+  width: 100%;
+  max-width: 100%;
+  max-height: 480px;
+  overflow-y: auto;
+  margin-bottom: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.theory-reading-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  color: #1f2937;
+  text-align: center;
+}
+
+.theory-reading-table th {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  padding: 12px 16px;
+  font-weight: 700;
+  border-bottom: 2px solid #e5e7eb;
+  z-index: 1;
+}
+
+.theory-reading-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.theory-reading-table tr:hover {
+  background-color: #f9fafb;
+}
+
+.color-swatch-box {
+  width: 48px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+}
+
+.theory-reading-property-table-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 12px auto 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.theory-reading-property-table {
+  border-collapse: separate;
+  border-spacing: 48px 12px;
+  font-size: 15px;
+  color: #1e293b;
+  text-align: left;
+}
+
+.theory-reading-property-table td.prop-col {
+  font-weight: 700;
+  color: #0f172a;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.theory-reading-property-table td.desc-col {
+  font-weight: 500;
+  color: #334155;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.theory-reading-image {
+  max-width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.theory-reading-next-btn {
+  width: 320px;
+  max-width: 90%;
+  height: 48px;
+  background: #ffcf25;
+  color: #111827;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px auto 8px auto;
+  flex-shrink: 0;
+}
+
+.theory-reading-next-btn:hover {
+  background: #ffc400;
+  transform: translateY(-1px);
+}
+
+.theory-reading-next-btn:active {
+  transform: translateY(0);
+}

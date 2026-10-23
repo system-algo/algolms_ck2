@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "pageId": "CK-M4L1_2",
+  "courseId": "CK",
+  "lessonId": "M4",
+  "sourceZip": "CK M4L1_2.zip",
+  "updatedAt": "2026-10-23T03:46:29.723Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-10d4ynk": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "mcq_checkbox_task",
+      "suggestedType": "mcq-checkbox",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-10d4ynk-2npy3u": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-b39c0h": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-1sl1vnf": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-89o24x": {
+          "title": "after-3-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-1qbrsba": {
+          "title": "after-4-Which character uses the -wait",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-lbjxvk": {
+          "title": "after-5-Which character uses the -wait",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-9xpgr8": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-32plyy": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-1nybz9a": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-th8il5": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-11o1wwi": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-10d4ynk-7lobgn": {
+          "title": "after-11-Part 1. Correct solution Which",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-13-10d4ynk": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "mcq_checkbox_task",
+      "suggestedType": "mcq-checkbox",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-13-10d4ynk-1m5bh0h": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-vxnbfb": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-ryqafs": {
+          "title": "after-2-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-katcvz": {
+          "title": "after-3-Part 1. My solution Attempt- 2",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-dm5paq": {
+          "title": "after-4-Which character uses the -wait",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-jzcik4": {
+          "title": "after-5-Which character uses the -wait",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-in509g": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-1w1s6bu": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-sq0efv": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-gonilg": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-3ca6n3": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-13-10d4ynk-1t0on4n": {
+          "title": "after-11-Part 1. Correct solution Which",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

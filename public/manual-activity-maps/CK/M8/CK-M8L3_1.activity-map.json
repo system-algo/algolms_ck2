@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "pageId": "CK-M8L3_1",
+  "courseId": "CK",
+  "lessonId": "M8",
+  "sourceZip": "CK M8L3_1.zip",
+  "updatedAt": "2026-10-23T03:46:39.236Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1z0tz42": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1z0tz42-2h6sop": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1z0tz42-1jqwy4n": {
+          "title": "after-1-top-toolbar-button",
+          "selectedType": ""
+        },
+        "task-1-1z0tz42-16myb5r": {
+          "title": "after-2-top-toolbar-button",
+          "selectedType": ""
+        },
+        "task-1-1z0tz42-10d2exg": {
+          "title": "after-3-Part",
+          "selectedType": ""
+        },
+        "task-1-1z0tz42-1f6qgls": {
+          "title": "after-5-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1z0tz42-lnrg8s": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1z0tz42-419pgc": {
+          "title": "after-7-Attempt- 1-3",
+          "selectedType": ""
+        },
+        "task-1-1z0tz42-19tba4p": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-9-1739y8a": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "mcq_checkbox_task",
+      "suggestedType": "mcq-checkbox",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-9-1739y8a-rviwm2": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-dmuyzs": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-87bhga": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-e0eswb": {
+          "title": "after-3-Which sprite will be touched t",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-1od3qso": {
+          "title": "after-4-Which sprite will be touched t",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-1bsrqoc": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-pgin0m": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-2kl2as": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-135zqr": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-vfefq7": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-c36ujq": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-9-1739y8a-11k68iy": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

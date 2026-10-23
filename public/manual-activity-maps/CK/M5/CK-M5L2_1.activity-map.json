@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "pageId": "CK-M5L2_1",
+  "courseId": "CK",
+  "lessonId": "M5",
+  "sourceZip": "CK M5L2_1.zip",
+  "updatedAt": "2026-10-23T03:46:33.039Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-q27eqq": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-q27eqq-162rgdv": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-q27eqq-1to46fu": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-q27eqq-1mm1csx": {
+          "title": "after-2-top-toolbar-button",
+          "selectedType": ""
+        },
+        "task-1-q27eqq-s129wa": {
+          "title": "after-3-top-toolbar-button",
+          "selectedType": ""
+        },
+        "task-1-q27eqq-4j31o4": {
+          "title": "after-4-Part",
+          "selectedType": ""
+        },
+        "task-1-q27eqq-19ymsvb": {
+          "title": "after-7-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-q27eqq-bri7z3": {
+          "title": "after-8-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-q27eqq-20owph": {
+          "title": "after-9-Attempt- 1-2",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-9-17flv65": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-9-17flv65-1xa816s": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-9-17flv65-1g2esax": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-9-17flv65-8dqza2": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-9-17flv65-1qndgoo": {
+          "title": "after-3-What program does the balloon ",
+          "selectedType": ""
+        },
+        "task-9-17flv65-rd5zav": {
+          "title": "after-4-What program does the balloon ",
+          "selectedType": ""
+        },
+        "task-9-17flv65-1tk10q5": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-9-17flv65-1egro1v": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-9-17flv65-ejmac4": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-9-17flv65-1uh62mg": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-9-17flv65-28ldif": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-9-17flv65-nowa64": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-9-17flv65-o9ewmn": {
+          "title": "after-11-Part 1. My correct solution",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

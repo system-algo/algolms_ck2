@@ -1,0 +1,229 @@
+.connected-blocks-stage {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.connected-blocks-shell {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.connected-blocks-board-scale {
+  position: relative;
+  width: 100%;
+}
+
+.connected-blocks-board {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  max-height: calc(100vh - 200px);
+  border-radius: 12px;
+  background: #0b1329;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: auto; /* ENABLE VERTICAL & HORIZONTAL SCROLLING */
+  scroll-behavior: smooth;
+}
+
+/* Custom Navy Theme Scrollbars */
+.connected-blocks-board::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.connected-blocks-board::-webkit-scrollbar-track {
+  background: #070e1e;
+  border-radius: 4px;
+}
+
+.connected-blocks-board::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+.connected-blocks-board::-webkit-scrollbar-thumb:hover {
+  background: #8b5cf6;
+}
+
+.connected-blocks-inner-canvas {
+  position: relative;
+}
+
+.connected-blocks-wires {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.connected-block {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  z-index: 2;
+}
+
+/* Root Node (Purple) */
+.connected-block.is-root {
+  background: #8b5cf6;
+  border: 2px solid #7c3aed;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
+  border-radius: 10px;
+}
+
+/* Level 1 Node (Yellow) */
+.connected-block.is-yellow {
+  background: #facc15;
+  border: 2px solid #eab308;
+  box-shadow: 0 3px 10px rgba(250, 204, 21, 0.3);
+  border-radius: 8px;
+}
+
+/* Level 2 Node (Cyan) */
+.connected-block.is-cyan {
+  background: #67e8f9;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 3px 10px rgba(103, 232, 249, 0.3);
+  border-radius: 8px;
+}
+
+.connected-block-input {
+  width: 100%;
+  height: 100%;
+  padding: 0 14px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-body, 'Nunito', sans-serif);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.connected-block.is-root .connected-block-input {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.connected-block.is-yellow .connected-block-input,
+.connected-block.is-cyan .connected-block-input {
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.connected-block.is-root .connected-block-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Add (+) button handle */
+.connected-block-add {
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0b1329;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0b1329;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  opacity: 0.9;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+
+.connected-block:hover .connected-block-add {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.15);
+}
+
+/* Remove (x) button handle */
+.connected-block-remove {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: #f472b6;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+
+.connected-block:hover .connected-block-remove {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Fixed Toolbar attached to top-right of canvas container viewport */
+.connected-blocks-toolbar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.connected-blocks-tool {
+  width: 34px;
+  height: 34px;
+  border: 2px solid #8b5cf6;
+  border-radius: 6px;
+  background: #0b1329;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s, transform 0.15s ease;
+}
+
+.connected-blocks-tool:hover {
+  background: #1e293b;
+  transform: scale(1.05);
+}
+
+.connected-blocks-tool--check {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #ffffff;
+}
+
+.connected-blocks-tool--check:hover {
+  background: #16a34a;
+}
