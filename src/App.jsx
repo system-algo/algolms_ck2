@@ -4,6 +4,8 @@ import TeacherDashboard from './pages/TeacherDashboard.jsx';
 import generatedPageRegistry from './generated-pages/registry.js';
 
 const DEFAULT_COURSE_ID = 'CK';
+// The CK2 LMS serves lesson assets under /courses/CK, but schedules are recorded as CK2.
+const LMS_SCHEDULE_COURSE_CODE = 'CK2';
 
 // Synchronously persist session query parameters on first load (e.g. incognito window or direct URL redirect)
 (function initSessionFromUrl() {
@@ -990,7 +992,7 @@ export default function App() {
             normalizedEmail,
           )}` +
           `&lms_course_id=eq.${encodeURIComponent(
-            normalizedCourseId,
+            LMS_SCHEDULE_COURSE_CODE,
           )}` +
           '&select=topic_id';
 
