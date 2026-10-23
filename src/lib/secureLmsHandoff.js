@@ -10,6 +10,8 @@ const CHILD_SESSION_EXPIRED_KEY = 'algo_child_session_expired';
 
 const ALLOWED_PLATFORM_ORIGINS = new Set([
   'https://learn.algo.edu.vn',
+  'https://learn.algorithmics.edu.vn',
+  'https://learn.algorithmics.com.vn',
   'http://localhost:5173',
   'http://localhost:5174',
 ]);
