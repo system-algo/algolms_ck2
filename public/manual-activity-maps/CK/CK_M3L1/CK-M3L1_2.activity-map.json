@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "pageId": "CK-M3L1_2",
+  "courseId": "CK",
+  "lessonId": "CK_M3L1",
+  "sourceZip": "CK M3L1_2.zip",
+  "updatedAt": "2026-10-26T04:24:24.504Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1lve2lr": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1lve2lr-17kacff": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-1kbfsp8": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-1hrpd82": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-g3un17": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-4w44i7": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-19ky31a": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-1udn9bn": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-15tyf3e": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-1uxr1bx": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1lve2lr-154uc9v": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-11-1lve2lr": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-11-1lve2lr-ldhkce": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-luu75c": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-7nkmoz": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-8lyta9": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-1nw3ed2": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-1eb70yc": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-d554c3": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-binbkr": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-13cxckk": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-11-1lve2lr-1c63kms": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-21-1emx1e0": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-21-1emx1e0-13lw8va": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-1j0e4p2": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-14epsc": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-1vk8q04": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-2ty7m7": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-pkwfkz": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-1yyf5dx": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-907b8h": {
+          "title": "after-7-Attempt- 2-2",
+          "selectedType": ""
+        },
+        "task-21-1emx1e0-yf0tdw": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-30-a6jcur": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "generic_captured_task",
+      "suggestedType": "generic-captured-task",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-30-a6jcur-67ywu7": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-6kbp2f": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-3jadfr": {
+          "title": "after-2-icon-control",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-i0xrs": {
+          "title": "after-3-icon-control",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-u5xaps": {
+          "title": "after-4-Part 1. My correct solution",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-9yss66": {
+          "title": "after-5-Part",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-zepeo0": {
+          "title": "after-6-My correct solution",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-vz6d6n": {
+          "title": "after-7-Attempt- 1-2",
+          "selectedType": ""
+        },
+        "task-30-a6jcur-kmad2r": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

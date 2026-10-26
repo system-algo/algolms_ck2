@@ -1,0 +1,548 @@
+{
+  "schemaVersion": 2,
+  "pageInstanceId": "CK__CK_M3L3__CK-M3L3_2",
+  "createdAt": "2026-10-26T04:24:28.449Z",
+  "importedAt": "2026-10-26T04:24:28.449Z",
+  "sourceZip": "CK M3L3_2.zip",
+  "course": {
+    "id": "CK",
+    "title": "CK"
+  },
+  "lesson": {
+    "id": "CK_M3L3",
+    "title": "CK_M3L3"
+  },
+  "page": {
+    "id": "CK-M3L3_2",
+    "title": "CK M3L3_2"
+  },
+  "source": {
+    "version": "1.0.12",
+    "runId": "run-2026-10-06T02-46-09-102Z",
+    "createdAt": "2026-10-06T02:46:09.102Z",
+    "updatedAt": "2026-10-06T02:47:13.968Z"
+  },
+  "renderer": {
+    "version": "manual-v1",
+    "fallbackType": "generic-captured-task",
+    "source": "manual-activity-map"
+  },
+  "frameConfig": {
+    "showTopNavigation": true,
+    "showSideNavigation": true,
+    "showBottomControls": true,
+    "showNextButton": true,
+    "crop": {
+      "left": 90,
+      "right": 90,
+      "top": 60,
+      "bottom": 170
+    }
+  },
+  "activityConfig": {
+    "manualMode": true,
+    "taskCount": 3,
+    "stateCount": 39,
+    "allowedTypes": [
+      "generic-captured-task",
+      "mcq-checkbox",
+      "matching-dragdrop",
+      "typing-practice",
+      "ide-programming",
+      "diagram-canvas-task",
+      "fill-blank-task",
+      "video-lesson",
+      "scratch-embed-task"
+    ],
+    "rawActivityTypes": [
+      "code_typing_task"
+    ]
+  },
+  "manualActivityMap": {
+    "filePath": "D:/Program Download/MinhTu2025-2026/MinhTu/Algorithmics/algolms_ck2/public/manual-activity-maps/CK/CK_M3L3/CK-M3L3_2.activity-map.json",
+    "url": "/manual-activity-maps/CK/CK_M3L3/CK-M3L3_2.activity-map.json",
+    "note": "Edit selectedType in this file, then refresh the browser."
+  },
+  "manifest": "/courses/CK/CK_M3L3/pages/CK-M3L3_2/manifest.json",
+  "taskRenderers": {
+    "task-1-ztgh6d": {
+      "type": "generic-captured-task",
+      "manualSelectedType": "generic-captured-task",
+      "states": {
+        "task-1-ztgh6d-l5ao1t": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-1m9rxs7": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-1jl39x8": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-aol00q": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-4copcn": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-17rz9tt": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-vkk94": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-10d08p2": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-1uzlt1b": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-8l0z4i": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-z1xyuc": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-17lgv3u": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-1-ztgh6d-hu2q3m": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        }
+      }
+    },
+    "task-14-ztgh6d": {
+      "type": "generic-captured-task",
+      "manualSelectedType": "generic-captured-task",
+      "states": {
+        "task-14-ztgh6d-1ab6mgs": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-blytgc": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1yuk055": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-x7lz9i": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1v19dbq": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1t4536w": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-rjy7pg": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1cndbgc": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1naxhia": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1nu2e33": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1au586b": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-1ev0jjm": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-14-ztgh6d-11c83m3": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        }
+      }
+    },
+    "task-27-ll19c8": {
+      "type": "generic-captured-task",
+      "manualSelectedType": "generic-captured-task",
+      "states": {
+        "task-27-ll19c8-9g92pm": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-1lgcutg": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-rql8nk": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-s083ru": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-1ypzeti": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-10nwx4t": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-50clc8": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-d4z3ln": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-fxntnn": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-1utjl04": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-szr2zx": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-1upkowj": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        },
+        "task-27-ll19c8-1kzm957": {
+          "type": "generic-captured-task",
+          "manualSelectedType": "generic-captured-task"
+        }
+      }
+    }
+  },
+  "tasks": [
+    {
+      "id": "task-1-ztgh6d",
+      "taskId": "task-1-ztgh6d",
+      "title": "Part 1. My solution",
+      "activityType": "code_typing_task",
+      "selectedType": "generic-captured-task",
+      "suggestedType": "typing-practice",
+      "states": [
+        {
+          "id": "task-1-ztgh6d-l5ao1t",
+          "stateId": "task-1-ztgh6d-l5ao1t",
+          "name": "initial",
+          "stateName": "initial",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-1m9rxs7",
+          "stateId": "task-1-ztgh6d-1m9rxs7",
+          "name": "after-1-splitter-collapse-handle",
+          "stateName": "after-1-splitter-collapse-handle",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-1jl39x8",
+          "stateId": "task-1-ztgh6d-1jl39x8",
+          "name": "after-2-Part 1. My solution Find the p",
+          "stateName": "after-2-Part 1. My solution Find the p",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-aol00q",
+          "stateId": "task-1-ztgh6d-aol00q",
+          "name": "after-3-Find the program A mistake has",
+          "stateName": "after-3-Find the program A mistake has",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-4copcn",
+          "stateId": "task-1-ztgh6d-4copcn",
+          "name": "after-4-Find the program",
+          "stateName": "after-4-Find the program",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-17rz9tt",
+          "stateId": "task-1-ztgh6d-17rz9tt",
+          "name": "after-5-Find the program",
+          "stateName": "after-5-Find the program",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-vkk94",
+          "stateId": "task-1-ztgh6d-vkk94",
+          "name": "after-6-icon-control",
+          "stateName": "after-6-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-10d08p2",
+          "stateId": "task-1-ztgh6d-10d08p2",
+          "name": "after-7-icon-control",
+          "stateName": "after-7-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-1uzlt1b",
+          "stateId": "task-1-ztgh6d-1uzlt1b",
+          "name": "after-8-icon-control",
+          "stateName": "after-8-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-8l0z4i",
+          "stateId": "task-1-ztgh6d-8l0z4i",
+          "name": "after-9-icon-control",
+          "stateName": "after-9-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-z1xyuc",
+          "stateId": "task-1-ztgh6d-z1xyuc",
+          "name": "after-10-icon-control",
+          "stateName": "after-10-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-17lgv3u",
+          "stateId": "task-1-ztgh6d-17lgv3u",
+          "name": "after-11-icon-control",
+          "stateName": "after-11-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-1-ztgh6d-hu2q3m",
+          "stateId": "task-1-ztgh6d-hu2q3m",
+          "name": "after-12-icon-control",
+          "stateName": "after-12-icon-control",
+          "selectedType": "generic-captured-task"
+        }
+      ]
+    },
+    {
+      "id": "task-14-ztgh6d",
+      "taskId": "task-14-ztgh6d",
+      "title": "Part 1. My solution",
+      "activityType": "code_typing_task",
+      "selectedType": "generic-captured-task",
+      "suggestedType": "typing-practice",
+      "states": [
+        {
+          "id": "task-14-ztgh6d-1ab6mgs",
+          "stateId": "task-14-ztgh6d-1ab6mgs",
+          "name": "initial",
+          "stateName": "initial",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-blytgc",
+          "stateId": "task-14-ztgh6d-blytgc",
+          "name": "after-1-splitter-collapse-handle",
+          "stateName": "after-1-splitter-collapse-handle",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1yuk055",
+          "stateId": "task-14-ztgh6d-1yuk055",
+          "name": "after-2-Part 1. My solution Find the p",
+          "stateName": "after-2-Part 1. My solution Find the p",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-x7lz9i",
+          "stateId": "task-14-ztgh6d-x7lz9i",
+          "name": "after-3-Find the program A mistake has",
+          "stateName": "after-3-Find the program A mistake has",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1v19dbq",
+          "stateId": "task-14-ztgh6d-1v19dbq",
+          "name": "after-4-Find the program",
+          "stateName": "after-4-Find the program",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1t4536w",
+          "stateId": "task-14-ztgh6d-1t4536w",
+          "name": "after-5-Find the program",
+          "stateName": "after-5-Find the program",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-rjy7pg",
+          "stateId": "task-14-ztgh6d-rjy7pg",
+          "name": "after-6-icon-control",
+          "stateName": "after-6-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1cndbgc",
+          "stateId": "task-14-ztgh6d-1cndbgc",
+          "name": "after-7-icon-control",
+          "stateName": "after-7-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1naxhia",
+          "stateId": "task-14-ztgh6d-1naxhia",
+          "name": "after-8-icon-control",
+          "stateName": "after-8-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1nu2e33",
+          "stateId": "task-14-ztgh6d-1nu2e33",
+          "name": "after-9-icon-control",
+          "stateName": "after-9-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1au586b",
+          "stateId": "task-14-ztgh6d-1au586b",
+          "name": "after-10-icon-control",
+          "stateName": "after-10-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-1ev0jjm",
+          "stateId": "task-14-ztgh6d-1ev0jjm",
+          "name": "after-11-icon-control",
+          "stateName": "after-11-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-14-ztgh6d-11c83m3",
+          "stateId": "task-14-ztgh6d-11c83m3",
+          "name": "after-12-icon-control",
+          "stateName": "after-12-icon-control",
+          "selectedType": "generic-captured-task"
+        }
+      ]
+    },
+    {
+      "id": "task-27-ll19c8",
+      "taskId": "task-27-ll19c8",
+      "title": "Part 1. My correct solution",
+      "activityType": "code_typing_task",
+      "selectedType": "generic-captured-task",
+      "suggestedType": "typing-practice",
+      "states": [
+        {
+          "id": "task-27-ll19c8-9g92pm",
+          "stateId": "task-27-ll19c8-9g92pm",
+          "name": "initial",
+          "stateName": "initial",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-1lgcutg",
+          "stateId": "task-27-ll19c8-1lgcutg",
+          "name": "after-1-splitter-collapse-handle",
+          "stateName": "after-1-splitter-collapse-handle",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-rql8nk",
+          "stateId": "task-27-ll19c8-rql8nk",
+          "name": "after-2-Part 1. My correct solution Fi",
+          "stateName": "after-2-Part 1. My correct solution Fi",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-s083ru",
+          "stateId": "task-27-ll19c8-s083ru",
+          "name": "after-3-Find the program",
+          "stateName": "after-3-Find the program",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-1ypzeti",
+          "stateId": "task-27-ll19c8-1ypzeti",
+          "name": "after-4-Find the program",
+          "stateName": "after-4-Find the program",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-10nwx4t",
+          "stateId": "task-27-ll19c8-10nwx4t",
+          "name": "after-5-icon-control",
+          "stateName": "after-5-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-50clc8",
+          "stateId": "task-27-ll19c8-50clc8",
+          "name": "after-6-icon-control",
+          "stateName": "after-6-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-d4z3ln",
+          "stateId": "task-27-ll19c8-d4z3ln",
+          "name": "after-7-icon-control",
+          "stateName": "after-7-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-fxntnn",
+          "stateId": "task-27-ll19c8-fxntnn",
+          "name": "after-8-icon-control",
+          "stateName": "after-8-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-1utjl04",
+          "stateId": "task-27-ll19c8-1utjl04",
+          "name": "after-9-icon-control",
+          "stateName": "after-9-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-szr2zx",
+          "stateId": "task-27-ll19c8-szr2zx",
+          "name": "after-10-icon-control",
+          "stateName": "after-10-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-1upkowj",
+          "stateId": "task-27-ll19c8-1upkowj",
+          "name": "after-11-icon-control",
+          "stateName": "after-11-icon-control",
+          "selectedType": "generic-captured-task"
+        },
+        {
+          "id": "task-27-ll19c8-1kzm957",
+          "stateId": "task-27-ll19c8-1kzm957",
+          "name": "after-12-Part 1. My correct solution",
+          "stateName": "after-12-Part 1. My correct solution",
+          "selectedType": "generic-captured-task"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "CK_M6L2",
+  "lessonId": "CK_M6L2",
+  "title": "CK_M6L2",
+  "courseId": "CK",
+  "courseTitle": "CK",
+  "generatedAt": "2026-10-26T04:24:40.016Z",
+  "pageCount": 1,
+  "taskCount": 3,
+  "stateCount": 24,
+  "pages": [
+    {
+      "id": "CK-M6L2_1",
+      "pageId": "CK-M6L2_1",
+      "title": "CK M6L2_1",
+      "courseId": "CK",
+      "courseTitle": "CK",
+      "lessonId": "CK_M6L2",
+      "lessonTitle": "CK_M6L2",
+      "sourceZip": "CK M6L2_1.zip",
+      "taskCount": 3,
+      "stateCount": 24,
+      "createdAt": "2026-10-06T03:31:30.600Z",
+      "updatedAt": "2026-10-06T03:32:34.018Z",
+      "importedAt": "2026-10-26T04:24:35.397Z",
+      "rendererVersion": "manual-v1",
+      "manualActivityMap": "D:/Program Download/MinhTu2025-2026/MinhTu/Algorithmics/algolms_ck2/public/manual-activity-maps/CK/CK_M6L2/CK-M6L2_1.activity-map.json",
+      "generatedPageKey": "CK/CK_M6L2/CK-M6L2_1",
+      "generatedPageDir": "src/generated-pages/CK/CK_M6L2/CK-M6L2_1",
+      "manifest": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/manifest.json",
+      "instance": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/page.instance.json",
+      "pageInstance": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/page.instance.json",
+      "href": "/?course=CK&lesson=CK_M6L2&page=CK-M6L2_1"
+    }
+  ]
+}

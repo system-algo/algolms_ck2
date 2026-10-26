@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "pageId": "CK-M3L3_3",
+  "courseId": "CK",
+  "lessonId": "CK_M3L3",
+  "sourceZip": "CK M3L3_3.zip",
+  "updatedAt": "2026-10-26T04:24:28.939Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-ivhdfs": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-ivhdfs-ys0nnb": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-aogy3x": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-wmcl5w": {
+          "title": "after-2-Part 1. My solution Find the p",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-1tdcajs": {
+          "title": "after-3-Find the program A mistake has",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-1qzauo8": {
+          "title": "after-4-Find the program",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-135z5fj": {
+          "title": "after-5-Find the program",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-affb2h": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-jn8wbw": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-sqil7r": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-t2ctx7": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-1iouxzr": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-4wtcgf": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        },
+        "task-1-ivhdfs-omidu1": {
+          "title": "after-12-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-14-ztgh6d": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-14-ztgh6d-sb1oh0": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-1905156": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-mh7uog": {
+          "title": "after-2-Part 1. My solution Find the p",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-pcxhdp": {
+          "title": "after-3-Find the program A mistake has",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-xl2f4x": {
+          "title": "after-4-Find the program",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-1do4jm8": {
+          "title": "after-5-Find the program",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-17et8ay": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-1j472ep": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-pmcdzq": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-e3fo7e": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-1oozi22": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-10fk2jo": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        },
+        "task-14-ztgh6d-15dxgwz": {
+          "title": "after-12-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-27-ivhdfs": {
+      "title": "Part 1. My solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-27-ivhdfs-zkaowv": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-12w0q25": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-1tdll68": {
+          "title": "after-2-Part 1. My solution Find the p",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-7nwy9r": {
+          "title": "after-3-Find the program A mistake has",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-1xs2qcc": {
+          "title": "after-4-Find the program",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-u728db": {
+          "title": "after-5-Find the program",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-qg44t3": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-1bw4ldz": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-1l4j60y": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-1rv9w2p": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-fcem3q": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-8bmddn": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        },
+        "task-27-ivhdfs-1kitn2p": {
+          "title": "after-12-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

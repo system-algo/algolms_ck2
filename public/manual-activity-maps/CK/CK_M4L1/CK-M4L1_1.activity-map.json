@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "pageId": "CK-M4L1_1",
+  "courseId": "CK",
+  "lessonId": "CK_M4L1",
+  "sourceZip": "CK M4L1_1.zip",
+  "updatedAt": "2026-10-26T04:24:30.518Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-w6zeel": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-w6zeel-6xlckj": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-cs2lle": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-sdxzsj": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-ipx72s": {
+          "title": "after-3-What program does the sprite e",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-1gxc6lc": {
+          "title": "after-4-What program does the sprite e",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-1avhz4v": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-1ucoztv": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-1nmq840": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-d4trgo": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-irwx4a": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-mtbe1k": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-w6zeel-xqfsk7": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-13-1v6oot7": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "mcq_checkbox_task",
+      "suggestedType": "mcq-checkbox",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-13-1v6oot7-1u8i845": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-x66n8w": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-y4bmoe": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-ll80q0": {
+          "title": "after-3-Which character uses the -wait",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-10awo1e": {
+          "title": "after-4-Which character uses the -wait",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-12o2nqo": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-1n3l8aj": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-bpj76q": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-8aff6m": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-gklj8t": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-156hea4": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-13-1v6oot7-1e7k7hu": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

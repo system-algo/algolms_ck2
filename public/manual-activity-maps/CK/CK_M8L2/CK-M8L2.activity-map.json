@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "pageId": "CK-M8L2",
+  "courseId": "CK",
+  "lessonId": "CK_M8L2",
+  "sourceZip": "CK M8L2.zip",
+  "updatedAt": "2026-10-26T04:24:38.928Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-1iosiil": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-1iosiil-16otwpk": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-oryyg9": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-it3ihx": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-olx7ao": {
+          "title": "after-3-What program do the butterflie",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-6ijmr4": {
+          "title": "after-4-What program do the butterflie",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-7ibht9": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-h7yees": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-2t4jso": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-1aef9j9": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-1gxc51r": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-18vsp0j": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-1iosiil-1ihec60": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-13-h96wgc": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-13-h96wgc-1udlucl": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-1qq17wb": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-1s2914p": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-1gsbagp": {
+          "title": "after-3-What command does the program ",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-h36vlc": {
+          "title": "after-4-What command does the program ",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-18ve0sv": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-188lgmn": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-bdwwjc": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-etn1t0": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-k9ekv0": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-mi1x22": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-13-h96wgc-15hit1b": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-23T03:46:40.174Z",
+  "generatedAt": "2026-10-26T04:24:40.070Z",
   "count": 1,
   "courses": [
     {
       "id": "CK",
       "title": "CK",
-      "lessonCount": 6,
+      "lessonCount": 24,
       "pageCount": 39,
       "taskCount": 102,
       "stateCount": 1156,

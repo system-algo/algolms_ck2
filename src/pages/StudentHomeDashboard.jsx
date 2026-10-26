@@ -5,11 +5,12 @@ import './StudentHomeDashboard.css';
 
 // CK2 uses CK asset routes, but its unlock schedules are stored under lms_course_id=CK2.
 const LMS_SCHEDULE_COURSE_CODE = 'CK2';
-const COURSE_TITLE = 'Game Development';
-const NEXT_COURSE_TITLE = 'Web Development';
+const COURSE_TITLE = 'Coding Knight';
+const NEXT_COURSE_TITLE = 'Graphic Design';
 const PTSY1_REF = 'd8d188a37007437c047d211a0767abad1c2d0d2f';
 const PTSY1_PUBLIC = `https://cdn.jsdelivr.net/gh/system-algo/algolms_ptsy1@${PTSY1_REF}/public`;
 const LOGO_ASSET = '/assets/algorithmics-logo.png';
+const CK_BADGE = '/course-badges/ck.png';
 const GD_BADGE = '/course-badges/gd.png';
 const WD_BADGE = '/course-badges/wd.png';
 
@@ -107,7 +108,7 @@ function displayLessonTitle(lesson) {
   }
   const title = String(lesson?.title || '').trim();
   const num = lesson?.globalNumber || lesson?.number || lesson?.lessonNo || 1;
-  if (!title || title === id || /^GD_M\d+L\d+$/i.test(title)) {
+  if (!title || title === id || /^(?:GD|CK|VP)_M\d+L\d+$/i.test(title)) {
     return `Lesson ${num}`;
   }
   return title;
@@ -115,7 +116,7 @@ function displayLessonTitle(lesson) {
 
 function moduleDisplayTitle(moduleNo) {
   if (moduleNo === 99) return 'Graduation';
-  const key1 = `GD_M${moduleNo}`;
+  const key1 = `CK_M${moduleNo}`;
   const key2 = `M${moduleNo}`;
   const key3 = String(moduleNo);
   return (
@@ -127,7 +128,7 @@ function moduleDisplayTitle(moduleNo) {
 }
 
 export default function StudentHomeDashboard({
-  initialCourseId = 'GD',
+  initialCourseId = 'CK',
   courseId: courseIdProp,
   initialLessonId = '',
   studentEmail: studentEmailProp,
@@ -135,7 +136,7 @@ export default function StudentHomeDashboard({
   supabaseKey: supabaseKeyProp,
   onOpenPage,
 }) {
-  const normalizedCourseId = String(courseIdProp || initialCourseId || 'GD').trim().toUpperCase();
+  const normalizedCourseId = String(courseIdProp || initialCourseId || 'CK').trim().toUpperCase();
   const [course, setCourse] = useState(null);
   const [pagesByLesson, setPagesByLesson] = useState({});
   const [highestUnlocked, setHighestUnlocked] = useState(2);
@@ -395,7 +396,7 @@ export default function StudentHomeDashboard({
       if (normalizedEmail) {
         validRows.forEach((row) => {
           if (isCompletedRow(row)) {
-            const cId = String(row.course_id || normalizedCourseId || 'GD').trim();
+            const cId = String(row.course_id || normalizedCourseId || 'CK').trim();
             const lId = String(row.lesson_id || '').trim();
             const pId = String(row.page_id || '').trim();
             const tId = String(row.task_id || '').trim();
@@ -453,7 +454,7 @@ export default function StudentHomeDashboard({
             ...lesson,
             id,
             key: id,
-            moduleId: moduleNo === 99 ? 'GD_Graduation' : `GD_M${moduleNo}`,
+            moduleId: moduleNo === 99 ? 'CK_Graduation' : `CK_M${moduleNo}`,
             number: lesson.globalNumber,
             title: displayLessonTitle(lesson),
             pages,
@@ -472,7 +473,7 @@ export default function StudentHomeDashboard({
         const isLocked = lessons.length ? lessons[0].isLocked : true;
 
         return {
-          id: moduleNo === 99 ? 'GD_Graduation' : `GD_M${moduleNo}`,
+          id: moduleNo === 99 ? 'CK_Graduation' : `CK_M${moduleNo}`,
           moduleNo,
           number: moduleIndex + 1,
           title: moduleDisplayTitle(moduleNo),
@@ -502,7 +503,7 @@ export default function StudentHomeDashboard({
       const targetLessonId = typeof rawTargetLessonId === 'string' ? rawTargetLessonId.trim() : '';
 
       if (targetLessonId) {
-        const norm = (s) => String(s || '').trim().toLowerCase().replace(/^gd[_-]/, '');
+        const norm = (s) => String(s || '').trim().toLowerCase().replace(/^(?:gd|ck|vp)[_-]/, '');
         const targetNorm = norm(targetLessonId);
 
         lessonsData.forEach((mod, mIdx) => {
@@ -1038,7 +1039,7 @@ export default function StudentHomeDashboard({
           <div className="right-courses-list">
             <button type="button" className="right-course-item right-course-current selected">
               <span className="right-course-icon">
-                <img src={GD_BADGE} alt="Game Development badge" />
+                <img src={CK_BADGE} alt="Coding Knight badge" />
               </span>
               <span className="right-course-content">
                 <span className="right-course-heading">
@@ -1051,7 +1052,7 @@ export default function StudentHomeDashboard({
 
             <div className="right-course-item right-course-upcoming">
               <span className="right-course-icon upcoming">
-                <img src={WD_BADGE} alt="Web Development badge" />
+                <img src={GD_BADGE} alt="Graphic Design badge" />
               </span>
               <span className="right-course-content">
                 <span className="right-course-heading">

@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "pageId": "CK-M7L4_1",
+  "courseId": "CK",
+  "lessonId": "CK_M7L4",
+  "sourceZip": "CK M7L4_1.zip",
+  "updatedAt": "2026-10-26T04:24:38.056Z",
+  "note": "Edit selectedType. Leave a state selectedType empty to inherit the task selectedType. After editing, run npm run import again.",
+  "allowedTypes": [
+    "generic-captured-task",
+    "mcq-checkbox",
+    "matching-dragdrop",
+    "typing-practice",
+    "ide-programming",
+    "diagram-canvas-task",
+    "fill-blank-task",
+    "video-lesson",
+    "scratch-embed-task"
+  ],
+  "tasks": {
+    "task-1-3zd6sz": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-1-3zd6sz-nc0e1e": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-1hdaizr": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-beg03i": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-1cgcjrm": {
+          "title": "after-3-What program is required to mo",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-1e8by8o": {
+          "title": "after-4-What program is required to mo",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-19gl47b": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-1q379a0": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-yft0df": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-1tf2pi7": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-fu3m1p": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-o676iu": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-1-3zd6sz-vyy1xg": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    },
+    "task-13-a1z93o": {
+      "title": "Part 1. My correct solution",
+      "rawActivityType": "code_typing_task",
+      "suggestedType": "typing-practice",
+      "selectedType": "generic-captured-task",
+      "states": {
+        "task-13-a1z93o-1hdkwwy": {
+          "title": "initial",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-1n4lzfr": {
+          "title": "after-1-splitter-collapse-handle",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-167olvg": {
+          "title": "after-2-Part 1. My correct solution At",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-k54q9h": {
+          "title": "after-3-Mark all the programs that the",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-bxsuhv": {
+          "title": "after-4-Mark all the programs that the",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-12jt9mn": {
+          "title": "after-5-icon-control",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-1q2lhw6": {
+          "title": "after-6-icon-control",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-hf0sd8": {
+          "title": "after-7-icon-control",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-mvdpfn": {
+          "title": "after-8-icon-control",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-1cn9s7o": {
+          "title": "after-9-icon-control",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-1nuefsu": {
+          "title": "after-10-icon-control",
+          "selectedType": ""
+        },
+        "task-13-a1z93o-fgd3xm": {
+          "title": "after-11-icon-control",
+          "selectedType": ""
+        }
+      }
+    }
+  }
+}

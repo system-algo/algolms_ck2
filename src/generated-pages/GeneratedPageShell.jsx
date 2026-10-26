@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import TopNavigation from '../components/TopNavigation.jsx';
 import ActivityRouter from '../activities/ActivityRouter.jsx';
 
@@ -22,10 +22,9 @@ function resolveFrameConfig(pageInstance, task, state) {
   const taskFrameConfig = taskId
     ? pageInstance?.taskRenderers?.[taskId]?.frameConfig || {}
     : {};
-  const stateFrameConfig =
-    taskId && stateId
-      ? pageInstance?.taskRenderers?.[taskId]?.states?.[stateId]?.frameConfig || {}
-      : {};
+  const stateFrameConfig = taskId && stateId
+    ? pageInstance?.taskRenderers?.[taskId]?.states?.[stateId]?.frameConfig || {}
+    : {};
 
   return {
     ...baseFrameConfig,
@@ -47,121 +46,62 @@ function getRuntimeActivityMapUrl(pageInstance, fallback) {
     return '';
   }
 
-  return `/manual-activity-maps/${encodeURIComponent(courseId)}/${encodeURIComponent(
-    lessonId,
-  )}/${encodeURIComponent(pageId)}.activity-map.json`;
+  return `/manual-activity-maps/${encodeURIComponent(courseId)}/${encodeURIComponent(lessonId)}/${encodeURIComponent(pageId)}.activity-map.json`;
 }
 
 function applyManualActivityMapToPageInstance(pageInstance, activityMap) {
-  if (!pageInstance || !activityMap) return pageInstance;
+  if (!pageInstance || !activityMap?.tasks) {
+    return pageInstance;
+  }
 
-  const nextPageInstance = {
-    ...pageInstance,
-    taskRenderers: {
-      ...(pageInstance.taskRenderers || {}),
-    },
-  };
+  const nextPageInstance = cloneJson(pageInstance);
+  nextPageInstance.taskRenderers = nextPageInstance.taskRenderers || {};
 
-  const manualTasks = activityMap.tasks || {};
-
-  Object.entries(manualTasks).forEach(([taskId, taskConfig]) => {
-    if (!taskConfig) return;
-
-    const selectedTaskType = String(taskConfig.selectedType || '').trim();
+  for (const [taskId, taskConfig] of Object.entries(activityMap.tasks || {})) {
+    const selectedTaskType = String(taskConfig?.selectedType || '').trim();
 
     if (!nextPageInstance.taskRenderers[taskId]) {
-      nextPageInstance.taskRenderers[taskId] = {};
+      nextPageInstance.taskRenderers[taskId] = {
+        type: selectedTaskType || 'generic-captured-task',
+        manualSelectedType: selectedTaskType || 'generic-captured-task',
+        states: {},
+      };
     }
-
-    const taskRenderer = nextPageInstance.taskRenderers[taskId];
 
     if (selectedTaskType) {
-      taskRenderer.type = selectedTaskType;
-      taskRenderer.selectedType = selectedTaskType;
-      taskRenderer.manualSelectedType = selectedTaskType;
+      nextPageInstance.taskRenderers[taskId].type = selectedTaskType;
+      nextPageInstance.taskRenderers[taskId].manualSelectedType = selectedTaskType;
+
+      if (nextPageInstance.taskRenderers[taskId].states) {
+        Object.keys(nextPageInstance.taskRenderers[taskId].states).forEach((sId) => {
+          nextPageInstance.taskRenderers[taskId].states[sId].type = selectedTaskType;
+          nextPageInstance.taskRenderers[taskId].states[sId].manualSelectedType = selectedTaskType;
+        });
+      }
     }
 
-    if (taskConfig.frameConfig) {
-      taskRenderer.frameConfig = taskConfig.frameConfig;
+    nextPageInstance.taskRenderers[taskId].states =
+      nextPageInstance.taskRenderers[taskId].states || {};
+
+    for (const [stateId, stateConfig] of Object.entries(taskConfig.states || {})) {
+      const selectedStateType = String(stateConfig?.selectedType || '').trim() || selectedTaskType;
+
+      if (!selectedStateType) continue;
+
+      if (!nextPageInstance.taskRenderers[taskId].states[stateId]) {
+        nextPageInstance.taskRenderers[taskId].states[stateId] = {};
+      }
+
+      nextPageInstance.taskRenderers[taskId].states[stateId].type = selectedStateType;
+      nextPageInstance.taskRenderers[taskId].states[stateId].manualSelectedType = selectedStateType;
     }
+  }
 
-    if (taskConfig.matchingConnect) {
-      taskRenderer.matchingConnect = taskConfig.matchingConnect;
-    }
-
-    if (taskConfig.matchingDragdrop) {
-      taskRenderer.matchingDragdrop = taskConfig.matchingDragdrop;
-    }
-
-    if (taskConfig.mcqCheckbox) {
-      taskRenderer.mcqCheckbox = taskConfig.mcqCheckbox;
-    }
-
-    if (taskConfig.categoryDragdrop) {
-      taskRenderer.categoryDragdrop = taskConfig.categoryDragdrop;
-    }
-
-    if (taskConfig.typingPractice) {
-      taskRenderer.typingPractice = taskConfig.typingPractice;
-    }
-
-    if (taskConfig.teacherChecklist) {
-      taskRenderer.teacherChecklist = taskConfig.teacherChecklist;
-    }
-
-    const manualStates = taskConfig.states || {};
-
-    taskRenderer.states = {
-      ...(taskRenderer.states || {}),
-    };
-
-    Object.entries(manualStates).forEach(([stateId, stateConfig]) => {
-      if (!stateConfig) return;
-
-      const selectedStateType =
-        String(stateConfig.selectedType || '').trim() || selectedTaskType;
-
-      if (!taskRenderer.states[stateId]) {
-        taskRenderer.states[stateId] = {};
-      }
-
-      const stateRenderer = taskRenderer.states[stateId];
-
-      if (selectedStateType) {
-        stateRenderer.type = selectedStateType;
-        stateRenderer.selectedType = selectedStateType;
-        stateRenderer.manualSelectedType = selectedStateType;
-      }
-
-      if (stateConfig.frameConfig) {
-        stateRenderer.frameConfig = stateConfig.frameConfig;
-      }
-
-      if (stateConfig.matchingConnect) {
-        stateRenderer.matchingConnect = stateConfig.matchingConnect;
-      }
-
-      if (stateConfig.matchingDragdrop) {
-        stateRenderer.matchingDragdrop = stateConfig.matchingDragdrop;
-      }
-
-      if (stateConfig.mcqCheckbox) {
-        stateRenderer.mcqCheckbox = stateConfig.mcqCheckbox;
-      }
-
-      if (stateConfig.categoryDragdrop) {
-        stateRenderer.categoryDragdrop = stateConfig.categoryDragdrop;
-      }
-
-      if (stateConfig.typingPractice) {
-        stateRenderer.typingPractice = stateConfig.typingPractice;
-      }
-
-      if (stateConfig.teacherChecklist) {
-        stateRenderer.teacherChecklist = stateConfig.teacherChecklist;
-      }
-    });
-  });
+  nextPageInstance.runtimeManualActivityMap = {
+    applied: true,
+    pageId: activityMap.pageId || '',
+    updatedAt: activityMap.updatedAt || '',
+  };
 
   return nextPageInstance;
 }
@@ -172,6 +112,17 @@ function applyManualActivityMapToManifest(manifest, activityMap) {
   }
 
   const nextManifest = cloneJson(manifest);
+  const allowedTaskIds = new Set(Object.keys(activityMap.tasks || {}));
+
+  if (allowedTaskIds.size > 0) {
+    nextManifest.tasks = nextManifest.tasks.filter((task) => {
+      const taskId = String(task?.taskId || task?.id || '').trim();
+      if (!allowedTaskIds.has(taskId)) return false;
+      const taskConfig = activityMap.tasks?.[taskId];
+      if (taskConfig?.hidden || taskConfig?.disabled) return false;
+      return true;
+    });
+  }
 
   nextManifest.tasks = nextManifest.tasks.map((task) => {
     const taskId = String(task?.taskId || task?.id || '').trim();
@@ -190,92 +141,6 @@ function applyManualActivityMapToManifest(manifest, activityMap) {
   return nextManifest;
 }
 
-function resolveCurrentRendererType(task, state, pageInstance) {
-  const taskId = getTaskId(task);
-  const stateId = getStateId(state);
-
-  const stateType =
-    state?.selectedType ||
-    state?.type ||
-    pageInstance?.taskRenderers?.[taskId]?.states?.[stateId]?.selectedType ||
-    pageInstance?.taskRenderers?.[taskId]?.states?.[stateId]?.type;
-
-  if (stateType) {
-    return String(stateType).trim();
-  }
-
-  const taskType =
-    task?.selectedType ||
-    task?.activityType ||
-    pageInstance?.taskRenderers?.[taskId]?.selectedType ||
-    pageInstance?.taskRenderers?.[taskId]?.type;
-
-  return String(taskType || '').trim();
-}
-
-
-function getCompletedTasksStorageKey(courseId, lessonId, pageId) {
-  return [
-    'lms-completed-tasks',
-    String(courseId || ''),
-    String(lessonId || ''),
-    String(pageId || ''),
-  ].join(':');
-}
-
-function loadCompletedTaskIds(storageKey) {
-  try {
-    const savedValue = JSON.parse(localStorage.getItem(storageKey) || '[]');
-
-    if (!Array.isArray(savedValue)) {
-      return [];
-    }
-
-    return savedValue.map(String).filter(Boolean);
-  } catch {
-    return [];
-  }
-}
-
-function getFetchUrl(input) {
-  if (typeof input === 'string') return input;
-  if (input instanceof URL) return input.toString();
-
-  return String(input?.url || '');
-}
-
-function getFetchMethod(input, init) {
-  return String(
-    init?.method ||
-    input?.method ||
-    'GET',
-  ).toUpperCase();
-}
-
-function getFetchPayload(input, init) {
-  const body = init?.body ?? input?.body;
-
-  if (typeof body !== 'string' || !body.trim()) {
-    return null;
-  }
-
-  try {
-    return JSON.parse(body);
-  } catch {
-    return null;
-  }
-}
-
-function getGradingResult(responseData) {
-  return (
-    responseData?.result ||
-    responseData?.data?.result ||
-    responseData?.data ||
-    responseData ||
-    null
-  );
-}
-
 export default function GeneratedPageShell({
   manifestUrl,
   pageInstanceUrl,
@@ -283,133 +148,49 @@ export default function GeneratedPageShell({
   lessonId = '',
   pageId = '',
   onBackToPages,
-  onBackToLessons,
-  onBackToCourses,
 }) {
   const [manifest, setManifest] = useState(null);
   const [pageInstance, setPageInstance] = useState(null);
   const [error, setError] = useState('');
-  const [taskIndex, setTaskIndex] = useState(0);
+  const [taskIndex, setTaskIndex] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlTask = params.get('task');
+      if (urlTask !== null && !isNaN(Number(urlTask))) {
+        return Math.max(0, parseInt(urlTask, 10));
+      }
+
+      const cId = courseId || params.get('course') || '';
+      const lId = lessonId || params.get('lesson') || '';
+      const pId = pageId || params.get('page') || '';
+      const storageKey = `algo_active_task:${cId}:${lId}:${pId}`;
+      const saved = sessionStorage.getItem(storageKey);
+      if (saved !== null && !isNaN(Number(saved))) {
+        return Math.max(0, parseInt(saved, 10));
+      }
+    } catch {}
+    return 0;
+  });
   const [stateIndex, setStateIndex] = useState(0);
-  const completedTasksStorageKey = useMemo(
-    () => getCompletedTasksStorageKey(courseId, lessonId, pageId),
-    [courseId, lessonId, pageId],
-  );
-
-  const [completedTaskIds, setCompletedTaskIds] = useState(() =>
-    loadCompletedTaskIds(completedTasksStorageKey),
-  );
-
-  const currentTaskIdRef = useRef('');
-  const autoTransitionTimerRef = useRef(null);
-  const taskIndexRef = useRef(0);
-  const tasksRef = useRef([]);
+  const [rawMode, setRawMode] = useState(false);
 
   useEffect(() => {
-    return () => {
-      if (autoTransitionTimerRef.current) {
-        clearTimeout(autoTransitionTimerRef.current);
+    const cId = courseId;
+    const lId = lessonId;
+    const pId = pageId;
+    if (!pId) return;
+
+    try {
+      const storageKey = `algo_active_task:${cId}:${lId}:${pId}`;
+      sessionStorage.setItem(storageKey, String(taskIndex));
+
+      const url = new URL(window.location.href);
+      if (url.searchParams.get('task') !== String(taskIndex)) {
+        url.searchParams.set('task', String(taskIndex));
+        window.history.replaceState({}, '', url.toString());
       }
-    };
-  }, []);
-
-
-  useEffect(() => {
-    setCompletedTaskIds(
-      loadCompletedTaskIds(completedTasksStorageKey),
-    );
-  }, [completedTasksStorageKey]);
-
-  useEffect(() => {
-    const originalFetch = window.fetch.bind(window);
-
-    async function trackedFetch(input, init) {
-      const response = await originalFetch(input, init);
-
-      try {
-        const requestUrl = getFetchUrl(input);
-        const requestMethod = getFetchMethod(input, init);
-
-        const isActivitySubmission =
-          response.ok &&
-          requestMethod === 'POST' &&
-          requestUrl.includes('/api/activity-attempts');
-
-        if (isActivitySubmission) {
-          let responseData = null;
-
-          try {
-            responseData = await response.clone().json();
-          } catch {
-            responseData = null;
-          }
-
-          const gradingResult = getGradingResult(responseData);
-
-          /*
-           * Chỉ đánh dấu Done khi backend xác nhận bài làm đúng hoàn toàn.
-           * API trả về thành công nhưng isCorrect = false thì không cập nhật.
-           */
-            if (gradingResult?.isCorrect === true) {
-              const payload = getFetchPayload(input, init);
-
-              const submittedTaskId = String(
-                payload?.taskId ||
-                payload?.answer?.taskId ||
-                currentTaskIdRef.current ||
-                '',
-              ).trim();
-
-              if (submittedTaskId) {
-                setCompletedTaskIds((currentIds) => {
-                  if (currentIds.includes(submittedTaskId)) {
-                    return currentIds;
-                  }
-
-                  const nextIds = [
-                    ...currentIds,
-                    submittedTaskId,
-                  ];
-
-                  localStorage.setItem(
-                    completedTasksStorageKey,
-                    JSON.stringify(nextIds),
-                  );
-
-                  return nextIds;
-                });
-
-                // Auto transition to the next task after 1.5 seconds
-                if (taskIndexRef.current < tasksRef.current.length - 1) {
-                  if (autoTransitionTimerRef.current) {
-                    clearTimeout(autoTransitionTimerRef.current);
-                  }
-                  autoTransitionTimerRef.current = setTimeout(() => {
-                    setTaskIndex((prev) => Math.min(tasksRef.current.length - 1, prev + 1));
-                    setStateIndex(0);
-                  }, 1500);
-                }
-              }
-            }
-        }
-      } catch (trackingError) {
-        console.warn(
-          'Could not update completed task indicator:',
-          trackingError,
-        );
-      }
-
-      return response;
-    }
-
-    window.fetch = trackedFetch;
-
-    return () => {
-      if (window.fetch === trackedFetch) {
-        window.fetch = originalFetch;
-      }
-    };
-  }, [completedTasksStorageKey]);
+    } catch {}
+  }, [taskIndex, courseId, lessonId, pageId]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -428,11 +209,11 @@ export default function GeneratedPageShell({
         const nextPageInstance = pageInstanceResponse.ok
           ? await pageInstanceResponse.json()
           : {
-            schemaVersion: 0,
-            pageInstanceId: 'legacy',
-            frameConfig: {},
-            taskRenderers: {},
-          };
+              schemaVersion: 0,
+              pageInstanceId: 'legacy',
+              frameConfig: {},
+              taskRenderers: {},
+            };
 
         let finalManifest = nextManifest;
         let finalPageInstance = nextPageInstance;
@@ -450,14 +231,8 @@ export default function GeneratedPageShell({
             if (activityMapResponse.ok) {
               const activityMap = await activityMapResponse.json();
 
-              finalPageInstance = applyManualActivityMapToPageInstance(
-                nextPageInstance,
-                activityMap,
-              );
-              finalManifest = applyManualActivityMapToManifest(
-                nextManifest,
-                activityMap,
-              );
+              finalPageInstance = applyManualActivityMapToPageInstance(nextPageInstance, activityMap);
+              finalManifest = applyManualActivityMapToManifest(nextManifest, activityMap);
             } else {
               console.warn(`Manual activity map not found: ${activityMapUrl}`);
             }
@@ -487,17 +262,15 @@ export default function GeneratedPageShell({
     return Array.isArray(manifest?.tasks) ? manifest.tasks : [];
   }, [manifest]);
 
+  useEffect(() => {
+    if (tasks.length > 0 && taskIndex >= tasks.length) {
+      setTaskIndex(Math.max(0, tasks.length - 1));
+    }
+  }, [tasks.length, taskIndex]);
+
   const task = tasks[taskIndex] || null;
   const states = getStates(task);
   const state = states[stateIndex] || null;
-
-  useEffect(() => {
-    currentTaskIdRef.current = getTaskId(task);
-  }, [task]);
-
-  // Keep refs in sync for use inside closures (trackedFetch, setTimeout)
-  taskIndexRef.current = taskIndex;
-  tasksRef.current = tasks;
 
   const courseTitle = manifest?.metadata?.courseTitle || courseId || 'Course';
   const lessonTitle = manifest?.metadata?.lessonTitle || lessonId || 'Lesson';
@@ -507,51 +280,28 @@ export default function GeneratedPageShell({
     return resolveFrameConfig(pageInstance, task, state);
   }, [pageInstance, task, state]);
 
-
-  const currentRendererType = useMemo(() => {
-    return resolveCurrentRendererType(task, state, pageInstance);
-  }, [task, state, pageInstance]);
-
-  const showSideArrows = currentRendererType === 'generic-static';
-
-  const completedTaskCount = useMemo(() => {
-    if (!tasks.length) return 0;
-
-    const taskIdSet = new Set(
-      tasks.map((item) => getTaskId(item)).filter(Boolean),
-    );
-
-    return completedTaskIds.filter((taskId) =>
-      taskIdSet.has(String(taskId)),
-    ).length;
-  }, [completedTaskIds, tasks]);
-
-  const lessonProgressPercent = useMemo(() => {
-    if (!tasks.length) return 0;
-
-    return Math.round(
-      (completedTaskCount / tasks.length) * 100,
-    );
-  }, [completedTaskCount, tasks.length]);
+  const progressLabel = useMemo(() => {
+    if (!task || !tasks.length) return '';
+    return `${taskIndex + 1}/${tasks.length}`;
+  }, [task, tasks.length, taskIndex]);
 
   function gotoTask(nextTaskIndex) {
-    if (autoTransitionTimerRef.current) clearTimeout(autoTransitionTimerRef.current);
     setTaskIndex(nextTaskIndex);
     setStateIndex(0);
   }
 
   function prevTask() {
-    if (autoTransitionTimerRef.current) clearTimeout(autoTransitionTimerRef.current);
     if (!tasks.length) return;
     setTaskIndex(Math.max(0, taskIndex - 1));
     setStateIndex(0);
   }
 
   function nextTask() {
-    if (autoTransitionTimerRef.current) clearTimeout(autoTransitionTimerRef.current);
     if (!tasks.length) return;
-    setTaskIndex(Math.min(tasks.length - 1, taskIndex + 1));
-    setStateIndex(0);
+    if (taskIndex < tasks.length - 1) {
+      setTaskIndex(taskIndex + 1);
+      setStateIndex(0);
+    }
   }
 
   function prevState() {
@@ -586,13 +336,20 @@ export default function GeneratedPageShell({
     }
   }
 
+  const handleBackToCourse = () => {
+    const target = effectiveLessonId || lessonId || '';
+    if (typeof onBackToPages === 'function') {
+      onBackToPages(target);
+    }
+  };
+
   if (error) {
     return (
       <main className="empty-screen">
         <h1>Page failed to load</h1>
         <p>{error}</p>
 
-        <button type="button" onClick={onBackToPages}>
+        <button type="button" onClick={handleBackToCourse}>
           Back to pages
         </button>
       </main>
@@ -604,7 +361,7 @@ export default function GeneratedPageShell({
       <main className="empty-screen">
         <p>Loading page...</p>
 
-        <button type="button" onClick={onBackToPages}>
+        <button type="button" onClick={handleBackToCourse}>
           Back to pages
         </button>
       </main>
@@ -615,18 +372,15 @@ export default function GeneratedPageShell({
     <div className="app-shell">
       <TopNavigation
         title={pageTitle}
-        courseId={courseId}
-        courseTitle={courseTitle}
-        moduleId={lessonId}
+        courseId={`${courseTitle} / ${lessonTitle}`}
         lessonTitle={lessonTitle}
-        pageId={pageId}
         pageTitle={pageTitle}
+        lessonId={manifest?.metadata?.lessonId || lessonId}
+        pageId={manifest?.metadata?.pageId || pageId}
         tasks={tasks}
         currentTaskIndex={taskIndex}
-        completedTaskIds={completedTaskIds}
         onSelectTask={gotoTask}
-        onBackToCatalog={onBackToPages}
-        onBackToCourses={onBackToLessons}
+        onBackToCatalog={handleBackToCourse}
       />
 
       <ActivityRouter
@@ -635,12 +389,38 @@ export default function GeneratedPageShell({
         task={task}
         state={state}
         stateIndex={stateIndex}
+        rawMode={rawMode}
         onNextTask={nextTask}
         onPrevTask={prevTask}
+        onNextState={nextState}
+        onPrevState={prevState}
         onSelectState={setStateIndex}
-        onBack={onBackToPages}
+        onBackToPages={handleBackToCourse}
+        onBackToCatalog={handleBackToCourse}
+        onBackToCourse={handleBackToCourse}
       />
 
+      <button
+        type="button"
+        className="back-to-course-btn"
+        onClick={handleBackToCourse}
+        title="Back to course"
+      >
+        <span className="back-arrow">←</span> Back to course
+      </button>
+
+      <footer className="debug-bar">
+        <span>{courseTitle}</span>
+        <span>{lessonTitle}</span>
+        <span>{pageTitle}</span>
+        <span>{progressLabel}</span>
+        <span>{task.selectedType || task.activityType}</span>
+        <span>{pageInstance?.runtimeManualActivityMap?.applied ? 'manual map applied' : 'page instance only'}</span>
+
+        <button type="button" onClick={() => setRawMode((value) => !value)}>
+          {rawMode ? 'Use activity renderer' : 'Show raw capture'}
+        </button>
+      </footer>
     </div>
   );
 }

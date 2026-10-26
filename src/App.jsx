@@ -85,7 +85,12 @@ const MAIN_LOGIN_URL =
 
 const COURSE_MODULE_ORDER = {
   CK: [
-    'M3', 'M4', 'M5', 'M6', 'M7', 'M8'
+    'CK_M3L1', 'CK_M3L2', 'CK_M3L3', 'CK_M3L4',
+    'CK_M4L1', 'CK_M4L2', 'CK_M4L3', 'CK_M4L4',
+    'CK_M5L1', 'CK_M5L2', 'CK_M5L3', 'CK_M5L4',
+    'CK_M6L1', 'CK_M6L2', 'CK_M6L3', 'CK_M6L4',
+    'CK_M7L1', 'CK_M7L2', 'CK_M7L3', 'CK_M7L4',
+    'CK_M8L1', 'CK_M8L2', 'CK_M8L3', 'CK_M8L4',
   ],
 };
 
