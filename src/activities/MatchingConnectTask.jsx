@@ -195,7 +195,14 @@ function MatchingItemContent({ item }) {
   return item?.text || item?.alt || '';
 }
 
-export default function MatchingConnectTask({ task = {}, state = null, onComplete, isTaskDone }) {
+export default function MatchingConnectTask({
+  task = {},
+  state = null,
+  onComplete,
+  onPrevTask,
+  onNextTask,
+  isTaskDone,
+}) {
   const rawData = useMemo(() => getMatchingData(task, state), [task, state]);
   const capturedImages = useMemo(() => getUniqueImages(task), [task]);
 
