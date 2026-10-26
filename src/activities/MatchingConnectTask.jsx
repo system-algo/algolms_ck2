@@ -4,8 +4,8 @@ import './MatchingConnectTask.css';
 import { getUniqueImages, loadLocalTaskState, saveLocalTaskState } from '../lib/taskExtractors.js';
 
 const DEFAULT_COLORS = [
-  '#ffcc25',
-  '#7c3aed',
+  '#22c55e',
+  '#22c55e',
   '#67d9eb',
   '#f472e9',
   '#f97316',
@@ -215,7 +215,13 @@ export default function MatchingConnectTask({ task = {}, state = null, onComplet
 
   const [connections, setConnections] = useState(() => {
     const saved = loadLocalTaskState(taskId, null);
-    return saved?.connections || {};
+    if (saved?.connections && Object.keys(saved.connections).length > 0) {
+      return saved.connections;
+    }
+    if (isTaskDone && data.answerKey && Object.keys(data.answerKey).length > 0) {
+      return data.answerKey;
+    }
+    return {};
   });
   const [activeLeftId, setActiveLeftId] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -484,21 +490,46 @@ export default function MatchingConnectTask({ task = {}, state = null, onComplet
     );
   }
 
+  const isDone = Boolean(isTaskDone || (checked && result === 'correct'));
+  const feedbackStatus = checked
+    ? (result === 'correct' ? 'Correct!' : result === 'wrong' ? 'Some connections are incorrect.' : 'Please connect all items before checking.')
+    : (isDone ? 'Correct!' : '');
+
   return (
     <LmsActivityFrame
       title={data.title}
-      status=""
+      status={feedbackStatus}
       onPrevTask={onPrevTask}
       onNextTask={onNextTask}
       onCheck={handleCheck}
       onReset={handleReset}
-      isTaskDone={isTaskDone}
+      isTaskDone={isDone}
     >
       <section className="matching-connect-stage">
         <div className="matching-connect-card">
         <div className="matching-connect-header">
           <div className="matching-connect-heading">
-            <h1 className="matching-connect-title">{data.title}</h1>
+            <h1 className="matching-connect-title" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              {isDone && (
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    backgroundColor: '#22c55e',
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 900,
+                  }}
+                >
+                  ✓
+                </span>
+              )}
+              <span>{data.title}</span>
+            </h1>
 
             {data.helperText ? (
               <p className="matching-connect-helper">{data.helperText}</p>

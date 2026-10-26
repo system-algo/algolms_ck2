@@ -17,6 +17,7 @@ const GENERIC_ACTIVITY_TYPE = 'generic-captured-task';
 
 const MANUAL_ACTIVITY_TYPES = [
   'generic-captured-task',
+  'matching-connect',
   'mcq-checkbox',
   'matching-dragdrop',
   'typing-practice',
@@ -32,6 +33,8 @@ const RAW_ACTIVITY_TYPE_SUGGESTIONS = {
   generic_captured: 'generic-captured-task',
   mcq_checkbox_task: 'mcq-checkbox',
   multiple_choice_task: 'mcq-checkbox',
+  matching_connect_task: 'matching-connect',
+  matching_connect: 'matching-connect',
   matching_dragdrop_task: 'matching-dragdrop',
   matching_task: 'matching-dragdrop',
   code_typing_task: 'typing-practice',
@@ -843,6 +846,45 @@ function buildMcqRendererForState(task, state) {
   };
 }
 
+
+function buildMatchingConnectRendererForState(task, state) {
+  const images = Array.isArray(state?.images) ? state.images : [];
+  const lines = getLinesFromStateForRenderer(state).filter((line) => {
+    const lower = rendererLower(line);
+    if (isRendererNoiseLine(line)) return false;
+    if (lower === "let's go!") return false;
+    return true;
+  });
+
+  const title = lines.find((line) => !isRendererHelperLine(line)) || task.title || 'Part 1. My correct solution';
+  const helperText = lines.find((line) => isRendererHelperLine(line)) || 'Connect';
+  const textOptions = lines.filter((line) => line !== title && line !== helperText);
+
+  const leftItems = images.map((img, i) => ({
+    id: `left-${i + 1}`,
+    image: img.url || img.src || '',
+    alt: img.alt || '',
+  }));
+
+  const rightItems = textOptions.map((text, i) => ({
+    id: `right-${i + 1}`,
+    text,
+  }));
+
+  return {
+    type: 'matching-connect',
+    matchingConnect: {
+      title,
+      helperText,
+      attempt: 'Attempt: 1/2',
+      checkMode: 'answer-key',
+      leftItems,
+      rightItems,
+      answerKey: {},
+    },
+  };
+}
+
 function buildMatchingRendererForState(task, state) {
   const lines = getLinesFromStateForRenderer(state).filter((line) => {
     const lower = rendererLower(line);
@@ -1020,6 +1062,7 @@ function buildScratchRendererForState(task, state) {
 function buildRendererForStateByType(type, task, state) {
   const selectedType = normalizeManualActivityType(type);
 
+  if (selectedType === 'matching-connect') return buildMatchingConnectRendererForState(task, state);
   if (selectedType === 'mcq-checkbox') return buildMcqRendererForState(task, state);
   if (selectedType === 'matching-dragdrop') return buildMatchingRendererForState(task, state);
   if (selectedType === 'typing-practice') return buildTypingRendererForState(task, state);

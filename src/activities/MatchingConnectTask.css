@@ -1,25 +1,24 @@
 .matching-connect-stage {
   position: relative;
-  width: 100vw;
-  min-height: calc(100vh - 130px);
-  margin-left: calc(50% - 50vw);
-  padding: 170px 0 90px;
+  width: 100%;
+  min-height: auto;
+  margin: 0;
+  padding: 24px 32px 36px;
   box-sizing: border-box;
-  background: linear-gradient(180deg, #8b3ff2 0%, #7b2fe6 100%);
-  overflow: hidden;
+  background: transparent;
+  overflow: visible;
 }
 
 .matching-connect-card {
   position: relative;
-  width: min(1060px, calc(100vw - 280px));
-  min-height: 440px;
+  width: 100%;
+  max-width: 980px;
+  min-height: 420px;
   margin: 0 auto;
-  padding: 34px 40px 36px;
+  padding: 0;
   box-sizing: border-box;
-  background: #ffffff;
-  border-radius: 12px;
+  background: transparent;
   color: #101828;
-  box-shadow: 0 18px 45px rgba(56, 25, 133, 0.18);
 }
 
 .matching-connect-header {
@@ -177,8 +176,8 @@
 }
 
 .matching-connect-left-pill.has-image {
-  min-height: 76px;
-  padding: 6px 12px;
+  min-height: 82px;
+  padding: 6px 14px;
 }
 
 .matching-connect-left-pill.is-active {
@@ -198,8 +197,8 @@
 
 .matching-connect-item-image {
   display: block;
-  max-width: 112px;
-  max-height: 64px;
+  max-width: 220px;
+  max-height: 72px;
   width: auto;
   height: auto;
   margin: 0 auto;

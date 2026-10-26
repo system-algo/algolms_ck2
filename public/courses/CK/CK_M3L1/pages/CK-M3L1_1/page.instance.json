@@ -67,8 +67,8 @@
   "manifest": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/manifest.json",
   "taskRenderers": {
     "task-1-1hgbgc3": {
-      "type": "generic-captured-task",
-      "manualSelectedType": "generic-captured-task",
+      "type": "matching-connect",
+      "manualSelectedType": "matching-connect",
       "states": {
         "task-1-1hgbgc3-1cwif2o": {
           "type": "generic-captured-task",
@@ -125,6 +125,38 @@
         "task-1-1hgbgc3-1iv13he": {
           "type": "generic-captured-task",
           "manualSelectedType": "generic-captured-task"
+        }
+      },
+      "matchingConnect": {
+        "title": "Part 1. My correct solution",
+        "helperText": "Connect",
+        "attempt": "Attempt: 1/2",
+        "checkMode": "answer-key",
+        "leftItems": [
+          {
+            "id": "left-1",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-1-1hgbgc3/initial/asset-2ucfeq.png",
+            "alt": "Background"
+          },
+          {
+            "id": "left-2",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-1-1hgbgc3/initial/asset-1fz2x7p.png",
+            "alt": "Sprite"
+          }
+        ],
+        "rightItems": [
+          {
+            "id": "right-1",
+            "text": "Sprite"
+          },
+          {
+            "id": "right-2",
+            "text": "Background"
+          }
+        ],
+        "answerKey": {
+          "left-1": "right-2",
+          "left-2": "right-1"
         }
       }
     },

@@ -134,6 +134,7 @@ function applyManualActivityMapToManifest(manifest, activityMap) {
 
     return {
       ...task,
+      ...taskConfig,
       selectedType: selectedType || task.selectedType || task.activityType,
     };
   });
