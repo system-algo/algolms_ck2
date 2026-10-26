@@ -130,11 +130,12 @@ function applyManualActivityMapToManifest(manifest, activityMap) {
 
     if (!taskConfig) return task;
 
+    const { states: manualStates = {}, ...taskConfigFields } = taskConfig;
     const selectedType = String(taskConfig.selectedType || '').trim();
 
     return {
       ...task,
-      ...taskConfig,
+      ...taskConfigFields,
       selectedType: selectedType || task.selectedType || task.activityType,
     };
   });
