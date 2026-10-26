@@ -176,6 +176,66 @@ export default function GeneratedPageShell({
   const [stateIndex, setStateIndex] = useState(0);
   const [rawMode, setRawMode] = useState(false);
 
+  const effectiveCourseId = manifest?.metadata?.courseId || courseId;
+  const effectiveLessonId = manifest?.metadata?.lessonId || lessonId;
+  const effectivePageId = manifest?.metadata?.pageId || pageId;
+
+  const completedTasksStorageKey = useMemo(
+    () => `lms-completed-tasks:${effectiveCourseId}:${effectiveLessonId}:${effectivePageId}`,
+    [effectiveCourseId, effectiveLessonId, effectivePageId],
+  );
+
+  const [completedTaskIds, setCompletedTaskIds] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(`lms-completed-tasks:${courseId}:${lessonId}:${pageId}`) || '[]');
+      return Array.isArray(saved) ? saved.map(String).filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(completedTasksStorageKey) || '[]');
+      if (Array.isArray(saved)) {
+        setCompletedTaskIds(saved.map(String).filter(Boolean));
+      }
+    } catch {}
+  }, [completedTasksStorageKey]);
+
+  useEffect(() => {
+    function handleTaskCompleted(event) {
+      const completedId = String(event?.detail?.taskId || '').trim();
+      if (!completedId) return;
+
+      setCompletedTaskIds((prev) => {
+        if (prev.includes(completedId)) return prev;
+        const next = [...prev, completedId];
+        try {
+          localStorage.setItem(completedTasksStorageKey, JSON.stringify(next));
+        } catch {}
+        return next;
+      });
+
+      // Sync to Supabase activity_progress table
+      import('../lib/supabaseProgress.js')
+        .then(({ saveTaskCompletionToSupabase }) => {
+          saveTaskCompletionToSupabase({
+            courseId: effectiveCourseId,
+            lessonId: effectiveLessonId,
+            pageId: effectivePageId,
+            taskId: completedId,
+          });
+        })
+        .catch(() => {});
+    }
+
+    window.addEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
+    return () => {
+      window.removeEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
+    };
+  }, [completedTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId]);
+
   useEffect(() => {
     const cId = courseId;
     const lId = lessonId;
@@ -381,6 +441,7 @@ export default function GeneratedPageShell({
         pageId={manifest?.metadata?.pageId || pageId}
         tasks={tasks}
         currentTaskIndex={taskIndex}
+        completedTaskIds={completedTaskIds}
         onSelectTask={gotoTask}
         onBackToCatalog={handleBackToCourse}
       />
@@ -392,6 +453,7 @@ export default function GeneratedPageShell({
         state={state}
         stateIndex={stateIndex}
         rawMode={rawMode}
+        completedTaskIds={completedTaskIds}
         onNextTask={nextTask}
         onPrevTask={prevTask}
         onNextState={nextState}

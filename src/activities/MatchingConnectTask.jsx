@@ -469,11 +469,45 @@ export default function MatchingConnectTask({
     setResult(correct ? 'correct' : 'wrong');
 
     if (correct) {
+      const currentTaskId = String(task?.id || task?.taskId || 'task-1').trim();
       window.dispatchEvent(
         new CustomEvent('LMS_TASK_COMPLETED', {
-          detail: { taskId: task?.id || task?.taskId },
+          detail: { taskId: currentTaskId },
         })
       );
+
+      // Play completion sound
+      import('../utils/lmsSounds.js')
+        .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
+          playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
+        })
+        .catch(() => {});
+
+      // Submit attempt to backend if API_BASE_URL is present
+      try {
+        const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+        if (API_BASE_URL) {
+          const params = new URLSearchParams(window.location.search);
+          const cId = params.get('course') || '';
+          const lId = params.get('lesson') || '';
+          const pId = params.get('page') || '';
+          fetch(`${API_BASE_URL}/api/activity-attempts`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              sessionId: localStorage.getItem('algolms_session_id') || 'session-default',
+              courseId: cId,
+              lessonId: lId,
+              pageId: pId,
+              taskId: currentTaskId,
+              activityType: 'matching-connect',
+              answer: { connections },
+              isCorrect: true,
+            }),
+          }).catch(() => {});
+        }
+      } catch {}
+
       if (typeof onComplete === 'function') {
         onComplete(task);
       }
