@@ -201,6 +201,8 @@ export default function MatchingConnectTask({
   onComplete,
   onPrevTask,
   onNextTask,
+  onTaskCompleted,
+  onTaskComplete,
   isTaskDone,
 }) {
   const rawData = useMemo(() => getMatchingData(task, state), [task, state]);
@@ -483,33 +485,78 @@ export default function MatchingConnectTask({
         })
         .catch(() => {});
 
+      const completionPayload = {
+        taskId: currentTaskId,
+        activityType: 'matching-connect',
+        completionType: 'correct',
+        isCorrect: true,
+        score: 1,
+        maxScore: 1,
+        feedback: 'Correct!',
+        metadata: { connections },
+      };
+
+      if (typeof onTaskCompleted === 'function') {
+        onTaskCompleted(completionPayload);
+      } else if (typeof onTaskComplete === 'function') {
+        onTaskComplete(completionPayload);
+      }
+
+      if (typeof onComplete === 'function') {
+        onComplete(task);
+      }
+
       // Submit attempt to backend if API_BASE_URL is present
       try {
-        const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+        const API_BASE_URL = String(
+          import.meta.env.VITE_API_BASE_URL ||
+          import.meta.env.VITE_API_URL ||
+          localStorage.getItem('lms_backend_url') ||
+          sessionStorage.getItem('lms_backend_url') ||
+          ''
+        ).replace(/\/+$/, '');
+
         if (API_BASE_URL) {
           const params = new URLSearchParams(window.location.search);
-          const cId = params.get('course') || '';
+          const cId = params.get('course') || 'CK';
           const lId = params.get('lesson') || '';
           const pId = params.get('page') || '';
+          const sId =
+            params.get('sessionId') ||
+            params.get('session') ||
+            localStorage.getItem('algolms_session_id') ||
+            localStorage.getItem('lms-session-id') ||
+            'session-default';
+          const uId =
+            params.get('userId') ||
+            params.get('studentEmail') ||
+            params.get('email') ||
+            localStorage.getItem('lms_student_email') ||
+            sessionStorage.getItem('lms_student_email') ||
+            'student@algo.edu.vn';
+
           fetch(`${API_BASE_URL}/api/activity-attempts`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              sessionId: localStorage.getItem('algolms_session_id') || 'session-default',
+              sessionId: sId,
+              userId: uId,
               courseId: cId,
               lessonId: lId,
               pageId: pId,
               taskId: currentTaskId,
               activityType: 'matching-connect',
-              answer: { connections },
+              answer: { connections, pairs: connections },
               isCorrect: true,
+              score: 1,
+              maxScore: 1,
             }),
-          }).catch(() => {});
+          }).catch((err) => {
+            console.warn('[MatchingConnectTask] Attempt logging failed:', err);
+          });
         }
-      } catch {}
-
-      if (typeof onComplete === 'function') {
-        onComplete(task);
+      } catch (err) {
+        console.warn('[MatchingConnectTask] Attempt error:', err);
       }
     }
   }

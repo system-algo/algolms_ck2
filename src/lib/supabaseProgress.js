@@ -108,11 +108,18 @@ export async function saveTaskCompletionToSupabase({
     }
 
     if (!res.ok) {
-      console.warn(
-        '[SupabaseProgress] Failed to save progress:',
-        res.status,
-        await res.text(),
-      );
+      if (res.status === 401 || res.status === 403) {
+        console.warn(
+          '[SupabaseProgress] Direct Supabase write restricted by RLS (backend service role tracks official progress):',
+          res.status,
+        );
+      } else {
+        console.warn(
+          '[SupabaseProgress] Failed to save progress:',
+          res.status,
+          await res.text(),
+        );
+      }
     }
   } catch (err) {
     console.warn('[SupabaseProgress] Error saving progress to Supabase:', err);

@@ -1249,12 +1249,30 @@ export default function ActivityRouter(props) {
       currentTaskId !== '' &&
       completedTaskIds.includes(currentTaskId);
 
+    function reportTaskCompleted(completion = {}) {
+      const completionHandler =
+        typeof props.onTaskComplete === 'function'
+          ? props.onTaskComplete
+          : typeof props.onTaskCompleted === 'function'
+            ? props.onTaskCompleted
+            : null;
+
+      if (completionHandler) {
+        return completionHandler({
+          ...(typeof completion === 'object' ? completion : {}),
+          taskId: completion?.taskId || currentTaskId,
+        });
+      }
+    }
+
     return {
       ...props,
       task: nextTask,
       state: nextState,
       isTaskDone,
-      onNextTask: isTaskDone ? undefined : props.onNextTask,
+      onNextTask: props.onNextTask,
+      onTaskComplete: reportTaskCompleted,
+      onTaskCompleted: reportTaskCompleted,
     };
   }, [props, manualMap, task, state, completedTaskIds]);
 

@@ -203,38 +203,52 @@ export default function GeneratedPageShell({
     } catch {}
   }, [completedTasksStorageKey]);
 
-  useEffect(() => {
-    function handleTaskCompleted(event) {
-      const completedId = String(event?.detail?.taskId || '').trim();
-      if (!completedId) return;
+  function handleTaskCompleted(completionOrEvent = {}) {
+    const completedId = String(
+      completionOrEvent?.detail?.taskId ||
+      completionOrEvent?.taskId ||
+      getTaskId(task) ||
+      `task-${taskIndex + 1}`
+    ).trim();
+    if (!completedId) return;
 
-      setCompletedTaskIds((prev) => {
-        if (prev.includes(completedId)) return prev;
-        const next = [...prev, completedId];
-        try {
-          localStorage.setItem(completedTasksStorageKey, JSON.stringify(next));
-        } catch {}
-        return next;
-      });
+    let isNew = false;
+    setCompletedTaskIds((prev) => {
+      if (prev.includes(completedId)) return prev;
+      isNew = true;
+      const next = [...prev, completedId];
+      try {
+        localStorage.setItem(completedTasksStorageKey, JSON.stringify(next));
+      } catch {}
+      return next;
+    });
 
-      // Sync to Supabase activity_progress table
-      import('../lib/supabaseProgress.js')
-        .then(({ saveTaskCompletionToSupabase }) => {
-          saveTaskCompletionToSupabase({
-            courseId: effectiveCourseId,
-            lessonId: effectiveLessonId,
-            pageId: effectivePageId,
-            taskId: completedId,
-          });
-        })
-        .catch(() => {});
+    if (tasks.length > 0 && taskIndex < tasks.length - 1) {
+      setTimeout(() => {
+        setTaskIndex((prev) => Math.min(tasks.length - 1, prev + 1));
+        setStateIndex(0);
+      }, 1200);
     }
 
+    // Sync to Supabase activity_progress table (background fire-and-forget fallback)
+    import('../lib/supabaseProgress.js')
+      .then(({ saveTaskCompletionToSupabase }) => {
+        saveTaskCompletionToSupabase({
+          courseId: effectiveCourseId,
+          lessonId: effectiveLessonId,
+          pageId: effectivePageId,
+          taskId: completedId,
+        });
+      })
+      .catch(() => {});
+  }
+
+  useEffect(() => {
     window.addEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
     return () => {
       window.removeEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
     };
-  }, [completedTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId]);
+  }, [completedTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId, taskIndex, tasks.length, task]);
 
   useEffect(() => {
     const cId = courseId;
@@ -462,6 +476,8 @@ export default function GeneratedPageShell({
         onBackToPages={handleBackToCourse}
         onBackToCatalog={handleBackToCourse}
         onBackToCourse={handleBackToCourse}
+        onTaskComplete={handleTaskCompleted}
+        onTaskCompleted={handleTaskCompleted}
       />
 
       <button
