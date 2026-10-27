@@ -5,7 +5,8 @@ import {
   loadLocalTaskState,
   saveLocalTaskState,
 } from '../lib/taskExtractors.js';
-import { saveTaskCompletionToSupabase } from '../lib/supabaseProgress.js';
+import { getProgressCourseId, saveTaskCompletionToSupabase } from '../lib/supabaseProgress.js';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 
 function getApiBaseUrl() {
   const envUrl = String(
@@ -984,7 +985,8 @@ async function submitIdeSource({
   const userId = getStudentUserId(pageInstance, task);
   let savedToCloud = false;
 
-  // 1. Submit to Backend API if configured
+  // 1. Submit to Backend API with the real CK2 enrollment context.
+  // The lesson assets still use CK, but the backend enforces CK2 membership.
   if (apiBase) {
     const endpoint = getSubmitEndpoint(task, state);
     const url = endpoint.startsWith('http')
@@ -992,53 +994,58 @@ async function submitIdeSource({
       : `${apiBase}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sessionId: getSessionId(),
-          userId,
-          courseId,
-          lessonId,
-          pageId,
-          taskId,
-          activityType: 'ide-programming',
+      const studentEmail =
+        sessionStorage.getItem('lms_student_email') ||
+        localStorage.getItem('lms_student_email') || '';
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token') || '';
+      const { headers, payload } = buildAuthenticatedActivityAttempt({
+        studentEmail,
+        accessToken,
+        courseId,
+        lessonId,
+        pageId,
+        taskId,
+        activityType: 'ide-programming',
+        extra: {
           action,
           runMode: 'run',
           language: 'python',
           sourceCode,
           runtimeStatus: runtimeStatus || 'ran',
-          // Only send completion fields when explicitly submitting (not on regular saves)
           ...(isCorrect ? { isCorrect: true, status: 'completed' } : {}),
           clientSavedAt,
-          answer: {
-            code: sourceCode,
-            submittedCode: sourceCode,
-            sourceCode,
-            language: 'python',
-            runMode: 'run',
-            runtimeStatus: runtimeStatus || 'ran',
-            ...(isCorrect ? { isCorrect: true, status: 'completed' } : {}),
-            clientSavedAt,
-          },
-        }),
+        },
+        answer: {
+          code: sourceCode,
+          submittedCode: sourceCode,
+          sourceCode,
+          language: 'python',
+          runMode: 'run',
+          runtimeStatus: runtimeStatus || 'ran',
+          ...(isCorrect ? { isCorrect: true, status: 'completed' } : {}),
+          clientSavedAt,
+        },
       });
-
-      const text = await response.text();
-      let payload = null;
-
-      if (text) {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+      });
+      const responseText = await response.text();
+      let responseBody = null;
+      if (responseText) {
         try {
-          payload = JSON.parse(text);
+          responseBody = JSON.parse(responseText);
         } catch {
-          payload = text;
+          responseBody = responseText;
         }
       }
-
-      if (response.ok && payload?.ok !== false) {
+      if (response.ok && responseBody?.ok !== false) {
         savedToCloud = true;
+      } else {
+        console.warn('[IDE_PROGRAMMING_API_SAVE_WARN]', response.status, responseBody);
       }
     } catch (apiErr) {
       console.warn('[IDE_PROGRAMMING_API_SAVE_WARN]', apiErr);
@@ -1057,43 +1064,88 @@ async function submitIdeSource({
       sessionStorage.getItem('lms_access_token') ||
       localStorage.getItem('lms_access_token');
 
-    if (supabaseUrl && supabaseKey) {
+    // The auth policy ties progress to the signed-in student's email and
+    // CK2 course membership. Do not use arbitrary task user IDs or the CK
+    // asset identifier when calling the Supabase Data API.
+    const studentEmail = (
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') ||
+      ''
+    ).trim().toLowerCase();
+    const hasJwt = Boolean(accessToken && accessToken.split('.').length === 3);
+
+    if (supabaseUrl && supabaseKey && studentEmail && hasJwt) {
       const headers = {
         apikey: supabaseKey,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
         Prefer: 'return=minimal',
       };
-      if (accessToken && accessToken.split('.').length === 3) {
-        headers.Authorization = `Bearer ${accessToken}`;
-      } else {
-        headers.Authorization = `Bearer ${supabaseKey}`;
-      }
 
-      await fetch(`${supabaseUrl}/rest/v1/activity_attempts`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          session_id: getSessionId(),
-          user_id: userId,
-          course_id: courseId,
-          lesson_id: lessonId,
-          page_id: pageId,
-          task_id: taskId,
-          activity_type: 'ide-programming',
-          source_code: sourceCode,
-          status: isCorrect ? 'completed' : runtimeStatus || 'saved',
-          is_correct: isCorrect,
-          submitted_answer: {
-            code: sourceCode,
-            sourceCode,
-            language: 'python',
-          },
-        }),
-      })
-        .then(() => {
+      try {
+        // activity_attempts.attempt_no is NOT NULL without a database default.
+        // Resolve the next number from this student's attempts for this task.
+        const progressCourseId = getProgressCourseId(courseId);
+        const attemptQuery = new URLSearchParams({
+          user_id: `eq.${studentEmail}`,
+          course_id: `eq.${progressCourseId}`,
+          lesson_id: `eq.${lessonId}`,
+          page_id: `eq.${pageId}`,
+          task_id: `eq.${taskId}`,
+          select: 'attempt_no',
+          order: 'attempt_no.desc',
+          limit: '1',
+        });
+        const previousResponse = await fetch(
+          `${supabaseUrl}/rest/v1/activity_attempts?${attemptQuery}`,
+          { headers },
+        );
+        if (!previousResponse.ok) {
+          throw new Error(`Could not read previous attempts: ${previousResponse.status}`);
+        }
+        const previousAttempts = await previousResponse.json();
+        const lastAttemptNo = Number(previousAttempts?.[0]?.attempt_no ?? 0);
+        const attemptNo = Number.isSafeInteger(lastAttemptNo) && lastAttemptNo >= 0
+          ? lastAttemptNo + 1
+          : 1;
+
+        const response = await fetch(`${supabaseUrl}/rest/v1/activity_attempts`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            session_id: `user:${studentEmail}`,
+            user_id: studentEmail,
+            course_id: progressCourseId,
+            lesson_id: lessonId,
+            page_id: pageId,
+            task_id: taskId,
+            attempt_no: attemptNo,
+            activity_type: 'ide-programming',
+            source_code: sourceCode,
+            status: isCorrect ? 'completed' : runtimeStatus || 'saved',
+            is_correct: isCorrect,
+            submitted_answer: {
+              code: sourceCode,
+              sourceCode,
+              language: 'python',
+            },
+          }),
+        });
+
+        if (response.ok) {
           savedToCloud = true;
-        })
-        .catch((e) => console.warn('[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN]', e));
+        } else {
+          console.warn(
+            '[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN]',
+            response.status,
+            await response.text(),
+          );
+        }
+      } catch (error) {
+        console.warn('[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN]', error);
+      }
+    } else if (supabaseUrl && supabaseKey) {
+      console.warn('[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN] Missing authenticated student session.');
     }
   }
 
@@ -1144,18 +1196,30 @@ async function fetchSavedIdeSource({
         : `${apiBase}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`
     );
 
-    url.searchParams.set('courseId', courseId);
+    const studentEmail =
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') || '';
+    const accessToken =
+      sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token') || '';
+    const authenticatedEmail = String(studentEmail).trim().toLowerCase();
+
+    url.searchParams.set('courseId', getProgressCourseId(courseId));
     url.searchParams.set('lessonId', lessonId);
     url.searchParams.set('pageId', pageId);
     url.searchParams.set('taskId', taskId);
-    url.searchParams.set('userId', userId);
-    url.searchParams.set('sessionId', getSessionId());
+    url.searchParams.set('userId', authenticatedEmail);
+    url.searchParams.set('sessionId', `user:${authenticatedEmail}`);
 
     try {
+      if (!authenticatedEmail || !accessToken || accessToken.split('.').length !== 3) {
+        throw new Error('Authenticated session is required to load saved source.');
+      }
       const response = await fetch(url.toString(), {
         method: 'GET',
         headers: {
           Accept: 'application/json',
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
@@ -1205,7 +1269,7 @@ async function fetchSavedIdeSource({
         }
 
         // 2a. Query activity_attempts
-        const sbUrl = `${supabaseUrl}/rest/v1/activity_attempts?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(courseId)}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&order=attempt_no.desc,created_at.desc&limit=1`;
+        const sbUrl = `${supabaseUrl}/rest/v1/activity_attempts?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(getProgressCourseId(courseId))}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&order=attempt_no.desc,created_at.desc&limit=1`;
 
         const sbRes = await fetch(sbUrl, { headers });
         if (sbRes.ok) {
@@ -1223,7 +1287,7 @@ async function fetchSavedIdeSource({
         }
 
         // 2b. Fallback to activity_progress
-        const progressUrl = `${supabaseUrl}/rest/v1/activity_progress?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(courseId)}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&limit=1`;
+        const progressUrl = `${supabaseUrl}/rest/v1/activity_progress?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(getProgressCourseId(courseId))}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&limit=1`;
         const progressRes = await fetch(progressUrl, { headers });
         if (progressRes.ok) {
           const pRows = await progressRes.json();
