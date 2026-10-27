@@ -561,25 +561,81 @@ async function submitMcqAttempt({
 
   const selectedOptionIds = getSelectedOptionIds(selected, options);
 
-  const studentEmail = sessionStorage.getItem('lms_student_email') ||
-      localStorage.getItem('lms_student_email') || '';
-    const accessToken = sessionStorage.getItem('lms_access_token') ||
-      localStorage.getItem('lms_access_token') || '';
-    const { headers, payload: attemptPayload } = buildAuthenticatedActivityAttempt({
-      studentEmail,
-      accessToken,
-      courseId,
-      lessonId,
-      pageId,
-      taskId,
-      activityType: 'mcq-checkbox',
-      answer: { selectedOptionIds },
-    });
-    const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(attemptPayload),
-    });;
+  const studentEmail =
+    sessionStorage.getItem('lms_student_email') ||
+    localStorage.getItem('lms_student_email') || '';
+  const accessToken =
+    sessionStorage.getItem('lms_access_token') ||
+    localStorage.getItem('lms_access_token') || '';
+  const { headers, payload: attemptPayload } = buildAuthenticatedActivityAttempt({
+    studentEmail,
+    accessToken,
+    courseId,
+    lessonId,
+    pageId,
+    taskId,
+    activityType: 'mcq-checkbox',
+    answer: { selectedOptionIds },
+  });
+  const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(attemptPayload),
+  });
+
+  const payload = await response.json().catch(() => null);
+
+  if (!response.ok || !payload?.ok) {
+    throw new Error(payload?.error?.message || 'Could not submit answer.');
+  }
+
+  return payload;
+}
+
+export default function McqCheckboxTask({
+  task,
+  pageInstance,
+  onPrevTask,
+  onNextTask,
+  isTaskDone,
+}) {
+  const taskId = getTaskId(task);
+  const rawData = useMemo(() => getMcqData(task), [task]);
+  const [manualConfig, setManualConfig] = useState(null);
+  const [checking, setChecking] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    setManualConfig(null);
+
+    const url = getManualMapUrl(pageInstance);
+
+    if (!url || !taskId) return undefined;
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) return null;
+        return response.json();
+      })
+      .then((manualMap) => {
+        if (cancelled || !manualMap) return;
+
+        const manualTask = manualMap?.tasks?.[taskId] || null;
+
+        const nextConfig =
+          manualTask?.mcqCheckbox ||
+          manualTask?.mcq ||
+          manualTask?.data ||
+          null;
+
+        setManualConfig(nextConfig);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setManualConfig(null);
+        }
+      });
 
     return () => {
       cancelled = true;
