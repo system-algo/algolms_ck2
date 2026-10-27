@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
 import './MatchingConnectTask.css';
 import { getUniqueImages, loadLocalTaskState, saveLocalTaskState } from '../lib/taskExtractors.js';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 
 const DEFAULT_COLORS = [
   '#22c55e',
@@ -243,6 +244,8 @@ export default function MatchingConnectTask({
     const saved = loadLocalTaskState(taskId, null);
     return saved?.result || null;
   });
+  const [isSaving, setIsSaving] = useState(false);
+  const savePendingRef = useRef(false);
   const [lineLayout, setLineLayout] = useState({});
 
   const boardRef = useRef(null);
@@ -453,7 +456,8 @@ export default function MatchingConnectTask({
     localStorage.removeItem(storageKey);
   }
 
-  function handleCheck() {
+  async function handleCheck() {
+    if (savePendingRef.current) return;
     const complete = isComplete(connections, data.leftItems);
 
     if (!complete) {
@@ -468,17 +472,63 @@ export default function MatchingConnectTask({
         : true;
 
     setChecked(true);
-    setResult(correct ? 'correct' : 'wrong');
+    if (!correct) {
+      setResult('wrong');
+      return;
+    }
 
-    if (correct) {
-      const currentTaskId = String(task?.id || task?.taskId || 'task-1').trim();
-      window.dispatchEvent(
-        new CustomEvent('LMS_TASK_COMPLETED', {
-          detail: { taskId: currentTaskId },
-        })
-      );
+    // Only mark the task as completed after the official answer is accepted
+    // by the backend. A local correctness check is not proof of persistence.
+    savePendingRef.current = true;
+    setIsSaving(true);
+    setResult('saving');
 
-      // Play completion sound
+    const currentTaskId = String(task?.id || task?.taskId || 'task-1').trim();
+    try {
+      const apiBaseUrl = String(
+        import.meta.env.VITE_API_BASE_URL ||
+        import.meta.env.VITE_API_URL ||
+        sessionStorage.getItem('lms_backend_url') ||
+        localStorage.getItem('lms_backend_url') ||
+        ''
+      ).trim().replace(/\\/+$/, '');
+      if (!apiBaseUrl) throw new Error('LMS backend URL is not configured.');
+
+      const route = new URLSearchParams(window.location.search);
+      const studentEmail =
+        sessionStorage.getItem('lms_student_email') ||
+        localStorage.getItem('lms_student_email') || '';
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token') || '';
+      const { headers, payload } = buildAuthenticatedActivityAttempt({
+        accessToken,
+        studentEmail,
+        courseId: route.get('course') || 'CK',
+        lessonId: route.get('lesson'),
+        pageId: route.get('page'),
+        taskId: currentTaskId,
+        activityType: 'matching-connect',
+        answer: { connections, pairs: connections },
+        extra: { isCorrect: true, score: 1, maxScore: 1 },
+      });
+
+      const response = await fetch(`${apiBaseUrl}/api/activity-attempts`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(`HTTP ${response.status}: ${errorBody.slice(0, 400)}`);
+      }
+      const saved = await response.json();
+      if (saved?.ok !== true) {
+        throw new Error('Backend did not confirm saving the activity attempt.');
+      }
+
+      setResult('correct');
+
       import('../utils/lmsSounds.js')
         .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
           playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
@@ -500,64 +550,22 @@ export default function MatchingConnectTask({
         onTaskCompleted(completionPayload);
       } else if (typeof onTaskComplete === 'function') {
         onTaskComplete(completionPayload);
+      } else {
+        window.dispatchEvent(
+          new CustomEvent('LMS_TASK_COMPLETED', { detail: { taskId: currentTaskId } })
+        );
       }
 
       if (typeof onComplete === 'function') {
         onComplete(task);
       }
-
-      // Submit attempt to backend if API_BASE_URL is present
-      try {
-        const API_BASE_URL = String(
-          import.meta.env.VITE_API_BASE_URL ||
-          import.meta.env.VITE_API_URL ||
-          localStorage.getItem('lms_backend_url') ||
-          sessionStorage.getItem('lms_backend_url') ||
-          ''
-        ).replace(/\/+$/, '');
-
-        if (API_BASE_URL) {
-          const params = new URLSearchParams(window.location.search);
-          const cId = params.get('course') || 'CK';
-          const lId = params.get('lesson') || '';
-          const pId = params.get('page') || '';
-          const sId =
-            params.get('sessionId') ||
-            params.get('session') ||
-            localStorage.getItem('algolms_session_id') ||
-            localStorage.getItem('lms-session-id') ||
-            'session-default';
-          const uId =
-            params.get('userId') ||
-            params.get('studentEmail') ||
-            params.get('email') ||
-            localStorage.getItem('lms_student_email') ||
-            sessionStorage.getItem('lms_student_email') ||
-            'student@algo.edu.vn';
-
-          fetch(`${API_BASE_URL}/api/activity-attempts`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              sessionId: sId,
-              userId: uId,
-              courseId: cId,
-              lessonId: lId,
-              pageId: pId,
-              taskId: currentTaskId,
-              activityType: 'matching-connect',
-              answer: { connections, pairs: connections },
-              isCorrect: true,
-              score: 1,
-              maxScore: 1,
-            }),
-          }).catch((err) => {
-            console.warn('[MatchingConnectTask] Attempt logging failed:', err);
-          });
-        }
-      } catch (err) {
-        console.warn('[MatchingConnectTask] Attempt error:', err);
-      }
+    } catch (error) {
+      // Keep the connections so that the student can retry saving the answer.
+      setResult('save-error');
+      console.warn('[MatchingConnectTask] Backend attempt not saved:', error);
+    } finally {
+      savePendingRef.current = false;
+      setIsSaving(false);
     }
   }
 
@@ -579,9 +587,13 @@ export default function MatchingConnectTask({
   }
 
   const isDone = Boolean(isTaskDone || (checked && result === 'correct'));
-  const feedbackStatus = checked
-    ? (result === 'correct' ? 'Correct!' : result === 'wrong' ? 'Some connections are incorrect.' : 'Please connect all items before checking.')
-    : (isDone ? 'Correct!' : '');
+  const feedbackStatus = isSaving
+    ? 'Saving your answer...'
+    : result === 'save-error'
+      ? 'Your answer was not saved. Please check your connection and try again.'
+      : checked
+        ? (result === 'correct' ? 'Correct!' : result === 'wrong' ? 'Some connections are incorrect.' : 'Please connect all items before checking.')
+        : (isDone ? 'Correct!' : '');
 
   return (
     <LmsActivityFrame
