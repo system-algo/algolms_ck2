@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import './MatchingDragdropTask.css';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   getMatchingData,
   getUniqueImages,
@@ -1092,9 +1093,7 @@ export default function MatchingDragdropTask({
       setCheckResult(nextResult);
       setAttemptsUsed((current) => Math.min(current + 1, data.attemptsAllowed));
       setFeedback(nextSolved ? 'You got it!' : 'A mistake has been made! Try again.');
-      if (nextSolved) {
-        triggerSuccess();
-      }
+      // Wait for the backend to confirm the grading before marking completion.
       return nextSolved;
     }
 
@@ -1132,9 +1131,7 @@ export default function MatchingDragdropTask({
     setCheckResult(nextResult);
     setAttemptsUsed((current) => Math.min(current + 1, data.attemptsAllowed));
     setFeedback(nextSolved ? 'You got it!' : 'A mistake has been made! Try again.');
-    if (nextSolved) {
-      triggerSuccess();
-    }
+    // Wait for the backend to confirm the grading before marking completion.
     return nextSolved;
   }
 
@@ -1174,20 +1171,24 @@ export default function MatchingDragdropTask({
       throw new Error('Missing courseId, lessonId, pageId, or taskId.');
     }
 
+    const studentEmail = sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') || '';
+    const accessToken = sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token') || '';
+    const { headers, payload: attemptPayload } = buildAuthenticatedActivityAttempt({
+      studentEmail,
+      accessToken,
+      courseId,
+      lessonId,
+      pageId,
+      taskId,
+      activityType: 'matching-dragdrop',
+      answer: getAnswerPayload(),
+    });
     const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sessionId: getSessionId(),
-        courseId,
-        lessonId,
-        pageId,
-        taskId,
-        activityType: 'matching-dragdrop',
-        answer: getAnswerPayload(),
-      }),
+      headers,
+      body: JSON.stringify(attemptPayload),
     });
 
     const payload = await response.json().catch(() => null);
@@ -1208,9 +1209,20 @@ export default function MatchingDragdropTask({
     const isLocalSolved = runLocalCheck();
 
     try {
-      await submitAttemptToBackend();
+      const saved = await submitAttemptToBackend();
+      if (saved?.result?.isCorrect === true && isLocalSolved) {
+        setFeedback('You got it!');
+        triggerSuccess();
+      } else if (saved?.result?.status === 'missing_answer_key') {
+        setFeedback('Answer saved, but no backend answer key has been configured.');
+      } else if (saved) {
+        setFeedback(saved?.result?.feedback || 'Answer saved; please check your placements.');
+      } else {
+        setFeedback('Answer was not saved. Please try again.');
+      }
     } catch (error) {
       console.error('[MATCHING_DRAGDROP_SUBMIT_ERROR]', error);
+      setFeedback('Answer was not saved. Please try again.');
     } finally {
       setChecking(false);
     }

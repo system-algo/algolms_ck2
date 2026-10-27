@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import './McqCheckboxTask.css';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   getMcqData,
   loadLocalTaskState,
@@ -560,22 +561,26 @@ async function submitMcqAttempt({
 
   const selectedOptionIds = getSelectedOptionIds(selected, options);
 
+  const studentEmail =
+    sessionStorage.getItem('lms_student_email') ||
+    localStorage.getItem('lms_student_email') || '';
+  const accessToken =
+    sessionStorage.getItem('lms_access_token') ||
+    localStorage.getItem('lms_access_token') || '';
+  const { headers, payload: attemptPayload } = buildAuthenticatedActivityAttempt({
+    studentEmail,
+    accessToken,
+    courseId,
+    lessonId,
+    pageId,
+    taskId,
+    activityType: 'mcq-checkbox',
+    answer: { selectedOptionIds },
+  });
   const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      sessionId: getSessionId(),
-      courseId,
-      lessonId,
-      pageId,
-      taskId,
-      activityType: 'mcq-checkbox',
-      answer: {
-        selectedOptionIds,
-      },
-    }),
+    headers,
+    body: JSON.stringify(attemptPayload),
   });
 
   const payload = await response.json().catch(() => null);
@@ -726,11 +731,7 @@ export default function McqCheckboxTask({
       });
 
       if (!payload) {
-        const localStatus = checkAnswerLocally();
-        setStatus(localStatus);
-        if (localStatus === 'You got it!' || localStatus === 'Correct.') {
-          triggerSuccess();
-        }
+        setStatus('Answer was not saved on the backend. Please try again.');
         return;
       }
 
@@ -761,11 +762,7 @@ export default function McqCheckboxTask({
       setStatus('Answer saved.');
     } catch (error) {
       console.error('[MCQ_SUBMIT_ERROR]', error);
-      const localStatus = checkAnswerLocally();
-      setStatus(localStatus);
-      if (localStatus === 'You got it!' || localStatus === 'Correct.') {
-        triggerSuccess();
-      }
+      setStatus('Answer was not saved on the backend. Please try again.');
     } finally {
       setChecking(false);
     }
