@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import TeacherCoursePreview from '../components/TeacherCoursePreview.jsx';
 import customNames from '../config/mapping.json';
-import { resetPageProgressInSupabase } from '../lib/supabaseProgress.js';
+import { getProgressCourseId, resetPageProgressInSupabase } from '../lib/supabaseProgress.js';
 import './TeacherDashboard.css';
 
 const CATALOG_URL = '/courses/index.json';
@@ -305,7 +305,10 @@ export default function TeacherDashboard({
           setStudents([]);
         });
 
-      const attemptsUrl = `${supabaseUrl}/rest/v1/activity_progress?or=(course_id.eq.${realCourseId},course_id.eq.${selectedCourseId})&select=user_id,course_id,lesson_id,page_id,task_id,status,is_completed`;
+      // CK2 lesson assets use CK, but the progress belongs to the CK2 enrollment.
+      // Query the real classroom plus the mapped progress course, not CK and CK2 together.
+      const progressCourseId = getProgressCourseId(selectedCourseId);
+      const attemptsUrl = `${supabaseUrl}/rest/v1/activity_progress?or=(course_id.eq.${realCourseId},course_id.eq.${progressCourseId})&select=user_id,course_id,lesson_id,page_id,task_id,status,is_completed`;
       fetch(attemptsUrl, {
         headers: {
           'apikey': supabaseKey,
