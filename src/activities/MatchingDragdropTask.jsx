@@ -1189,7 +1189,7 @@ export default function MatchingDragdropTask({
       method: 'POST',
       headers,
       body: JSON.stringify(attemptPayload),
-    });;
+    });
 
     const payload = await response.json().catch(() => null);
 
