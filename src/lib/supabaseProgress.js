@@ -2,6 +2,13 @@ function normalizeEmail(value) {
   return String(value || '').trim().toLowerCase();
 }
 
+// CK2 reuses the CK lesson assets, but student enrollment and progress
+// are scoped to the separate CK2 course in Supabase.
+export function getProgressCourseId(courseId) {
+  const normalized = String(courseId || '').trim();
+  return normalized.toUpperCase() === 'CK' ? 'CK2' : normalized;
+}
+
 function getSupabaseCredentials() {
   const supabaseUrl =
     sessionStorage.getItem('lms_supabase_url') ||
@@ -59,7 +66,7 @@ function buildCompletionRecord({
   return {
     session_id: `user:${normalizedEmail}`,
     user_id: normalizedEmail,
-    course_id: String(courseId || ''),
+    course_id: getProgressCourseId(courseId),
     lesson_id: String(lessonId || ''),
     page_id: String(pageId || ''),
     task_id: String(taskId || ''),
