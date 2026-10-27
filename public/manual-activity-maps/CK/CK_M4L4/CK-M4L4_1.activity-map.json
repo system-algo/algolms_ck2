@@ -15,7 +15,8 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-119ao1d": {
@@ -66,7 +67,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-10-bkmoo8-szjv50": {
           "title": "initial",
@@ -116,13 +117,41 @@
           "title": "after-11-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Select the correct program",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-10-bkmoo8/initial/asset-1j4kgkz.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-10-bkmoo8/initial/asset-7qtp64.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-10-bkmoo8/initial/asset-13q5xay.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-10-bkmoo8/initial/asset-1pvkll4.jpg",
+            "alt": "Option 3"
+          }
+        ]
       }
     },
     "task-22-1rau489": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-22-1rau489-t5bat0": {
           "title": "initial",
@@ -172,6 +201,34 @@
           "title": "after-11-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Select the correct program",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-22-1rau489/initial/asset-9f353n.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-22-1rau489/initial/asset-2od4ea.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-22-1rau489/initial/asset-1m21hf3.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-22-1rau489/initial/asset-1qmhnki.jpg",
+            "alt": "Option 3"
+          }
+        ]
       }
     }
   }

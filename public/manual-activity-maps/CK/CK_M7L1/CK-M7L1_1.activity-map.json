@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-1ru9bzo": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-1-1ru9bzo-l5210d": {
           "title": "initial",
@@ -72,13 +73,46 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Select a sprite that cannot be found in the game.",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-1-1ru9bzo/initial/asset-15g0d3c.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-1-1ru9bzo/initial/asset-e3m4t3.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-1-1ru9bzo/initial/asset-1e6s7yj.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-1-1ru9bzo/initial/asset-166rqhj.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-1-1ru9bzo/initial/asset-1lt39vx.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-13-scx7mv": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "matching-connect",
       "states": {
         "task-13-scx7mv-15hwaug": {
           "title": "initial",
@@ -115,6 +149,47 @@
         "task-13-scx7mv-y1adyo": {
           "title": "after-10-icon-control",
           "selectedType": ""
+        }
+      },
+      "matchingConnect": {
+        "title": "What role does each sprite have?",
+        "helperText": "Connect",
+        "checkMode": "answer-key",
+        "leftItems": [
+          {
+            "id": "left-1",
+            "image": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-13-scx7mv/initial/asset-1wcnair.jpg",
+            "alt": "Left 1"
+          },
+          {
+            "id": "left-2",
+            "image": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-13-scx7mv/initial/asset-uktkam.jpg",
+            "alt": "Left 2"
+          },
+          {
+            "id": "left-3",
+            "image": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-13-scx7mv/initial/asset-1k8cg8a.jpg",
+            "alt": "Left 3"
+          }
+        ],
+        "rightItems": [
+          {
+            "id": "right-1",
+            "text": "Assistant"
+          },
+          {
+            "id": "right-2",
+            "text": "Goal"
+          },
+          {
+            "id": "right-3",
+            "text": "Obstacle"
+          }
+        ],
+        "answerKey": {
+          "left-1": "right-1",
+          "left-2": "right-2",
+          "left-3": "right-3"
         }
       }
     }

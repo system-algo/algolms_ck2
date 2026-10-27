@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-3zd6sz": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-1-3zd6sz-nc0e1e": {
           "title": "initial",
@@ -72,13 +73,46 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What program is required to move on to the final scene?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-1-3zd6sz/initial/asset-7ivxjr.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-1-3zd6sz/initial/asset-x2kx5r.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-1-3zd6sz/initial/asset-kh0sex.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-1-3zd6sz/initial/asset-flmpz7.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-1-3zd6sz/initial/asset-bu4jlw.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-13-a1z93o": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-13-a1z93o-1hdkwwy": {
           "title": "initial",
@@ -128,6 +162,39 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Mark all the programs that the sprite executes.",
+        "layout": "image-grid",
+        "multiple": true,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-13-a1z93o/initial/asset-fqyxy7.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-13-a1z93o/initial/asset-djnqkc.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-13-a1z93o/initial/asset-uour9y.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-13-a1z93o/initial/asset-107ylbg.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M7L4/pages/CK-M7L4_1/assets/task-13-a1z93o/initial/asset-psjklu.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }

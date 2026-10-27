@@ -15,7 +15,8 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-1tegh55": {
@@ -70,7 +71,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-11-1ob0qox-b03z9": {
           "title": "initial",
@@ -124,13 +125,46 @@
           "title": "after-12-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Find the program",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-126a04k.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-9hi8h3.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-f9pa28.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-gyc2fz.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-dkat6a.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-24-17jlc4c": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-24-17jlc4c-10e4kft": {
           "title": "initial",
@@ -184,6 +218,39 @@
           "title": "after-12-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Find the program",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-14bjxii.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-xdks14.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-qld73s.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-dgb4zu.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-ds4zpg.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }

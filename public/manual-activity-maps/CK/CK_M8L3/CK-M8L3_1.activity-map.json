@@ -15,7 +15,8 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-1z0tz42": {
@@ -62,7 +63,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-9-1739y8a-rviwm2": {
           "title": "initial",
@@ -112,6 +113,39 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Which sprite will be touched to make the transition to the final scene occur?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-1vn9bja.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-wnuhxq.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-1szzqtc.png",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-5f19wf.png",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-2obnyy.png",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }

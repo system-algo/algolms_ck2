@@ -15,7 +15,8 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-1iq4i28": {
@@ -66,7 +67,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-10-p8w359-1c7qmkk": {
           "title": "initial",
@@ -116,6 +117,29 @@
           "title": "after-11-Part",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Which sprite executes the program after being touched by another sprite?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-10-p8w359/initial/asset-1vjc9xp.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-10-p8w359/initial/asset-llqgk8.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-10-p8w359/initial/asset-ry2l1b.jpg",
+            "alt": "Option 2"
+          }
+        ]
       }
     }
   }

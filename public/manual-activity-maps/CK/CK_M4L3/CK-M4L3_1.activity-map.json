@@ -15,7 +15,8 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-8l1s8": {
@@ -70,7 +71,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-11-qeb5rh-1yp9keh": {
           "title": "initial",
@@ -120,6 +121,39 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What is the color of a section in which we can record sound?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-jk5taa.png",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-2zr3je.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-147gl11.png",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-egzne5.png",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-3jiq5w.png",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-23-cn98ao": {

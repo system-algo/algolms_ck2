@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-exz4f4": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-1-exz4f4-1beb8dc": {
           "title": "initial",
@@ -72,13 +73,41 @@
           "title": "after-11-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What program does the fly execute?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-1-exz4f4/initial/asset-11nih5k.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-1-exz4f4/initial/asset-1a093rf.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-1-exz4f4/initial/asset-17gjpng.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-1-exz4f4/initial/asset-1vefo82.jpg",
+            "alt": "Option 3"
+          }
+        ]
       }
     },
     "task-13-f2bj7n": {
       "title": "Part 1.",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "matching-connect",
       "states": {
         "task-13-f2bj7n-g4meya": {
           "title": "initial",
@@ -115,6 +144,50 @@
         "task-13-f2bj7n-1oehz2g": {
           "title": "after-10-[object SVGAnimatedString]",
           "selectedType": ""
+        }
+      },
+      "matchingConnect": {
+        "title": "What program does each sprite execute?",
+        "helperText": "Connect",
+        "checkMode": "answer-key",
+        "leftItems": [
+          {
+            "id": "left-1",
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-40958q.jpg",
+            "alt": "Left 1"
+          },
+          {
+            "id": "left-2",
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-tlp2n8.jpg",
+            "alt": "Left 2"
+          },
+          {
+            "id": "left-3",
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1qojmdo.jpg",
+            "alt": "Left 3"
+          }
+        ],
+        "rightItems": [
+          {
+            "id": "right-1",
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1mgird2.jpg",
+            "alt": "Right 1"
+          },
+          {
+            "id": "right-2",
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-wof98l.jpg",
+            "alt": "Right 2"
+          },
+          {
+            "id": "right-3",
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1k3l7u0.jpg",
+            "alt": "Right 3"
+          }
+        ],
+        "answerKey": {
+          "left-1": "right-1",
+          "left-2": "right-2",
+          "left-3": "right-3"
         }
       }
     },

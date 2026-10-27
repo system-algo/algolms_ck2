@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-w6zeel": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-1-w6zeel-6xlckj": {
           "title": "initial",
@@ -72,13 +73,46 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What program does the sprite execute?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-1-w6zeel/initial/asset-16u3vdz.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-1-w6zeel/initial/asset-1a0m7m4.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-1-w6zeel/initial/asset-ki0t21.png",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-1-w6zeel/initial/asset-n1vuu6.png",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-1-w6zeel/initial/asset-53lsli.png",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-13-1v6oot7": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-13-1v6oot7-1u8i845": {
           "title": "initial",
@@ -128,6 +162,39 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Which character uses the \"wait\" command after clicking on the checkbox?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-13-1v6oot7/initial/asset-1f704r7.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-13-1v6oot7/initial/asset-18w5qvn.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-13-1v6oot7/initial/asset-srh2tf.png",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-13-1v6oot7/initial/asset-ycm4h0.png",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M4L1/pages/CK-M4L1_1/assets/task-13-1v6oot7/initial/asset-1nbu5so.png",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }
