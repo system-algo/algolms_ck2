@@ -311,3 +311,287 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+
+/* ==========================================================================
+   Image Assembly Puzzle Mode (Algorithmics LMS)
+   ========================================================================== */
+
+.image-assembly-task {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  padding: 8px 16px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.image-assembly-header {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2px;
+}
+
+.image-assembly-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.image-assembly-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.image-assembly-title.is-solved {
+  color: #16a34a;
+}
+
+.image-assembly-check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.image-assembly-attempt {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.image-assembly-instruction {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Sample Target Image (at top) */
+.image-assembly-sample-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.image-assembly-sample-img {
+  display: block;
+  max-width: 295px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Workspace Canvas with Background */
+.image-assembly-canvas-wrapper {
+  width: 100%;
+  max-width: 580px;
+  padding: 6px;
+  border-radius: 12px;
+  border: 3px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.image-assembly-canvas-wrapper.is-solved {
+  border-color: #22c55e;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.18);
+}
+
+.image-assembly-canvas-wrapper.is-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.15);
+}
+
+.image-assembly-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 555 / 406;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000000;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  user-select: none;
+}
+
+.image-assembly-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Dropzones on Canvas */
+.image-assembly-zone {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.image-assembly-zone.is-empty {
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.image-assembly-zone.is-empty:hover,
+.image-assembly-zone.is-ready.is-empty {
+  border-color: #60a5fa;
+  background: rgba(96, 165, 250, 0.2);
+}
+
+.image-assembly-zone.is-hovered.is-empty {
+  border: 2px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.35);
+  transform: scale(1.02);
+}
+
+.image-assembly-zone.has-item {
+  border: none;
+  background: transparent;
+}
+
+.image-assembly-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.image-assembly-placed-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.image-assembly-placed-item:active {
+  cursor: grabbing;
+}
+
+.image-assembly-placed-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.image-assembly-remove-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1e293b;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.image-assembly-zone:hover .image-assembly-remove-btn {
+  opacity: 1;
+}
+
+/* Draggable Pieces Tray */
+.image-assembly-tray-wrapper {
+  width: 100%;
+  max-width: 580px;
+}
+
+.image-assembly-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-sizing: border-box;
+}
+
+.image-assembly-tray-card {
+  width: 68px;
+  height: 68px;
+  padding: 6px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.image-assembly-tray-card.is-available:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.image-assembly-tray-card.is-available:active {
+  cursor: grabbing;
+}
+
+.image-assembly-tray-card.is-selected {
+  outline: 3px solid #3b82f6;
+  background: #eff6ff;
+}
+
+.image-assembly-tray-card.is-placed {
+  opacity: 0.28;
+  filter: grayscale(1);
+  cursor: default;
+  box-shadow: none;
+  border: 1px dashed #cbd5e1;
+  background: #f1f5f9;
+}
+
+.image-assembly-tray-img-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-assembly-tray-img-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}

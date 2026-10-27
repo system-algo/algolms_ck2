@@ -258,8 +258,8 @@
       }
     },
     "task-28-1emx1e0": {
-      "type": "generic-captured-task",
-      "manualSelectedType": "generic-captured-task",
+      "type": "image-dropzones-task",
+      "manualSelectedType": "image-dropzones-task",
       "states": {
         "task-28-1emx1e0-4g90m4": {
           "type": "generic-captured-task",
@@ -321,6 +321,116 @@
           "type": "generic-captured-task",
           "manualSelectedType": "generic-captured-task"
         }
+      },
+      "imageDropzones": {
+        "title": "Part 1. My correct solution",
+        "prompt": "Put together according to the sample",
+        "helperText": "Put together according to the sample",
+        "attempt": "Attempt: 1/2",
+        "layout": "assembly",
+        "variant": "assembly",
+        "sampleImage": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1s4d36s.png",
+        "backgroundImage": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1k1evw4.png",
+        "draggables": [
+          {
+            "id": "cat",
+            "label": "Cat",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-jyb4u5.png"
+          },
+          {
+            "id": "ship",
+            "label": "Ship",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1rdfxwq.png"
+          },
+          {
+            "id": "comet",
+            "label": "Comet",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-lfy0as.png"
+          },
+          {
+            "id": "star-2",
+            "label": "Twinkle Star",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1oemfaw.png"
+          },
+          {
+            "id": "star-1",
+            "label": "Star",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-17tw4q3.png"
+          },
+          {
+            "id": "flowers",
+            "label": "Flowers",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-qf5hkn.png"
+          }
+        ],
+        "dropzones": [
+          {
+            "id": "zone-comet",
+            "label": "Comet",
+            "accepts": [
+              "comet"
+            ],
+            "x": 1.1,
+            "y": 1.5,
+            "w": 40.5,
+            "h": 7.4
+          },
+          {
+            "id": "zone-cat",
+            "label": "Cat",
+            "accepts": [
+              "cat"
+            ],
+            "x": 9.2,
+            "y": 12.6,
+            "w": 18.9,
+            "h": 33.3
+          },
+          {
+            "id": "zone-ship",
+            "label": "Ship",
+            "accepts": [
+              "ship"
+            ],
+            "x": 25.4,
+            "y": 16.3,
+            "w": 37.8,
+            "h": 40.6
+          },
+          {
+            "id": "zone-star-2",
+            "label": "Twinkle Star",
+            "accepts": [
+              "star-2"
+            ],
+            "x": 76.8,
+            "y": 5.2,
+            "w": 8.1,
+            "h": 11.1
+          },
+          {
+            "id": "zone-star-1",
+            "label": "Star",
+            "accepts": [
+              "star-1"
+            ],
+            "x": 90.3,
+            "y": 8.9,
+            "w": 8.1,
+            "h": 11.1
+          },
+          {
+            "id": "zone-flowers",
+            "label": "Flowers",
+            "accepts": [
+              "flowers"
+            ],
+            "x": 79.5,
+            "y": 79.1,
+            "w": 13.5,
+            "h": 11.1
+          }
+        ]
       }
     },
     "task-43-a6jcur": {
@@ -627,9 +737,9 @@
       "id": "task-28-1emx1e0",
       "taskId": "task-28-1emx1e0",
       "title": "Part 1. My correct solution",
-      "activityType": "generic_captured_task",
-      "selectedType": "generic-captured-task",
-      "suggestedType": "generic-captured-task",
+      "activityType": "image_dropzones_task",
+      "selectedType": "image-dropzones-task",
+      "suggestedType": "image-dropzones-task",
       "states": [
         {
           "id": "task-28-1emx1e0-4g90m4",
@@ -736,7 +846,117 @@
           "stateName": "after-20-icon-control",
           "selectedType": "generic-captured-task"
         }
-      ]
+      ],
+      "imageDropzones": {
+        "title": "Part 1. My correct solution",
+        "prompt": "Put together according to the sample",
+        "helperText": "Put together according to the sample",
+        "attempt": "Attempt: 1/2",
+        "layout": "assembly",
+        "variant": "assembly",
+        "sampleImage": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1s4d36s.png",
+        "backgroundImage": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1k1evw4.png",
+        "draggables": [
+          {
+            "id": "cat",
+            "label": "Cat",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-jyb4u5.png"
+          },
+          {
+            "id": "ship",
+            "label": "Ship",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1rdfxwq.png"
+          },
+          {
+            "id": "comet",
+            "label": "Comet",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-lfy0as.png"
+          },
+          {
+            "id": "star-2",
+            "label": "Twinkle Star",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-1oemfaw.png"
+          },
+          {
+            "id": "star-1",
+            "label": "Star",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-17tw4q3.png"
+          },
+          {
+            "id": "flowers",
+            "label": "Flowers",
+            "imageSrc": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-28-1emx1e0/initial/asset-qf5hkn.png"
+          }
+        ],
+        "dropzones": [
+          {
+            "id": "zone-comet",
+            "label": "Comet",
+            "accepts": [
+              "comet"
+            ],
+            "x": 1.1,
+            "y": 1.5,
+            "w": 40.5,
+            "h": 7.4
+          },
+          {
+            "id": "zone-cat",
+            "label": "Cat",
+            "accepts": [
+              "cat"
+            ],
+            "x": 9.2,
+            "y": 12.6,
+            "w": 18.9,
+            "h": 33.3
+          },
+          {
+            "id": "zone-ship",
+            "label": "Ship",
+            "accepts": [
+              "ship"
+            ],
+            "x": 25.4,
+            "y": 16.3,
+            "w": 37.8,
+            "h": 40.6
+          },
+          {
+            "id": "zone-star-2",
+            "label": "Twinkle Star",
+            "accepts": [
+              "star-2"
+            ],
+            "x": 76.8,
+            "y": 5.2,
+            "w": 8.1,
+            "h": 11.1
+          },
+          {
+            "id": "zone-star-1",
+            "label": "Star",
+            "accepts": [
+              "star-1"
+            ],
+            "x": 90.3,
+            "y": 8.9,
+            "w": 8.1,
+            "h": 11.1
+          },
+          {
+            "id": "zone-flowers",
+            "label": "Flowers",
+            "accepts": [
+              "flowers"
+            ],
+            "x": 79.5,
+            "y": 79.1,
+            "w": 13.5,
+            "h": 11.1
+          }
+        ]
+      }
     },
     {
       "id": "task-43-a6jcur",

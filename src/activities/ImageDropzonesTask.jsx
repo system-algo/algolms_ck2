@@ -3,10 +3,18 @@ import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
 import {
   loadLocalTaskState,
   saveLocalTaskState,
+  resolveActivityMapUrl,
 } from '../lib/taskExtractors.js';
 import './ImageDropzonesTask.css';
 
-const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const API_BASE_URL = String(
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  localStorage.getItem('lms_backend_url') ||
+  sessionStorage.getItem('lms_backend_url') ||
+  ''
+).replace(/\/+$/, '');
+
 const SESSION_STORAGE_KEY = 'algolms_session_id';
 
 function normalizeText(value) {
@@ -27,6 +35,10 @@ function getTaskId(task) {
   return String(task?.id || task?.taskId || '').trim();
 }
 
+function getManualMapUrl(pageInstance) {
+  return resolveActivityMapUrl(pageInstance?.manualActivityMap);
+}
+
 function getRuntimeIds(pageInstance) {
   let courseId = '';
   let lessonId = '';
@@ -34,13 +46,10 @@ function getRuntimeIds(pageInstance) {
 
   try {
     const params = new URLSearchParams(window.location.search);
-
     courseId = params.get('course') || '';
     lessonId = params.get('lesson') || '';
     pageId = params.get('page') || '';
-  } catch {
-    // Ignore and use pageInstance fallback below.
-  }
+  } catch {}
 
   return {
     courseId: courseId || pageInstance?.courseId || pageInstance?.course?.id || pageInstance?.course || '',
@@ -51,8 +60,11 @@ function getRuntimeIds(pageInstance) {
 
 function getSessionId() {
   try {
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY);
+    const params = new URLSearchParams(window.location.search);
+    const qSession = params.get('sessionId') || params.get('session');
+    if (qSession) return qSession;
 
+    const existing = localStorage.getItem(SESSION_STORAGE_KEY) || localStorage.getItem('lms-session-id');
     if (existing) return existing;
 
     const next =
@@ -67,8 +79,20 @@ function getSessionId() {
   }
 }
 
-function getStates(task) {
-  return Array.isArray(task?.states) ? task.states : [];
+function getUserId() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    return (
+      params.get('userId') ||
+      params.get('studentEmail') ||
+      params.get('email') ||
+      localStorage.getItem('lms_student_email') ||
+      sessionStorage.getItem('lms_student_email') ||
+      'student@algo.edu.vn'
+    );
+  } catch {
+    return 'student@algo.edu.vn';
+  }
 }
 
 function getImageSrc(image) {
@@ -88,7 +112,6 @@ function getImageSrc(image) {
 
 function normalizeImage(image) {
   const src = getImageSrc(image);
-
   if (!src) return null;
 
   if (typeof image === 'string') {
@@ -107,43 +130,6 @@ function normalizeImage(image) {
     width: image.naturalWidth || image.width || image.rect?.w || 0,
     height: image.naturalHeight || image.height || image.rect?.h || 0,
   };
-}
-
-function getUniqueImages(task) {
-  const images = [];
-
-  getStates(task).forEach((state) => {
-    (state.images || []).forEach((image) => {
-      const normalized = normalizeImage(image);
-
-      if (!normalized?.src) return;
-      if (normalized.width < 80 && normalized.height < 80) return;
-
-      images.push(normalized);
-    });
-  });
-
-  const seen = new Set();
-
-  return images.filter((image) => {
-    if (seen.has(image.src)) return false;
-
-    seen.add(image.src);
-    return true;
-  });
-}
-
-function getBestImage(task) {
-  const images = getUniqueImages(task);
-
-  if (!images.length) return null;
-
-  return [...images].sort((a, b) => {
-    const areaA = Number(a.width || 0) * Number(a.height || 0);
-    const areaB = Number(b.width || 0) * Number(b.height || 0);
-
-    return areaB - areaA;
-  })[0];
 }
 
 function normalizeDraggable(item, index) {
@@ -178,7 +164,7 @@ function normalizeDraggable(item, index) {
 }
 
 function normalizeDraggables(values = []) {
-  return values.map(normalizeDraggable).filter((item) => item.id && item.label);
+  return values.map(normalizeDraggable).filter((item) => item.id && (item.label || item.imageSrc));
 }
 
 function normalizeDropzone(zone, index) {
@@ -196,37 +182,10 @@ function normalizeDropzone(zone, index) {
   const id = String(zone?.id || zone?.key || `zone-${index + 1}`).trim();
   const acceptsList = accepts.filter(Boolean).map(String);
 
-  let x = Number(zone?.x ?? zone?.left ?? 0);
-  let y = Number(zone?.y ?? zone?.top ?? 0);
-  let w = Number(zone?.w ?? zone?.width ?? 20);
-  let h = Number(zone?.h ?? zone?.height ?? 10);
-
-  if (id === 'zone-toolbar' || acceptsList.includes('toolbar')) {
-    x = 70;
-    y = 8;
-    w = 26;
-    h = 11;
-  } else if (id === 'zone-working-window' || acceptsList.includes('working-window')) {
-    x = 35;
-    y = 28.5;
-    w = 26.5;
-    h = 12;
-  } else if (id === 'zone-explorer' || acceptsList.includes('explorer')) {
-    x = 66;
-    y = 50;
-    w = 30.5;
-    h = 12.5;
-  } else if (id === 'zone-toolbox' || acceptsList.includes('toolbox')) {
-    x = -1;
-    y = 71.5;
-    w = 28.5;
-    h = 14.5;
-  } else if (id === 'zone-properties' || acceptsList.includes('properties')) {
-    x = 52;
-    y = 76;
-    w = 30.5;
-    h = 13.5;
-  }
+  const x = Number(zone?.x ?? zone?.left ?? 0);
+  const y = Number(zone?.y ?? zone?.top ?? 0);
+  const w = Number(zone?.w ?? zone?.width ?? 20);
+  const h = Number(zone?.h ?? zone?.height ?? 10);
 
   return {
     ...zone,
@@ -244,214 +203,86 @@ function normalizeDropzones(values = []) {
   return values.map(normalizeDropzone).filter((zone) => zone.id);
 }
 
-function findItemByLabel(draggables, label) {
-  const key = normalizeKey(label);
-  return draggables.find((item) => normalizeKey(item.label) === key);
+function getConfigFromTask(task, pageInstance) {
+  const taskId = getTaskId(task);
+  return (
+    task?.imageDropzones ||
+    task?.imageAssembly ||
+    task?.diagramDropzones ||
+    (taskId ? pageInstance?.taskRenderers?.[taskId]?.imageDropzones : null) ||
+    (taskId ? pageInstance?.taskRenderers?.[taskId]?.imageAssembly : null) ||
+    (task?.matchingDragdrop?.mode === 'image-drop' ? task.matchingDragdrop : null) ||
+    null
+  );
 }
 
-function buildDefaultDropzones(draggables) {
-  const toolbar = findItemByLabel(draggables, 'Toolbar');
-  const toolbox = findItemByLabel(draggables, 'Toolbox');
-  const explorer = findItemByLabel(draggables, 'Explorer');
-  const workingWindow = findItemByLabel(draggables, 'Working window');
-  const properties = findItemByLabel(draggables, 'Properties');
-
-  const play = findItemByLabel(draggables, 'Play');
-  const color = findItemByLabel(draggables, 'Color');
-  const scale = findItemByLabel(draggables, 'Scale');
-  const move = findItemByLabel(draggables, 'Move');
-
-  const zones = [];
-
-  if (toolbar) {
-    zones.push({
-      id: 'zone-toolbar',
-      label: 'Toolbar',
-      accepts: [toolbar.id],
-      x: 70,
-      y: 8,
-      w: 26,
-      h: 11,
-    });
-  }
-
-  if (workingWindow) {
-    zones.push({
-      id: 'zone-working-window',
-      label: 'Working window',
-      accepts: [workingWindow.id],
-      x: 35,
-      y: 28.5,
-      w: 26,
-      h: 12,
-    });
-  }
-
-  if (explorer) {
-    zones.push({
-      id: 'zone-explorer',
-      label: 'Explorer',
-      accepts: [explorer.id],
-      x: 67,
-      y: 48,
-      w: 30,
-      h: 11,
-    });
-  }
-
-  if (toolbox) {
-    zones.push({
-      id: 'zone-toolbox',
-      label: 'Toolbox',
-      accepts: [toolbox.id],
-      x: -1.5,
-      y: 62,
-      w: 28,
-      h: 14,
-    });
-  }
-
-  if (properties) {
-    zones.push({
-      id: 'zone-properties',
-      label: 'Properties',
-      accepts: [properties.id],
-      x: 52,
-      y: 72,
-      w: 30.5,
-      h: 13,
-    });
-  }
-
-  if (play) {
-    zones.push({
-      id: 'zone-play',
-      label: 'Play',
-      accepts: [play.id],
-      x: 7,
-      y: 12,
-      w: 13,
-      h: 18,
-    });
-  }
-
-  if (color) {
-    zones.push({
-      id: 'zone-color',
-      label: 'Color',
-      accepts: [color.id],
-      x: 7,
-      y: 43,
-      w: 13,
-      h: 18,
-    });
-  }
-
-  if (scale) {
-    zones.push({
-      id: 'zone-scale',
-      label: 'Scale',
-      accepts: [scale.id],
-      x: 64,
-      y: 12,
-      w: 6,
-      h: 12,
-    });
-  }
-
-  if (move) {
-    zones.push({
-      id: 'zone-move',
-      label: 'Move',
-      accepts: [move.id],
-      x: 72,
-      y: 12,
-      w: 6,
-      h: 12,
-    });
-  }
-
-  return zones;
-}
-
-function getConfigFromTask(task) {
-  if (task?.imageDropzones) return task.imageDropzones;
-  if (task?.diagramDropzones) return task.diagramDropzones;
-  if (task?.renderer?.imageDropzones) return task.renderer.imageDropzones;
-  if (task?.renderer?.diagramDropzones) return task.renderer.diagramDropzones;
-
-  if (task?.matchingDragdrop?.mode === 'image-drop') {
-    return task.matchingDragdrop;
-  }
-
-  if (task?.renderer?.matchingDragdrop?.mode === 'image-drop') {
-    return task.renderer.matchingDragdrop;
-  }
-
-  return {};
-}
-
-function getConfiguredImage(config, task) {
-  const manualImage =
-    config.backgroundImage ||
-    config.image ||
-    config.background ||
-    config.src ||
-    '';
-
-  const normalized = normalizeImage(manualImage);
-
-  if (normalized?.src) return normalized;
-
-  return getBestImage(task);
-}
-
-function buildData(task) {
-  const config = getConfigFromTask(task);
+function buildData(task, config = {}) {
+  const safeConfig = config || {};
 
   const title =
-    config.title ||
-    config.prompt ||
-    '';
+    safeConfig.title ||
+    safeConfig.prompt ||
+    task?.title ||
+    'Part 1. My correct solution';
 
   const prompt =
-    config.prompt ||
-    config.question ||
+    safeConfig.prompt ||
+    safeConfig.question ||
     task?.question ||
-    title;
+    'Put together according to the sample';
 
   const draggables = normalizeDraggables(
-    config.draggables ||
-    config.items ||
-    config.choices ||
+    safeConfig.draggables ||
+    safeConfig.items ||
+    safeConfig.choices ||
     [],
   );
 
-  const configuredDropzones = normalizeDropzones(
-    config.dropzones ||
-    config.zones ||
-    config.targets ||
+  const dropzones = normalizeDropzones(
+    safeConfig.dropzones ||
+    safeConfig.zones ||
+    safeConfig.targets ||
     [],
   );
 
-  const dropzones = configuredDropzones.length
-    ? configuredDropzones
-    : buildDefaultDropzones(draggables);
+  const sampleImage = getImageSrc(
+    safeConfig.sampleImage ||
+    safeConfig.sample ||
+    safeConfig.templateImage ||
+    safeConfig.referenceImage ||
+    ''
+  );
+
+  const backgroundImage = normalizeImage(
+    safeConfig.backgroundImage ||
+    safeConfig.background ||
+    safeConfig.image ||
+    safeConfig.src ||
+    ''
+  );
+
+  const isAssembly = Boolean(
+    sampleImage ||
+    safeConfig.layout === 'assembly' ||
+    safeConfig.variant === 'assembly'
+  );
 
   return {
     title,
     prompt,
-    helperText: config.helperText || '',
-    image: getConfiguredImage(config, task),
+    helperText: safeConfig.helperText || '',
+    attempt: safeConfig.attempt || 'Attempt: 1/2',
+    sampleImage,
+    backgroundImage,
     draggables,
     dropzones,
-    variant: config.variant || '',
+    isAssembly,
+    variant: safeConfig.variant || (isAssembly ? 'assembly' : ''),
   };
 }
 
 function isPlacementCorrect(zone, itemId) {
   if (!itemId) return false;
-
   return zone.accepts.includes(itemId);
 }
 
@@ -464,13 +295,11 @@ function getInitialPlacements(dropzones) {
 
 function removeItemFromPlacements(placements, itemId) {
   const next = { ...placements };
-
   Object.entries(next).forEach(([zoneId, value]) => {
     if (value === itemId) {
       next[zoneId] = '';
     }
   });
-
   return next;
 }
 
@@ -482,7 +311,7 @@ function renderItemContent(item, imageClassName) {
       <img
         className={imageClassName}
         src={item.imageSrc}
-        alt={item.label}
+        alt={item.label || ''}
         draggable={false}
       />
     );
@@ -499,7 +328,6 @@ function sanitizePlacements(rawPlacements, dropzones, draggables) {
   const validItemIds = new Set(draggables.map((d) => d.id));
 
   const result = { ...initial };
-
   Object.entries(rawPlacements).forEach(([zoneId, itemId]) => {
     if (validZoneIds.has(zoneId) && validItemIds.has(itemId)) {
       result[zoneId] = itemId;
@@ -514,58 +342,120 @@ export default function ImageDropzonesTask({
   pageInstance,
   onPrevTask,
   onNextTask,
-  isTaskDone,
+  onTaskCompleted,
+  onTaskComplete,
+  isTaskDone = false,
 }) {
   const taskId = getTaskId(task);
+  const storageKey = `img-drop-${task?.id || taskId}`;
 
-  const data = useMemo(() => buildData(task), [task]);
+  const [manualConfig, setManualConfig] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setManualConfig(null);
+
+    const url = getManualMapUrl(pageInstance);
+    if (!url || !taskId) return undefined;
+
+    fetch(url)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((manualMap) => {
+        if (cancelled || !manualMap) return;
+        const manualTask = manualMap?.tasks?.[taskId] || null;
+        const nextConfig =
+          manualTask?.imageDropzones ||
+          manualTask?.imageAssembly ||
+          manualTask?.diagramDropzones ||
+          null;
+        setManualConfig(nextConfig);
+      })
+      .catch(() => {
+        if (!cancelled) setManualConfig(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pageInstance, taskId]);
+
+  const directConfig = getConfigFromTask(task, pageInstance);
+  const config = manualConfig || directConfig || {};
+
+  const data = useMemo(() => buildData(task, config), [task, config]);
 
   const [selectedItemId, setSelectedItemId] = useState('');
-  const [placements, setPlacements] = useState(() => {
-    const saved = loadLocalTaskState(taskId, null);
-    return sanitizePlacements(saved?.placements, data.dropzones, data.draggables);
-  });
-  const [status, setStatus] = useState(() => {
-    const saved = loadLocalTaskState(taskId, null);
-    return saved?.status || '';
-  });
-  const [checked, setChecked] = useState(() => {
-    const saved = loadLocalTaskState(taskId, null);
-    return Boolean(saved?.checked);
-  });
+  const [hoveredZoneId, setHoveredZoneId] = useState(null);
+  const [status, setStatus] = useState('');
+  const [hasError, setHasError] = useState(false);
   const [checking, setChecking] = useState(false);
 
-  useEffect(() => {
-    const saved = loadLocalTaskState(taskId, null);
+  // Placements state
+  const [placements, setPlacements] = useState(() => {
+    if (isTaskDone) {
+      const full = {};
+      data.dropzones.forEach((zone) => {
+        full[zone.id] = zone.accepts[0] || '';
+      });
+      return full;
+    }
+    const saved = loadLocalTaskState(storageKey, null);
+    return sanitizePlacements(saved?.placements, data.dropzones, data.draggables);
+  });
 
-    setPlacements(sanitizePlacements(saved?.placements, data.dropzones, data.draggables));
-    setStatus(saved?.status || '');
-    setChecked(Boolean(saved?.checked));
-    setSelectedItemId('');
-    setChecking(false);
-  }, [taskId, data.dropzones, data.draggables]);
+  // Sync state when data or isTaskDone changes
+  useEffect(() => {
+    if (!data.dropzones.length) return;
+
+    if (isTaskDone) {
+      const full = {};
+      data.dropzones.forEach((zone) => {
+        full[zone.id] = zone.accepts[0] || '';
+      });
+      setPlacements(full);
+      return;
+    }
+
+    const saved = loadLocalTaskState(storageKey, null);
+    if (saved?.placements) {
+      setPlacements(sanitizePlacements(saved.placements, data.dropzones, data.draggables));
+      setStatus(saved?.status || '');
+    } else {
+      setPlacements((prev) => {
+        const hasAny = Object.values(prev).some(Boolean);
+        return hasAny ? prev : getInitialPlacements(data.dropzones);
+      });
+    }
+  }, [isTaskDone, storageKey, data.dropzones, data.draggables]);
 
   useEffect(() => {
-    saveLocalTaskState(taskId, {
-      placements,
-      status,
-      checked,
-    });
-  }, [taskId, placements, status, checked]);
+    if (Object.keys(placements).length > 0) {
+      saveLocalTaskState(storageKey, {
+        placements,
+        status,
+      });
+    }
+  }, [storageKey, placements, status]);
 
   const placedItemIds = useMemo(
     () => new Set(Object.values(placements).filter(Boolean)),
     [placements],
   );
 
-  const availableItems = data.draggables.filter((item) => !placedItemIds.has(item.id));
+  const availableItems = useMemo(
+    () => data.draggables.filter((item) => !placedItemIds.has(item.id)),
+    [data.draggables, placedItemIds],
+  );
+
+  function getItemById(itemId) {
+    return data.draggables.find((item) => item.id === itemId) || null;
+  }
 
   function placeItem(zoneId, itemId) {
-    if (!zoneId || !itemId || checking) return;
+    if (!zoneId || !itemId || checking || isSolved) return;
 
     setPlacements((current) => {
       const withoutItem = removeItemFromPlacements(current, itemId);
-
       return {
         ...withoutItem,
         [zoneId]: itemId,
@@ -574,177 +464,185 @@ export default function ImageDropzonesTask({
 
     setSelectedItemId('');
     setStatus('');
-    setChecked(false);
+    setHasError(false);
   }
 
   function clearZone(zoneId) {
-    if (checking) return;
+    if (checking || isSolved) return;
 
     setPlacements((current) => ({
       ...current,
       [zoneId]: '',
     }));
     setStatus('');
-    setChecked(false);
+    setHasError(false);
   }
 
   function handleDrop(event, zoneId) {
     event.preventDefault();
+    setHoveredZoneId(null);
+    if (checking || isSolved) return;
 
-    if (checking) return;
+    let itemId = event.dataTransfer.getData('text/plain');
+    if (!itemId) {
+      try {
+        const parsed = JSON.parse(event.dataTransfer.getData('application/json'));
+        itemId = parsed?.itemId || '';
+      } catch {}
+    }
 
-    const itemId = event.dataTransfer.getData('text/plain');
-
-    placeItem(zoneId, itemId);
+    if (itemId) {
+      placeItem(zoneId, itemId);
+    }
   }
 
-  function handleDragStart(event, itemId) {
+  function handleDragStart(event, itemId, source = 'tray', fromZoneId = null) {
+    if (checking || isSolved) return;
     event.dataTransfer.setData('text/plain', itemId);
+    event.dataTransfer.setData('application/json', JSON.stringify({ itemId, source, fromZoneId }));
     event.dataTransfer.effectAllowed = 'move';
   }
 
   function handleZoneClick(zoneId) {
-    if (!selectedItemId || checking) return;
+    if (isSolved || checking) return;
 
-    placeItem(zoneId, selectedItemId);
+    if (selectedItemId) {
+      placeItem(zoneId, selectedItemId);
+    } else {
+      const existingItemId = placements[zoneId];
+      if (existingItemId) {
+        clearZone(zoneId);
+      }
+    }
   }
 
   function resetTask() {
     if (checking) return;
-
     setPlacements(getInitialPlacements(data.dropzones));
     setSelectedItemId('');
     setStatus('');
-    setChecked(false);
+    setHasError(false);
   }
 
-  async function submitAttemptToBackend() {
+  async function submitAttemptToBackend(currentPlacements) {
     if (!API_BASE_URL) return null;
 
     const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
+    const effectiveTaskId = String(task?.id || task?.taskId || taskId || 'task-3').trim();
+    if (!courseId || !lessonId || !pageId || !effectiveTaskId) return null;
 
-    if (!courseId || !lessonId || !pageId || !taskId) {
-      throw new Error('Missing courseId, lessonId, pageId, or taskId.');
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: getSessionId(),
+          userId: getUserId(),
+          courseId,
+          lessonId,
+          pageId,
+          taskId: effectiveTaskId,
+          activityType: 'image-dropzones-task',
+          answer: { placements: currentPlacements },
+          isCorrect: true,
+          score: 1,
+          maxScore: 1,
+        }),
+      });
+
+      return response.ok ? await response.json().catch(() => null) : null;
+    } catch {
+      return null;
     }
-
-    const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sessionId: getSessionId(),
-        courseId,
-        lessonId,
-        pageId,
-        taskId,
-        activityType: 'image-dropzones-task',
-        answer: {
-          placements,
-        },
-      }),
-    });
-
-    const payload = await response.json().catch(() => null);
-
-    if (!response.ok || !payload?.ok) {
-      throw new Error(payload?.error?.message || 'Could not submit answer.');
-    }
-
-    return payload;
   }
 
-  function triggerSuccess() {
+  function triggerSuccess(currentPlacements) {
+    const effectiveTaskId = String(task?.id || task?.taskId || taskId || 'task-3').trim();
+
     window.dispatchEvent(
       new CustomEvent('LMS_TASK_COMPLETED', {
-        detail: { taskId: task?.id || task?.taskId },
+        detail: { taskId: effectiveTaskId },
       })
     );
 
+    import('../utils/lmsSounds.js')
+      .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
+        playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
+      })
+      .catch(() => {});
+
+    const completionPayload = {
+      taskId: effectiveTaskId,
+      activityType: 'image-dropzones-task',
+      completionType: 'correct',
+      isCorrect: true,
+      score: 1,
+      maxScore: 1,
+      feedback: 'Correct!',
+      metadata: { placements: currentPlacements },
+    };
+
+    if (typeof onTaskCompleted === 'function') {
+      onTaskCompleted(completionPayload);
+    } else if (typeof onTaskComplete === 'function') {
+      onTaskComplete(completionPayload);
+    }
+
+    const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
+    import('../lib/supabaseProgress.js')
+      .then(({ saveTaskCompletionToSupabase }) => {
+        if (typeof saveTaskCompletionToSupabase === 'function' && courseId && lessonId && pageId) {
+          saveTaskCompletionToSupabase({
+            courseId,
+            lessonId,
+            pageId,
+            taskId: effectiveTaskId,
+            isCompleted: true,
+          }).catch(() => {});
+        }
+      })
+      .catch(() => {});
+
     if (onNextTask) {
-      setTimeout(onNextTask, 1000);
+      setTimeout(onNextTask, 1200);
     }
   }
 
-  async function checkTask() {
-    const hasAllAnswers = data.dropzones.every((zone) => placements[zone.id]);
+  function checkTask() {
+    if (checking) return;
 
-    if (!hasAllAnswers) {
-      setChecked(true);
-      setStatus('Try again');
+    const filledCount = data.dropzones.filter((zone) => Boolean(placements[zone.id])).length;
+    if (filledCount < data.dropzones.length) {
+      setStatus(`Please place all pieces onto the picture first (${filledCount}/${data.dropzones.length})`);
+      setHasError(true);
       return;
     }
 
     setChecking(true);
-    setStatus('Checking...');
 
-    try {
-      const payload = await submitAttemptToBackend();
+    const allCorrect = data.dropzones.every((zone) => {
+      const itemId = placements[zone.id];
+      return isPlacementCorrect(zone, itemId);
+    });
 
-      const allCorrect = data.dropzones.every((zone) => {
-        const itemId = placements[zone.id];
-        return isPlacementCorrect(zone, itemId);
-      });
-
-      if (!payload) {
-        setChecked(true);
-        setStatus(allCorrect ? 'Correct!' : 'Try again');
-        if (allCorrect) {
-          triggerSuccess();
-        }
-        return;
-      }
-
-      const result = payload.result || payload.attempt?.result || {};
-
-      setChecked(true);
-
-      if (result.isCorrect === true || payload.attempt?.isCorrect === true || allCorrect) {
-        setStatus('Correct!');
-        triggerSuccess();
-        return;
-      }
-
-      if (result.status === 'missing_answer_key') {
-        setStatus('Answer saved.');
-        if (allCorrect) {
-          triggerSuccess();
-        }
-        return;
-      }
-
-      if (result.status === 'incomplete') {
-        setStatus('Try again');
-        return;
-      }
-
-      if (result.feedback || payload.attempt?.feedback) {
-        setStatus(result.feedback || payload.attempt.feedback);
-        return;
-      }
-
-      setStatus('Try again');
-    } catch (error) {
-      console.error('[IMAGE_DROPZONES_SUBMIT_ERROR]', error);
-
-      const allCorrect = data.dropzones.every((zone) => {
-        const itemId = placements[zone.id];
-        return isPlacementCorrect(zone, itemId);
-      });
-
-      setChecked(true);
-      setStatus(allCorrect ? 'Correct!' : 'Try again');
-      if (allCorrect) {
-        triggerSuccess();
-      }
-    } finally {
-      setChecking(false);
+    if (allCorrect) {
+      setStatus('Correct!');
+      setHasError(false);
+      triggerSuccess(placements);
+      submitAttemptToBackend(placements);
+    } else {
+      setStatus('Almost there! Try again.');
+      setHasError(true);
     }
+
+    setChecking(false);
   }
 
-  function getItemById(itemId) {
-    return data.draggables.find((item) => item.id === itemId) || null;
-  }
+  const isSolved = Boolean(
+    isTaskDone ||
+    (data.dropzones.length > 0 &&
+      data.dropzones.every((zone) => isPlacementCorrect(zone, placements[zone.id])))
+  );
 
   return (
     <LmsActivityFrame
@@ -757,127 +655,257 @@ export default function ImageDropzonesTask({
       isCheckDisabled={checking}
       isResetDisabled={checking}
       isCheckLoading={checking}
-      isTaskDone={isTaskDone}
+      isTaskDone={isSolved}
     >
-      <article className={`image-dropzones-task ${data.variant ? `is-${data.variant}` : ''}`}>
-        <section className="image-dropzones-card">
-
-
-          <h1 className="image-dropzones-title">{data.prompt}</h1>
-
-          {data.helperText && (
-            <p className="image-dropzones-helper">{data.helperText}</p>
-          )}
-
-          <div className="image-dropzones-layout">
-            <aside className="image-dropzones-sidebar">
-              {availableItems.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={`image-dropzones-draggable${
-                    selectedItemId === item.id ? ' is-selected' : ''
-                  }${item.imageSrc ? ' has-image' : ''}`}
-                  draggable={!checking}
-                  disabled={checking}
-                  onClick={() => {
-                    if (checking) return;
-                    setSelectedItemId((current) => (current === item.id ? '' : item.id));
-                  }}
-                  onDragStart={(event) => handleDragStart(event, item.id)}
-                  title={item.label}
-                >
-                  {renderItemContent(item, 'image-dropzones-draggable-image')}
-                </button>
-              ))}
-
-              {!availableItems.length && (
-                <div className="image-dropzones-empty">
-                  All answers placed
-                </div>
-              )}
-            </aside>
-
-            <div className="image-dropzones-image-area">
-              {data.image?.src ? (
-                <div className="image-dropzones-image-shell">
-                  <img
-                    className="image-dropzones-image"
-                    src={data.image.src}
-                    alt={data.image.alt || ''}
-                    draggable={false}
-                  />
-
-                  {data.dropzones.map((zone) => {
-                    const placedItem = getItemById(placements[zone.id]);
-
-                    return (
-                      <button
-                        key={zone.id}
-                        type="button"
-                        className={[
-                          'image-dropzones-zone',
-                          placedItem ? 'has-item' : '',
-                          placedItem?.imageSrc ? 'has-image-item' : '',
-                          selectedItemId ? 'is-ready' : '',
-                        ].filter(Boolean).join(' ')}
-                        style={{
-                          left: `${zone.x}%`,
-                          top: `${zone.y}%`,
-                          width: `${zone.w}%`,
-                          height: `${zone.h}%`,
-                        }}
-                        onClick={() => handleZoneClick(zone.id)}
-                        onDragOver={(event) => event.preventDefault()}
-                        onDrop={(event) => handleDrop(event, zone.id)}
-                        disabled={checking}
-                      >
-                        {placedItem ? (
-                          <span
-                            className="image-dropzones-placed"
-                            draggable={!checking}
-                            onDragStart={(event) => handleDragStart(event, placedItem.id)}
-                          >
-                            {renderItemContent(placedItem, 'image-dropzones-placed-image')}
-                          </span>
-                        ) : (
-                          <span className="image-dropzones-zone-placeholder">
-                            Drop here
-                          </span>
-                        )}
-
-                        {placedItem && (
-                          <span
-                            role="button"
-                            tabIndex={0}
-                            className="image-dropzones-clear"
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              clearZone(zone.id);
-                            }}
-                            onKeyDown={(event) => {
-                              if (event.key === 'Enter' || event.key === ' ') {
-                                event.preventDefault();
-                                clearZone(zone.id);
-                              }
-                            }}
-                          >
-                            ×
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="image-dropzones-no-image">
-                  No background image found.
-                </div>
+      {data.isAssembly ? (
+        /* Image Assembly Puzzle Mode */
+        <article className="image-assembly-task">
+          {/* Header */}
+          <header className="image-assembly-header">
+            <div className="image-assembly-title-row">
+              <h1 className={`image-assembly-title ${isSolved ? 'is-solved' : ''}`}>
+                {isSolved && (
+                  <span className="image-assembly-check-badge">✓</span>
+                )}
+                {data.title}
+              </h1>
+              {data.attempt && (
+                <span className="image-assembly-attempt">{data.attempt}</span>
               )}
             </div>
+            <p className="image-assembly-instruction">{data.prompt}</p>
+          </header>
+
+          {/* Sample Target Image */}
+          {data.sampleImage && (
+            <div className="image-assembly-sample-container">
+              <img
+                className="image-assembly-sample-img"
+                src={data.sampleImage}
+                alt="Sample target"
+                draggable={false}
+              />
+            </div>
+          )}
+
+          {/* Working Canvas with Background and Dropzones */}
+          <div
+            className={`image-assembly-canvas-wrapper ${isSolved ? 'is-solved' : ''} ${hasError ? 'is-error' : ''}`}
+          >
+            {data.backgroundImage?.src ? (
+              <div
+                className="image-assembly-canvas"
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <img
+                  className="image-assembly-bg-img"
+                  src={data.backgroundImage.src}
+                  alt={data.backgroundImage.alt || ''}
+                  draggable={false}
+                />
+
+                {/* Dropzones overlaid on canvas */}
+                {data.dropzones.map((zone) => {
+                  const placedItem = getItemById(placements[zone.id]);
+                  const isHovered = hoveredZoneId === zone.id;
+
+                  return (
+                    <div
+                      key={zone.id}
+                      className={[
+                        'image-assembly-zone',
+                        placedItem ? 'has-item' : 'is-empty',
+                        selectedItemId ? 'is-ready' : '',
+                        isHovered ? 'is-hovered' : '',
+                      ].filter(Boolean).join(' ')}
+                      style={{
+                        left: `${zone.x}%`,
+                        top: `${zone.y}%`,
+                        width: `${zone.w}%`,
+                        height: `${zone.h}%`,
+                      }}
+                      onClick={() => handleZoneClick(zone.id)}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setHoveredZoneId(zone.id);
+                      }}
+                      onDragLeave={() => setHoveredZoneId(null)}
+                      onDrop={(e) => handleDrop(e, zone.id)}
+                      title={placedItem ? `Click to remove ${placedItem.label}` : zone.label}
+                    >
+                      {placedItem ? (
+                        <div
+                          className="image-assembly-placed-item"
+                          draggable={!isSolved}
+                          onDragStart={(e) => handleDragStart(e, placedItem.id, 'zone', zone.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            clearZone(zone.id);
+                          }}
+                        >
+                          <img
+                            src={placedItem.imageSrc}
+                            alt={placedItem.label || ''}
+                            draggable={false}
+                          />
+                          {!isSolved && (
+                            <span
+                              className="image-assembly-remove-btn"
+                              title="Remove"
+                            >
+                              ×
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="image-assembly-placeholder" />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="image-dropzones-no-image">No background image found.</div>
+            )}
           </div>
-        </section>
-      </article>
+
+          {/* Draggable Sprites Tray */}
+          <div className="image-assembly-tray-wrapper">
+            <div className="image-assembly-tray">
+              {data.draggables.map((item) => {
+                const isPlaced = placedItemIds.has(item.id);
+                const isSelected = selectedItemId === item.id;
+
+                return (
+                  <div
+                    key={item.id}
+                    className={[
+                      'image-assembly-tray-card',
+                      isPlaced ? 'is-placed' : 'is-available',
+                      isSelected ? 'is-selected' : '',
+                    ].filter(Boolean).join(' ')}
+                    draggable={!isPlaced && !isSolved}
+                    onDragStart={(e) => handleDragStart(e, item.id, 'tray')}
+                    onClick={() => {
+                      if (isSolved || isPlaced) return;
+                      setSelectedItemId((curr) => (curr === item.id ? '' : item.id));
+                    }}
+                    title={isPlaced ? `${item.label} (already placed)` : `Click or drag ${item.label}`}
+                  >
+                    <div className="image-assembly-tray-img-box">
+                      <img src={item.imageSrc} alt={item.label || ''} draggable={false} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </article>
+      ) : (
+        /* Legacy Diagram Labeling Mode */
+        <article className={`image-dropzones-task ${data.variant ? `is-${data.variant}` : ''}`}>
+          <section className="image-dropzones-card">
+            <h1 className="image-dropzones-title">{data.prompt}</h1>
+            {data.helperText && <p className="image-dropzones-helper">{data.helperText}</p>}
+
+            <div className="image-dropzones-layout">
+              <aside className="image-dropzones-sidebar">
+                {availableItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`image-dropzones-draggable${
+                      selectedItemId === item.id ? ' is-selected' : ''
+                    }${item.imageSrc ? ' has-image' : ''}`}
+                    draggable={!checking}
+                    disabled={checking}
+                    onClick={() => {
+                      if (checking) return;
+                      setSelectedItemId((current) => (current === item.id ? '' : item.id));
+                    }}
+                    onDragStart={(event) => handleDragStart(event, item.id)}
+                    title={item.label}
+                  >
+                    {renderItemContent(item, 'image-dropzones-draggable-image')}
+                  </button>
+                ))}
+
+                {!availableItems.length && (
+                  <div className="image-dropzones-empty">All answers placed</div>
+                )}
+              </aside>
+
+              <div className="image-dropzones-image-area">
+                {data.backgroundImage?.src ? (
+                  <div className="image-dropzones-image-shell">
+                    <img
+                      className="image-dropzones-image"
+                      src={data.backgroundImage.src}
+                      alt={data.backgroundImage.alt || ''}
+                      draggable={false}
+                    />
+
+                    {data.dropzones.map((zone) => {
+                      const placedItem = getItemById(placements[zone.id]);
+
+                      return (
+                        <button
+                          key={zone.id}
+                          type="button"
+                          className={[
+                            'image-dropzones-zone',
+                            placedItem ? 'has-item' : '',
+                            placedItem?.imageSrc ? 'has-image-item' : '',
+                            selectedItemId ? 'is-ready' : '',
+                          ].filter(Boolean).join(' ')}
+                          style={{
+                            left: `${zone.x}%`,
+                            top: `${zone.y}%`,
+                            width: `${zone.w}%`,
+                            height: `${zone.h}%`,
+                          }}
+                          onClick={() => handleZoneClick(zone.id)}
+                          onDragOver={(event) => event.preventDefault()}
+                          onDrop={(event) => handleDrop(event, zone.id)}
+                          disabled={checking}
+                        >
+                          {placedItem ? (
+                            <span
+                              className="image-dropzones-placed"
+                              draggable={!checking}
+                              onDragStart={(event) => handleDragStart(event, placedItem.id)}
+                            >
+                              {renderItemContent(placedItem, 'image-dropzones-placed-image')}
+                            </span>
+                          ) : (
+                            <span className="image-dropzones-zone-placeholder">Drop here</span>
+                          )}
+
+                          {placedItem && (
+                            <span
+                              role="button"
+                              tabIndex={0}
+                              className="image-dropzones-clear"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                clearZone(zone.id);
+                              }}
+                            >
+                              ×
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="image-dropzones-no-image">No background image found.</div>
+                )}
+              </div>
+            </div>
+          </section>
+        </article>
+      )}
     </LmsActivityFrame>
   );
 }
