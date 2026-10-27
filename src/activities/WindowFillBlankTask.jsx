@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import './WindowFillBlankTask.css';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   getUniqueImages,
   loadLocalTaskState,
@@ -368,8 +369,7 @@ export default function WindowFillBlankTask({
     const allCorrect = Object.values(nextResults).every(Boolean);
 
     if (allCorrect) {
-      setStatus('Correct!');
-      triggerSuccess();
+      setStatus('Looks correct locally, but not saved on the backend.');
     } else {
       setStatus('A mistake has been made! Try again.');
     }
@@ -402,21 +402,25 @@ export default function WindowFillBlankTask({
       throw new Error('Missing courseId, lessonId, pageId, or taskId.');
     }
 
+    const studentEmail = sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') || '';
+    const accessToken = sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token') || '';
+    const { headers, payload: attemptPayload } = buildAuthenticatedActivityAttempt({
+      studentEmail,
+      accessToken,
+      courseId,
+      lessonId,
+      pageId,
+      taskId,
+      activityType: 'window-fill-blank-task',
+      answer: getAnswerPayload(),
+    });
     const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sessionId: getSessionId(),
-        courseId,
-        lessonId,
-        pageId,
-        taskId,
-        activityType: 'window-fill-blank-task',
-        answer: getAnswerPayload(),
-      }),
-    });
+      headers,
+      body: JSON.stringify(attemptPayload),
+    });;
 
     const payload = await response.json().catch(() => null);
 
@@ -486,14 +490,14 @@ export default function WindowFillBlankTask({
       const payload = await submitAttemptToBackend();
 
       if (!payload) {
-        runLocalCheck();
+        setStatus('Answer was not saved on the backend. Please try again.');
         return;
       }
 
       applyBackendResult(payload);
     } catch (error) {
       console.error('[WINDOW_FILL_BLANK_SUBMIT_ERROR]', error);
-      runLocalCheck();
+      setStatus('Answer was not saved on the backend. Please try again.');
     } finally {
       setChecking(false);
     }
