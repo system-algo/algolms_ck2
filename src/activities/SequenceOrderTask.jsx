@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import './SequenceOrderTask.css';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   getUniqueImages,
   loadLocalTaskState,
@@ -8,15 +9,15 @@ import {
   resolveActivityMapUrl,
 } from '../lib/taskExtractors.js';
 
-const API_BASE_URL = String(
-  import.meta.env.VITE_API_BASE_URL ||
-  import.meta.env.VITE_API_URL ||
-  localStorage.getItem('lms_backend_url') ||
-  sessionStorage.getItem('lms_backend_url') ||
-  ''
-).replace(/\/+$/, '');
-
-const SESSION_STORAGE_KEY = 'algolms_session_id';
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL ||
+      import.meta.env.VITE_API_URL ||
+      sessionStorage.getItem('lms_backend_url') ||
+      localStorage.getItem('lms_backend_url') ||
+      ''
+  ).trim().replace(/\/+$/, '');
+}
 
 function normalizeText(value) {
   return String(value || '')
@@ -52,42 +53,6 @@ function getRuntimeIds(pageInstance) {
   };
 }
 
-function getSessionId() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const qSession = params.get('sessionId') || params.get('session');
-    if (qSession) return qSession;
-
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY) || localStorage.getItem('lms-session-id');
-    if (existing) return existing;
-
-    const next =
-      typeof crypto !== 'undefined' && crypto.randomUUID
-        ? crypto.randomUUID()
-        : `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-    localStorage.setItem(SESSION_STORAGE_KEY, next);
-    return next;
-  } catch {
-    return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
-}
-
-function getUserId() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    return (
-      params.get('userId') ||
-      params.get('studentEmail') ||
-      params.get('email') ||
-      localStorage.getItem('lms_student_email') ||
-      sessionStorage.getItem('lms_student_email') ||
-      'student@algo.edu.vn'
-    );
-  } catch {
-    return 'student@algo.edu.vn';
-  }
-}
 
 function collectTextLines(value, output = [], depth = 0) {
   if (depth > 12 || value == null) return output;
@@ -438,37 +403,76 @@ export default function SequenceOrderTask({
   }
 
   async function submitAttemptToBackend(submittedOrder) {
-    if (!API_BASE_URL) return null;
+    const apiBaseUrl = getBackendBaseUrl();
+    if (!apiBaseUrl) {
+      throw new Error('LMS backend URL is not configured.');
+    }
 
     const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
-    const effectiveCourseId = courseId || 'CK';
+    const studentEmail =
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') ||
+      '';
+    const accessToken =
+      sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token') ||
+      '';
     const effectiveTaskId = String(task?.id || task?.taskId || taskId || '').trim();
+    const { headers, payload } = buildAuthenticatedActivityAttempt({
+      accessToken,
+      studentEmail,
+      courseId: courseId || 'CK',
+      lessonId,
+      pageId,
+      taskId: effectiveTaskId,
+      activityType: 'sequence-order-task',
+      answer: {
+        itemOrder: submittedOrder,
+        order: submittedOrder,
+      },
+      extra: { isCorrect: true, score: 1, maxScore: 1 },
+    });
 
+    const response = await fetch(`${apiBaseUrl}/api/activity-attempts`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      const responseText = await response.text();
+      throw new Error(`HTTP ${response.status}: ${responseText.slice(0, 300)}`);
+    }
+    const saved = await response.json();
+    if (saved?.ok !== true) {
+      throw new Error('Backend did not confirm the sequence answer was saved.');
+    }
+    // Require official grading, not just a frontend isCorrect flag.
+    // If an answer key is missing or the server disagrees, preserve the
+    // submitted order for retry instead of marking the task completed.
+    if (saved?.result?.isCorrect !== true) {
+      throw new Error(
+        `Server did not grade the answer correct: ${saved?.result?.status || 'unknown'}`
+      );
+    }
+    return saved;
+  }
+
+  async function saveAndMarkCompleted(submittedOrder) {
+    if (checking) return;
+    setChecking(true);
+    setStatus('Saving your answer...');
+    setHasError(false);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionId: getSessionId(),
-          userId: getUserId(),
-          courseId: effectiveCourseId,
-          lessonId: lessonId || '',
-          pageId: pageId || '',
-          taskId: effectiveTaskId,
-          activityType: 'sequence-order-task',
-          answer: {
-            itemOrder: submittedOrder,
-            order: submittedOrder,
-          },
-          isCorrect: true,
-          score: 1,
-          maxScore: 1,
-        }),
-      });
-
-      return response.ok ? await response.json().catch(() => null) : null;
-    } catch {
-      return null;
+      await submitAttemptToBackend(submittedOrder);
+      setStatus('Correct!');
+      setHasError(false);
+      triggerSuccess(submittedOrder);
+    } catch (error) {
+      console.warn('[SequenceOrderTask] Could not save CK2 sequence answer:', error);
+      setStatus('Could not save or verify your answer. Please try again.');
+      setHasError(true);
+    } finally {
+      setChecking(false);
     }
   }
 
@@ -553,6 +557,7 @@ export default function SequenceOrderTask({
   }
 
   function checkImageSequence() {
+    if (checking) return;
     const filledCount = imageSlots.filter(Boolean).length;
     if (filledCount < initialItems.length) {
       setStatus(`Please place all pictures in order before checking. (${filledCount}/${initialItems.length})`);
@@ -564,10 +569,7 @@ export default function SequenceOrderTask({
     const isCorrect = currentOrderIds.every((id, idx) => id === correctOrderIds[idx]);
 
     if (isCorrect) {
-      setStatus('Correct!');
-      setHasError(false);
-      triggerSuccess(currentOrderIds);
-      submitAttemptToBackend(currentOrderIds);
+      void saveAndMarkCompleted(currentOrderIds);
     } else {
       setStatus('A mistake has been made! Try again.');
       setHasError(true);
@@ -606,15 +608,14 @@ export default function SequenceOrderTask({
   }
 
   function checkTextSequence() {
-    if (!textItems.length) return;
-    setChecking(true);
+    if (checking || !textItems.length) return;
     const isCorrect = sameOrderById(textItems, correctOrderIds);
-    setStatus(isCorrect ? 'Correct!' : 'A mistake has been made! Try again.');
     if (isCorrect) {
-      triggerSuccess(textItems.map((it) => it.id));
-      submitAttemptToBackend(textItems.map((it) => it.id));
+      void saveAndMarkCompleted(textItems.map((it) => it.id));
+    } else {
+      setStatus('A mistake has been made! Try again.');
+      setHasError(true);
     }
-    setChecking(false);
   }
 
   function resetTextSequence() {
@@ -623,12 +624,8 @@ export default function SequenceOrderTask({
     setResults({});
   }
 
-  const isSolved = Boolean(
-    isTaskDone ||
-    (isImageSequence &&
-      imageSlots.filter(Boolean).length === initialItems.length &&
-      imageSlots.every((s, i) => s?.id === correctOrderIds[i]))
-  );
+  // Correct placement alone is not proof that Supabase persisted the answer.
+  const isSolved = Boolean(isTaskDone || (status === 'Correct!' && !hasError));
 
   return (
     <LmsActivityFrame
