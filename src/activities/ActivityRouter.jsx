@@ -13,6 +13,7 @@ import MatchingConnectTask from './MatchingConnectTask.jsx';
 import McqCheckboxTask from './McqCheckboxTask.jsx';
 import ProjectChecklistTask from './ProjectChecklistTask.jsx';
 import SequenceOrderTask from './SequenceOrderTask.jsx';
+import SceneClassificationTask from './SceneClassificationTask.jsx';
 import ToolLabelDragdropTask from './ToolLabelDragdropTask.jsx';
 import FeedbackTask from './FeedbackTask.jsx';
 import LessonFinishTask from './LessonFinishTask.jsx';
@@ -670,6 +671,17 @@ function normalizeRendererType(value) {
     'matching-lines': 'matching-connect',
     'matching-lines-task': 'matching-connect',
 
+    scene_classification: 'scene-classification-task',
+    scene_classification_task: 'scene-classification-task',
+    sceneclassification: 'scene-classification-task',
+    sceneclassificationtask: 'scene-classification-task',
+    scene_dragdrop: 'scene-classification-task',
+    scene_dragdrop_task: 'scene-classification-task',
+    'scene-classification': 'scene-classification-task',
+    'scene-classification-task': 'scene-classification-task',
+    'scene-dragdrop': 'scene-classification-task',
+    'scene-dragdrop-task': 'scene-classification-task',
+
     matching: 'matching-dragdrop',
     matching_dragdrop_task: 'matching-dragdrop',
     matching_dragdrop: 'matching-dragdrop',
@@ -867,6 +879,15 @@ function resolveRendererType({ pageInstance, task, state }) {
   const stateSelected = normalizeRendererType(state?.selectedType || state?.manualSelectedType);
   if (stateSelected && stateSelected !== 'generic-captured-task') {
     return stateSelected;
+  }
+
+  if (
+    task?.sceneClassification ||
+    task?.scenesTask ||
+    task?.scenes ||
+    task?.renderer?.sceneClassification
+  ) {
+    return 'scene-classification-task';
   }
 
   if (
@@ -1354,6 +1375,10 @@ export default function ActivityRouter(props) {
 
   if (rendererType === 'youtube-embed-task') {
     return <YoutubeEmbedTask key={taskKey} {...effectiveProps} task={nextTask} />;
+  }
+
+  if (rendererType === 'scene-classification-task') {
+    return <SceneClassificationTask key={taskKey} {...effectiveProps} task={nextTask} />;
   }
 
   if (rendererType === 'sequence-order-task') {

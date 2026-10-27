@@ -1,0 +1,298 @@
+/* ==========================================================================
+   Scene Classification Task (Algorithmics LMS)
+   ========================================================================== */
+
+.scene-classification-task {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: 8px 16px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+/* Header */
+.scene-classification-header {
+  width: 100%;
+  text-align: left;
+}
+
+.scene-classification-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.scene-classification-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scene-classification-title.is-solved {
+  color: #16a34a;
+}
+
+.scene-classification-check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.scene-classification-attempt {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.scene-classification-instruction {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Top Sprite Pool */
+.scene-classification-pool-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scene-classification-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-sizing: border-box;
+}
+
+.scene-classification-sprite-card {
+  width: 52px;
+  height: 52px;
+  padding: 4px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.scene-classification-sprite-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  border-color: #94a3b8;
+}
+
+.scene-classification-sprite-card:active {
+  cursor: grabbing;
+}
+
+.scene-classification-sprite-card.is-selected {
+  outline: 3px solid #3b82f6;
+  background: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.scene-classification-sprite-card img {
+  max-width: 44px;
+  max-height: 44px;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+/* Horizontal Divider */
+.scene-classification-divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 4px 0 6px;
+}
+
+/* Bottom 4 Scene Columns */
+.scene-classification-scenes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scene-classification-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.scene-classification-scene-preview {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  background: #000000;
+  box-sizing: border-box;
+}
+
+.scene-classification-scene-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Drop Box */
+.scene-classification-drop-box {
+  min-height: 170px;
+  background: #ffffff;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.scene-classification-drop-box.can-drop {
+  border-color: #93c5fd;
+  background: #f8fafc;
+}
+
+.scene-classification-drop-box.is-hovered {
+  border: 2px solid #3b82f6;
+  background: #eff6ff;
+  transform: scale(1.01);
+}
+
+.scene-classification-drop-box.is-solved {
+  border: 2px solid #22c55e !important;
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.12);
+}
+
+.scene-classification-drop-box.is-error {
+  border: 2px solid #ef4444;
+  background: rgba(239, 68, 68, 0.02);
+}
+
+.scene-classification-drop-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  padding: 16px 8px;
+  user-select: none;
+}
+
+/* Placed Sprites inside Box */
+.scene-classification-placed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scene-classification-placed-card {
+  height: 48px;
+  padding: 3px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.12s ease;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.scene-classification-placed-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.scene-classification-placed-card img {
+  max-width: 40px;
+  max-height: 40px;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.scene-classification-remove-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #64748b;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  font-weight: 900;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.scene-classification-placed-card:hover .scene-classification-remove-badge {
+  opacity: 1;
+}
+
+.scene-classification-remove-badge:hover {
+  background: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .scene-classification-scenes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .scene-classification-scenes-grid {
+    grid-template-columns: 1fr;
+  }
+}

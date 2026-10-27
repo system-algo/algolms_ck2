@@ -22,6 +22,7 @@ const MANUAL_ACTIVITY_TYPES = [
   'mcq-checkbox',
   'matching-dragdrop',
   'image-dropzones-task',
+  'scene-classification-task',
   'typing-practice',
   'ide-programming',
   'diagram-canvas-task',

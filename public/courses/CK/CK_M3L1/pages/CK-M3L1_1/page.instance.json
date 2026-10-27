@@ -434,8 +434,8 @@
       }
     },
     "task-43-a6jcur": {
-      "type": "generic-captured-task",
-      "manualSelectedType": "generic-captured-task",
+      "type": "scene-classification-task",
+      "manualSelectedType": "scene-classification-task",
       "states": {
         "task-43-a6jcur-1afb2dv": {
           "type": "generic-captured-task",
@@ -481,6 +481,102 @@
           "type": "generic-captured-task",
           "manualSelectedType": "generic-captured-task"
         }
+      },
+      "sceneClassification": {
+        "title": "Part 1. My correct solution",
+        "prompt": "What sprites are needed in each scene?",
+        "attempt": "Attempt: 1/2",
+        "sprites": [
+          {
+            "id": "seahorse",
+            "label": "Seahorse",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1tgbfcf.png"
+          },
+          {
+            "id": "green-fish",
+            "label": "Green fish",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-b90esr.png"
+          },
+          {
+            "id": "polar-bear",
+            "label": "Polar bear",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-175s8oz.png"
+          },
+          {
+            "id": "crab",
+            "label": "Crab",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-kdt7vl.png"
+          },
+          {
+            "id": "cat",
+            "label": "Cat",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-uod1z0.png"
+          },
+          {
+            "id": "boat",
+            "label": "Sailboat",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1ygba64.png"
+          },
+          {
+            "id": "wizard",
+            "label": "Wizard",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-cfb7o5.png"
+          },
+          {
+            "id": "yellow-fish",
+            "label": "Yellow fish",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1q30zlc.png"
+          },
+          {
+            "id": "diver",
+            "label": "Diver",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1qfabj9.png"
+          }
+        ],
+        "scenes": [
+          {
+            "id": "scene-1",
+            "title": "Scene 1",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-n9jm7g.png",
+            "expectedSprites": [
+              "boat",
+              "cat"
+            ]
+          },
+          {
+            "id": "scene-2",
+            "title": "Scene 2",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1pt34d8.png",
+            "expectedSprites": [
+              "polar-bear",
+              "boat",
+              "cat"
+            ]
+          },
+          {
+            "id": "scene-3",
+            "title": "Scene 3",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-rez0hu.png",
+            "expectedSprites": [
+              "cat",
+              "wizard",
+              "boat"
+            ]
+          },
+          {
+            "id": "scene-4",
+            "title": "Scene 4",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-dbhdyg.png",
+            "expectedSprites": [
+              "crab",
+              "cat",
+              "seahorse",
+              "diver",
+              "yellow-fish",
+              "green-fish"
+            ]
+          }
+        ]
       }
     }
   },
@@ -962,9 +1058,9 @@
       "id": "task-43-a6jcur",
       "taskId": "task-43-a6jcur",
       "title": "Part 1. My correct solution",
-      "activityType": "generic_captured_task",
-      "selectedType": "generic-captured-task",
-      "suggestedType": "generic-captured-task",
+      "activityType": "scene_classification_task",
+      "selectedType": "scene-classification-task",
+      "suggestedType": "scene-classification-task",
       "states": [
         {
           "id": "task-43-a6jcur-1afb2dv",
@@ -1043,7 +1139,103 @@
           "stateName": "after-16-icon-control",
           "selectedType": "generic-captured-task"
         }
-      ]
+      ],
+      "sceneClassification": {
+        "title": "Part 1. My correct solution",
+        "prompt": "What sprites are needed in each scene?",
+        "attempt": "Attempt: 1/2",
+        "sprites": [
+          {
+            "id": "seahorse",
+            "label": "Seahorse",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1tgbfcf.png"
+          },
+          {
+            "id": "green-fish",
+            "label": "Green fish",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-b90esr.png"
+          },
+          {
+            "id": "polar-bear",
+            "label": "Polar bear",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-175s8oz.png"
+          },
+          {
+            "id": "crab",
+            "label": "Crab",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-kdt7vl.png"
+          },
+          {
+            "id": "cat",
+            "label": "Cat",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-uod1z0.png"
+          },
+          {
+            "id": "boat",
+            "label": "Sailboat",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1ygba64.png"
+          },
+          {
+            "id": "wizard",
+            "label": "Wizard",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-cfb7o5.png"
+          },
+          {
+            "id": "yellow-fish",
+            "label": "Yellow fish",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1q30zlc.png"
+          },
+          {
+            "id": "diver",
+            "label": "Diver",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1qfabj9.png"
+          }
+        ],
+        "scenes": [
+          {
+            "id": "scene-1",
+            "title": "Scene 1",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-n9jm7g.png",
+            "expectedSprites": [
+              "boat",
+              "cat"
+            ]
+          },
+          {
+            "id": "scene-2",
+            "title": "Scene 2",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-1pt34d8.png",
+            "expectedSprites": [
+              "polar-bear",
+              "boat",
+              "cat"
+            ]
+          },
+          {
+            "id": "scene-3",
+            "title": "Scene 3",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-rez0hu.png",
+            "expectedSprites": [
+              "cat",
+              "wizard",
+              "boat"
+            ]
+          },
+          {
+            "id": "scene-4",
+            "title": "Scene 4",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-43-a6jcur/initial/asset-dbhdyg.png",
+            "expectedSprites": [
+              "crab",
+              "cat",
+              "seahorse",
+              "diver",
+              "yellow-fish",
+              "green-fish"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
