@@ -15,14 +15,16 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect",
+    "canvas-drop-task"
   ],
   "tasks": {
     "task-1-1z0tz42": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-1z0tz42-2h6sop": {
           "title": "initial",
@@ -56,13 +58,144 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Add sprites to the scene.",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-1-1z0tz42/initial/asset-k4iv8.jpg",
+            "x": -3,
+            "y": -2,
+            "w": 532,
+            "h": 401,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "E",
+            "name": "E",
+            "x": 315,
+            "y": 255,
+            "w": 165,
+            "h": 135,
+            "answer": "1"
+          },
+          {
+            "id": "A",
+            "name": "A",
+            "x": 30,
+            "y": 45,
+            "w": 120,
+            "h": 90,
+            "answer": "2"
+          },
+          {
+            "id": "B",
+            "name": "B",
+            "x": 390,
+            "y": 15,
+            "w": 90,
+            "h": 75,
+            "answer": "5"
+          },
+          {
+            "id": "F",
+            "name": "F",
+            "x": 45,
+            "y": 255,
+            "w": 180,
+            "h": 75,
+            "answer": "6"
+          },
+          {
+            "id": "D",
+            "name": "D",
+            "x": 375,
+            "y": 165,
+            "w": 135,
+            "h": 60,
+            "answer": "3"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 195,
+            "y": 135,
+            "w": 105,
+            "h": 45,
+            "answer": "4"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-1-1z0tz42/initial/asset-1m41utv.png",
+            "x": 756,
+            "y": 60,
+            "w": 136,
+            "h": 98,
+            "alt": "Piece 1"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-1-1z0tz42/initial/sprite-2.webp",
+            "x": 567,
+            "y": 57,
+            "w": 168,
+            "h": 106,
+            "alt": "Piece 2"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-1-1z0tz42/initial/asset-tmqk9y.png",
+            "x": 744,
+            "y": 334,
+            "w": 123,
+            "h": 41,
+            "alt": "Piece 3"
+          },
+          {
+            "id": "4",
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-1-1z0tz42/initial/asset-1nefvgr.png",
+            "x": 543,
+            "y": 243,
+            "w": 166,
+            "h": 68,
+            "alt": "Piece 4"
+          },
+          {
+            "id": "5",
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-1-1z0tz42/initial/asset-1jaw8gx.png",
+            "x": 767,
+            "y": 213,
+            "w": 89,
+            "h": 85,
+            "alt": "Piece 5"
+          },
+          {
+            "id": "6",
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-1-1z0tz42/initial/asset-4fdkar.png",
+            "x": 561,
+            "y": 332,
+            "w": 140,
+            "h": 46,
+            "alt": "Piece 6"
+          }
+        ]
       }
     },
     "task-9-1739y8a": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-9-1739y8a-rviwm2": {
           "title": "initial",
@@ -112,6 +245,39 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Which sprite will be touched to make the transition to the final scene occur?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-1vn9bja.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-wnuhxq.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-1szzqtc.png",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-5f19wf.png",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M8L3/pages/CK-M8L3_1/assets/task-9-1739y8a/initial/asset-2obnyy.png",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }

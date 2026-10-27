@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-vm26pz": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-1-vm26pz-9j2iui": {
           "title": "initial",
@@ -76,13 +77,41 @@
           "title": "after-12-Part",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Which sprite has a program that starts with receiving a message?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-1-vm26pz/initial/asset-126vxey.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-1-vm26pz/initial/asset-19kruv3.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-1-vm26pz/initial/asset-1a790b1.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-1-vm26pz/initial/asset-1vfojvq.jpg",
+            "alt": "Option 3"
+          }
+        ]
       }
     },
     "task-14-1ao7qqd": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "matching-connect",
       "states": {
         "task-14-1ao7qqd-1tzp7ee": {
           "title": "initial",
@@ -119,6 +148,50 @@
         "task-14-1ao7qqd-1bpxzlg": {
           "title": "after-10-icon-control",
           "selectedType": ""
+        }
+      },
+      "matchingConnect": {
+        "title": "What program does each sprite execute? Connect them.",
+        "helperText": "Connect",
+        "checkMode": "answer-key",
+        "leftItems": [
+          {
+            "id": "left-1",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-3gu9ri.jpg",
+            "alt": "Left 1"
+          },
+          {
+            "id": "left-2",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-xzvqss.jpg",
+            "alt": "Left 2"
+          },
+          {
+            "id": "left-3",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-13qqjqu.jpg",
+            "alt": "Left 3"
+          }
+        ],
+        "rightItems": [
+          {
+            "id": "right-1",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-juvf9l.jpg",
+            "alt": "Right 1"
+          },
+          {
+            "id": "right-2",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-tk56kv.jpg",
+            "alt": "Right 2"
+          },
+          {
+            "id": "right-3",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-ka1c8h.jpg",
+            "alt": "Right 3"
+          }
+        ],
+        "answerKey": {
+          "left-1": "right-1",
+          "left-2": "right-2",
+          "left-3": "right-3"
         }
       }
     }

@@ -15,14 +15,16 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect",
+    "canvas-drop-task"
   ],
   "tasks": {
     "task-1-8l1s8": {
       "title": "Part 1. My solution",
       "rawActivityType": "fill_blank_task",
       "suggestedType": "fill-blank-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-8l1s8-zqb4jv": {
           "title": "initial",
@@ -64,13 +66,70 @@
           "title": "after-11-[object SVGAnimatedString]",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Position the character on the scene",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-1-8l1s8/initial/asset-gb75m9.png",
+            "x": 24,
+            "y": -1,
+            "w": 492,
+            "h": 383,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 135,
+            "y": 105,
+            "w": 150,
+            "h": 165,
+            "answer": "1"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-1-8l1s8/initial/asset-1prl9e4.png",
+            "x": 545,
+            "y": 96,
+            "w": 250,
+            "h": 199,
+            "alt": "Piece 1"
+          }
+        ],
+        "inputs": [
+          {
+            "id": "B",
+            "name": "B",
+            "x": 222,
+            "y": 345,
+            "answer": "9"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 15,
+            "y": 173,
+            "answer": "7"
+          }
+        ]
       }
     },
     "task-11-qeb5rh": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-11-qeb5rh-1yp9keh": {
           "title": "initial",
@@ -120,13 +179,46 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What is the color of a section in which we can record sound?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-jk5taa.png",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-2zr3je.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-147gl11.png",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-egzne5.png",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-11-qeb5rh/initial/asset-3jiq5w.png",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-23-cn98ao": {
       "title": "Part 1.",
       "rawActivityType": "matching_dragdrop_task",
       "suggestedType": "matching-dragdrop",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-23-cn98ao-8a6mfa": {
           "title": "initial",
@@ -168,6 +260,47 @@
           "title": "after-11-[object SVGAnimatedString]",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "How do we start recording sound?",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-23-cn98ao/initial/asset-1ikogt1.png",
+            "x": 12,
+            "y": 84,
+            "w": 835,
+            "h": 282,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 450,
+            "y": 105,
+            "w": 60,
+            "h": 60,
+            "answer": "1"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M4L3/pages/CK-M4L3_1/assets/task-23-cn98ao/initial/asset-ai1mbi.png",
+            "x": 27,
+            "y": 12,
+            "w": 65,
+            "h": 59,
+            "alt": "Piece 1"
+          }
+        ]
       }
     }
   }

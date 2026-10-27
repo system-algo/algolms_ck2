@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-1iosiil": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-1-1iosiil-16otwpk": {
           "title": "initial",
@@ -72,13 +73,46 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What program do the butterflies execute?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-1-1iosiil/initial/asset-ip8wur.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-1-1iosiil/initial/asset-i9dmad.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-1-1iosiil/initial/asset-1eul3kc.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-1-1iosiil/initial/asset-le1pyo.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-1-1iosiil/initial/asset-15lr6va.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-13-h96wgc": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-13-h96wgc-1udlucl": {
           "title": "initial",
@@ -128,6 +162,39 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What command does the program of the Flowers sprite start with?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-13-h96wgc/initial/asset-ehvsd6.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-13-h96wgc/initial/asset-1pf0bg.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-13-h96wgc/initial/asset-vljxcc.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-13-h96wgc/initial/asset-1bzlh2i.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M8L2/pages/CK-M8L2/assets/task-13-h96wgc/initial/asset-17v76yz.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }

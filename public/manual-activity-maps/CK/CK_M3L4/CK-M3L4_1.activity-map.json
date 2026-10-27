@@ -15,14 +15,16 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect",
+    "category-drag-task"
   ],
   "tasks": {
     "task-1-1tegh55": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "category-drag-task",
       "states": {
         "task-1-1tegh55-1396ch7": {
           "title": "initial",
@@ -64,13 +66,77 @@
           "title": "after-9-icon-control",
           "selectedType": ""
         }
+      },
+      "categoryDrag": {
+        "title": "Distribute the commands",
+        "items": [
+          {
+            "id": "item-1",
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-1w8pt9s.png",
+            "alt": "Picture 1"
+          },
+          {
+            "id": "item-2",
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-nbpj9q.png",
+            "alt": "Picture 2"
+          },
+          {
+            "id": "item-3",
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-uxig0u.png",
+            "alt": "Picture 3"
+          },
+          {
+            "id": "item-4",
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-x7dp44.png",
+            "alt": "Picture 4"
+          },
+          {
+            "id": "item-5",
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-14dlaoj.png",
+            "alt": "Picture 5"
+          },
+          {
+            "id": "item-6",
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-1tcc4g7.png",
+            "alt": "Picture 6"
+          }
+        ],
+        "categories": [
+          {
+            "id": "cat-1",
+            "answer": [
+              "item-1",
+              "item-4"
+            ],
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-ez0f5t.png",
+            "title": ""
+          },
+          {
+            "id": "cat-2",
+            "answer": [
+              "item-2",
+              "item-6"
+            ],
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-1ygqw8n.png",
+            "title": ""
+          },
+          {
+            "id": "cat-3",
+            "answer": [
+              "item-3",
+              "item-5"
+            ],
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-1-1tegh55/initial/asset-h2fkxm.png",
+            "title": ""
+          }
+        ]
       }
     },
     "task-11-1ob0qox": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-11-1ob0qox-b03z9": {
           "title": "initial",
@@ -124,13 +190,46 @@
           "title": "after-12-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Find the program",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-126a04k.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-9hi8h3.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-f9pa28.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-gyc2fz.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-11-1ob0qox/initial/asset-dkat6a.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     },
     "task-24-17jlc4c": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-24-17jlc4c-10e4kft": {
           "title": "initial",
@@ -184,6 +283,39 @@
           "title": "after-12-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Find the program",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-14bjxii.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-xdks14.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-qld73s.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-dgb4zu.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M3L4/pages/CK-M3L4_1/assets/task-24-17jlc4c/initial/asset-ds4zpg.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }

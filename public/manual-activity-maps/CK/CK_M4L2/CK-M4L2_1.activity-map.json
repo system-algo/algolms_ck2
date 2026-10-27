@@ -15,14 +15,16 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect",
+    "category-drag-task"
   ],
   "tasks": {
     "task-1-2lkma4": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "category-drag-task",
       "states": {
         "task-1-2lkma4-19wdkku": {
           "title": "initial",
@@ -60,13 +62,60 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "categoryDrag": {
+        "title": "Restore the order of scenes",
+        "items": [
+          {
+            "id": "item-1",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-iryetk.png",
+            "alt": "Picture 1"
+          },
+          {
+            "id": "item-2",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-no6n8h.png",
+            "alt": "Picture 2"
+          },
+          {
+            "id": "item-3",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-1p6sub2.png",
+            "alt": "Picture 3"
+          }
+        ],
+        "categories": [
+          {
+            "id": "cat-1",
+            "answer": [
+              "item-1"
+            ],
+            "title": "1",
+            "capacity": 1
+          },
+          {
+            "id": "cat-2",
+            "answer": [
+              "item-2"
+            ],
+            "title": "2",
+            "capacity": 1
+          },
+          {
+            "id": "cat-3",
+            "answer": [
+              "item-3"
+            ],
+            "title": "3",
+            "capacity": 1
+          }
+        ],
+        "layout": "side"
       }
     },
     "task-10-q5851w": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "ide_programming_task",
       "suggestedType": "ide-programming",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-10-q5851w-k9ytxp": {
           "title": "initial",
@@ -116,6 +165,34 @@
           "title": "after-11-Part 1. My correct solution",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What program is running during the first scene?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-10-q5851w/initial/asset-1om57v0.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-10-q5851w/initial/asset-vjyzyk.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-10-q5851w/initial/asset-10jnof9.png",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-10-q5851w/initial/asset-ztmu7m.png",
+            "alt": "Option 3"
+          }
+        ]
       }
     }
   }

@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "matching-connect"
   ],
   "tasks": {
     "task-1-1nqq7vq": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-1-1nqq7vq-1x806p8": {
           "title": "initial",
@@ -68,13 +69,40 @@
           "title": "after-10-Attempt- 1-2",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "Which of the kids will answer the Cat's greeting?",
+        "layout": "image-grid",
+        "multiple": false,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-1-1nqq7vq/initial/asset-pumyjk.gif",
+            "alt": "Task picture"
+          },
+          {
+            "src": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-1-1nqq7vq/initial/asset-dwogmr.jpg",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-1-1nqq7vq/initial/asset-1o0fte5.png",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-1-1nqq7vq/initial/asset-9gbk50.png",
+            "alt": "Option 2"
+          }
+        ]
       }
     },
     "task-12-17w8u0z": {
       "title": "Part 1. My solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "mcq-checkbox",
       "states": {
         "task-12-17w8u0z-1esd66l": {
           "title": "initial",
@@ -128,6 +156,39 @@
           "title": "after-12-What programs does the Bear ex",
           "selectedType": ""
         }
+      },
+      "mcqCheckbox": {
+        "title": "What programs does the Bear execute?",
+        "layout": "image-grid",
+        "multiple": true,
+        "images": [
+          {
+            "src": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-12-17w8u0z/initial/asset-1or9z1.gif",
+            "alt": "Task picture"
+          }
+        ],
+        "options": [
+          {
+            "id": "option-1",
+            "imageSrc": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-12-17w8u0z/initial/asset-nnkdes.jpg",
+            "alt": "Option 1"
+          },
+          {
+            "id": "option-2",
+            "imageSrc": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-12-17w8u0z/initial/asset-118qkq5.jpg",
+            "alt": "Option 2"
+          },
+          {
+            "id": "option-3",
+            "imageSrc": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-12-17w8u0z/initial/asset-exi2iy.jpg",
+            "alt": "Option 3"
+          },
+          {
+            "id": "option-4",
+            "imageSrc": "/courses/CK/CK_M5L3/pages/CK-M5L3_1/assets/task-12-17w8u0z/initial/asset-8gnv93.jpg",
+            "alt": "Option 4"
+          }
+        ]
       }
     }
   }
