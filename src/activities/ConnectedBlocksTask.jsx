@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   loadLocalTaskState,
   saveLocalTaskState,
@@ -11,8 +12,12 @@ const BOARD_HEIGHT = 560;
 const MIN_ZOOM = 0.6;
 const MAX_ZOOM = 1.6;
 
-const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
-const SESSION_STORAGE_KEY = 'algolms_session_id';
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL ||
+    sessionStorage.getItem('lms_backend_url') || localStorage.getItem('lms_backend_url') || ''
+  ).trim().replace(/\/+$/, '');
+}
 
 function getRuntimeIds(pageInstance) {
   let courseId = '';
@@ -33,21 +38,6 @@ function getRuntimeIds(pageInstance) {
   };
 }
 
-function getSessionId() {
-  try {
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY);
-    if (existing) return existing;
-
-    const next = typeof crypto !== 'undefined' && crypto.randomUUID
-      ? crypto.randomUUID()
-      : `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-    localStorage.setItem(SESSION_STORAGE_KEY, next);
-    return next;
-  } catch {
-    return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
-}
 
 function makeId(prefix = 'node') {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}`;
@@ -372,54 +362,66 @@ export default function ConnectedBlocksTask(props) {
   }
 
   async function saveBoard() {
+    // Keep a browser draft even when the network is unavailable, but do not
+    // mark it complete unless the backend stores the attempt and completion.
     saveLocalTaskState(storageKey, state);
-
     try {
-      if (API_BASE_URL) {
-        const { courseId, lessonId, pageId } = getRuntimeIds(props?.pageInstance);
-        const effectiveTaskId = task?.id || task?.taskId || storageKey;
-        if (courseId && lessonId && pageId && effectiveTaskId) {
-          await fetch(`${API_BASE_URL}/api/activity-attempts`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              sessionId: getSessionId(),
-              courseId,
-              lessonId,
-              pageId,
-              taskId: effectiveTaskId,
-              activityType: 'connected-blocks-task',
-              answer: state,
-              isCorrect: true,
-              score: 1,
-              maxScore: 1,
-            }),
-          }).catch(() => {});
-        }
+      const apiBaseUrl = getBackendBaseUrl();
+      if (!apiBaseUrl) throw new Error('LMS backend is not configured.');
+      const { courseId, lessonId, pageId } = getRuntimeIds(props?.pageInstance);
+      const effectiveTaskId = task?.id || task?.taskId || storageKey;
+      const studentEmail =
+        sessionStorage.getItem('lms_student_email') ||
+        localStorage.getItem('lms_student_email') || '';
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token') || '';
+      const { headers, payload } = buildAuthenticatedActivityAttempt({
+        studentEmail, accessToken, courseId, lessonId, pageId,
+        taskId: effectiveTaskId,
+        activityType: 'connected-blocks-task',
+        answer: state,
+      });
+      const attempt = await fetch(`${apiBaseUrl}/api/activity-attempts`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+      });
+      if (!attempt.ok || (await attempt.json())?.ok !== true) {
+        throw new Error('Could not save connected blocks attempt.');
       }
-    } catch (e) {
-      console.error('[ConnectedBlocksTask] Error submitting to backend:', e);
-    }
 
-    if (!isAlreadyDone) {
-      setLocalCompleted(true);
-      import('../utils/lmsSounds.js')
-        .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
-          playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
-        })
-        .catch(() => {});
+      const completion = await fetch(`${apiBaseUrl}/api/activity-completions`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          ...payload,
+          completionType: 'completed',
+          metadata: { source: 'connected-blocks-task' },
+        }),
+      });
+      if (!completion.ok || (await completion.json())?.ok !== true) {
+        throw new Error('Could not mark connected blocks complete.');
+      }
 
-      window.dispatchEvent(
-        new CustomEvent('LMS_TASK_COMPLETED', {
-          detail: { taskId: task?.id || task?.taskId || storageKey },
-        })
-      );
-    }
-
-    if (typeof props?.onTaskComplete === 'function') {
-      props.onTaskComplete({ taskId: task?.id || task?.taskId || storageKey });
+      if (!isAlreadyDone) {
+        setLocalCompleted(true);
+        import('../utils/lmsSounds.js')
+          .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
+            playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
+          })
+          .catch(() => {});
+        window.dispatchEvent(
+          new CustomEvent('LMS_TASK_COMPLETED', {
+            detail: { taskId: effectiveTaskId },
+          })
+        );
+      }
+      if (typeof props?.onTaskComplete === 'function') {
+        props.onTaskComplete({ taskId: effectiveTaskId });
+      }
+    } catch (error) {
+      console.error('[ConnectedBlocksTask] Backend save failed; draft stored locally:', error);
     }
   }
 
