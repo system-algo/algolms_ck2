@@ -92,6 +92,23 @@ function getModuleLessonInfo(lessonTitle, pageTitle, courseId, lessonId, pageId)
     finalGlobalLessonNum = rawLessNum || 1;
   }
 
+  // CK course: use the aggregate lesson number (1-32) from mapping.json when the lesson is listed there.
+  // Any lesson not listed keeps the numbering computed above.
+  try {
+    const isCkCourse =
+      /^CK$/i.test(String(courseId || '').trim()) ||
+      /(?:^|[\s_-])CK[_-]?M\d+L\d+/i.test(source) ||
+      /(?:^|\s)CK(?:\s|$)/i.test(urlParamsText);
+    const mapped = isCkCourse
+      ? customNames?.globalLessonNumbers?.[`CK_M${rawModNum}L${rawLessNum}`]
+      : undefined;
+    if (Number.isFinite(mapped) && rawModNum > 0 && rawLessNum > 0) {
+      finalModuleNum = rawModNum;
+      finalLocalLessonNum = rawLessNum;
+      finalGlobalLessonNum = mapped;
+    }
+  } catch (e) {}
+
   const cleanLessonTitle = String(lessonTitle || '')
     .replace(/^M\s*\d+\s*[:\-–]\s*/i, '')
     .replace(/^MODULE\s*\d+\s*[:\-–]\s*/i, '')
