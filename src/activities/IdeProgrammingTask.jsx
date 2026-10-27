@@ -5,7 +5,7 @@ import {
   loadLocalTaskState,
   saveLocalTaskState,
 } from '../lib/taskExtractors.js';
-import { saveTaskCompletionToSupabase } from '../lib/supabaseProgress.js';
+import { getProgressCourseId, saveTaskCompletionToSupabase } from '../lib/supabaseProgress.js';
 
 function getApiBaseUrl() {
   const envUrl = String(
@@ -1057,43 +1057,61 @@ async function submitIdeSource({
       sessionStorage.getItem('lms_access_token') ||
       localStorage.getItem('lms_access_token');
 
-    if (supabaseUrl && supabaseKey) {
+    // The auth policy ties progress to the signed-in student's email and
+    // CK2 course membership. Do not use arbitrary task user IDs or the CK
+    // asset identifier when calling the Supabase Data API.
+    const studentEmail = (
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') ||
+      ''
+    ).trim().toLowerCase();
+    const hasJwt = Boolean(accessToken && accessToken.split('.').length === 3);
+
+    if (supabaseUrl && supabaseKey && studentEmail && hasJwt) {
       const headers = {
         apikey: supabaseKey,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
         Prefer: 'return=minimal',
       };
-      if (accessToken && accessToken.split('.').length === 3) {
-        headers.Authorization = `Bearer ${accessToken}`;
-      } else {
-        headers.Authorization = `Bearer ${supabaseKey}`;
-      }
 
-      await fetch(`${supabaseUrl}/rest/v1/activity_attempts`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          session_id: getSessionId(),
-          user_id: userId,
-          course_id: courseId,
-          lesson_id: lessonId,
-          page_id: pageId,
-          task_id: taskId,
-          activity_type: 'ide-programming',
-          source_code: sourceCode,
-          status: isCorrect ? 'completed' : runtimeStatus || 'saved',
-          is_correct: isCorrect,
-          submitted_answer: {
-            code: sourceCode,
-            sourceCode,
-            language: 'python',
-          },
-        }),
-      })
-        .then(() => {
+      try {
+        const response = await fetch(`${supabaseUrl}/rest/v1/activity_attempts`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            session_id: `user:${studentEmail}`,
+            user_id: studentEmail,
+            course_id: getProgressCourseId(courseId),
+            lesson_id: lessonId,
+            page_id: pageId,
+            task_id: taskId,
+            activity_type: 'ide-programming',
+            source_code: sourceCode,
+            status: isCorrect ? 'completed' : runtimeStatus || 'saved',
+            is_correct: isCorrect,
+            submitted_answer: {
+              code: sourceCode,
+              sourceCode,
+              language: 'python',
+            },
+          }),
+        });
+
+        if (response.ok) {
           savedToCloud = true;
-        })
-        .catch((e) => console.warn('[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN]', e));
+        } else {
+          console.warn(
+            '[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN]',
+            response.status,
+            await response.text(),
+          );
+        }
+      } catch (error) {
+        console.warn('[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN]', error);
+      }
+    } else if (supabaseUrl && supabaseKey) {
+      console.warn('[SUPABASE_DIRECT_SAVE_ATTEMPT_WARN] Missing authenticated student session.');
     }
   }
 
@@ -1205,7 +1223,7 @@ async function fetchSavedIdeSource({
         }
 
         // 2a. Query activity_attempts
-        const sbUrl = `${supabaseUrl}/rest/v1/activity_attempts?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(courseId)}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&order=attempt_no.desc,created_at.desc&limit=1`;
+        const sbUrl = `${supabaseUrl}/rest/v1/activity_attempts?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(getProgressCourseId(courseId))}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&order=attempt_no.desc,created_at.desc&limit=1`;
 
         const sbRes = await fetch(sbUrl, { headers });
         if (sbRes.ok) {
@@ -1223,7 +1241,7 @@ async function fetchSavedIdeSource({
         }
 
         // 2b. Fallback to activity_progress
-        const progressUrl = `${supabaseUrl}/rest/v1/activity_progress?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(courseId)}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&limit=1`;
+        const progressUrl = `${supabaseUrl}/rest/v1/activity_progress?user_id=ilike.${encodeURIComponent(userId)}&course_id=eq.${encodeURIComponent(getProgressCourseId(courseId))}&lesson_id=eq.${encodeURIComponent(lessonId)}&page_id=eq.${encodeURIComponent(pageId)}&task_id=eq.${encodeURIComponent(taskId)}&limit=1`;
         const progressRes = await fetch(progressUrl, { headers });
         if (progressRes.ok) {
           const pRows = await progressRes.json();
