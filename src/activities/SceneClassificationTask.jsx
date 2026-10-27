@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   loadLocalTaskState,
   saveLocalTaskState,
@@ -7,15 +8,15 @@ import {
 } from '../lib/taskExtractors.js';
 import './SceneClassificationTask.css';
 
-const API_BASE_URL = String(
-  import.meta.env.VITE_API_BASE_URL ||
-  import.meta.env.VITE_API_URL ||
-  localStorage.getItem('lms_backend_url') ||
-  sessionStorage.getItem('lms_backend_url') ||
-  ''
-).replace(/\/+$/, '');
-
-const SESSION_STORAGE_KEY = 'algolms_session_id';
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL ||
+      import.meta.env.VITE_API_URL ||
+      sessionStorage.getItem('lms_backend_url') ||
+      localStorage.getItem('lms_backend_url') ||
+      ''
+  ).trim().replace(/\/+$/, '');
+}
 
 function getTaskId(task) {
   return String(task?.id || task?.taskId || '').trim();
@@ -44,42 +45,6 @@ function getRuntimeIds(pageInstance) {
   };
 }
 
-function getSessionId() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const qSession = params.get('sessionId') || params.get('session');
-    if (qSession) return qSession;
-
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY) || localStorage.getItem('lms-session-id');
-    if (existing) return existing;
-
-    const next =
-      typeof crypto !== 'undefined' && crypto.randomUUID
-        ? crypto.randomUUID()
-        : `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-    localStorage.setItem(SESSION_STORAGE_KEY, next);
-    return next;
-  } catch {
-    return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
-}
-
-function getUserId() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    return (
-      params.get('userId') ||
-      params.get('studentEmail') ||
-      params.get('email') ||
-      localStorage.getItem('lms_student_email') ||
-      sessionStorage.getItem('lms_student_email') ||
-      'student@algo.edu.vn'
-    );
-  } catch {
-    return 'student@algo.edu.vn';
-  }
-}
 
 function getConfigFromTask(task, pageInstance) {
   const taskId = getTaskId(task);
@@ -186,6 +151,7 @@ export default function SceneClassificationTask({
   const [status, setStatus] = useState('');
   const [hasError, setHasError] = useState(false);
   const [checking, setChecking] = useState(false);
+  const [serverConfirmed, setServerConfirmed] = useState(false);
 
   // Sync state when isTaskDone or scenes change
   useEffect(() => {
@@ -306,35 +272,44 @@ export default function SceneClassificationTask({
   }
 
   async function submitAttemptToBackend(currentAssignments) {
-    if (!API_BASE_URL) return null;
+    const apiBaseUrl = getBackendBaseUrl();
+    if (!apiBaseUrl) throw new Error('LMS backend URL is not configured.');
 
     const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
-    const effectiveTaskId = String(task?.id || task?.taskId || taskId || 'task-4').trim();
-    if (!courseId || !lessonId || !pageId || !effectiveTaskId) return null;
+    const studentEmail =
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') || '';
+    const accessToken =
+      sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token') || '';
+    const effectiveTaskId = String(task?.id || task?.taskId || taskId || '').trim();
+    const { headers, payload } = buildAuthenticatedActivityAttempt({
+      studentEmail,
+      accessToken,
+      courseId: courseId || 'CK',
+      lessonId,
+      pageId,
+      taskId: effectiveTaskId,
+      activityType: 'scene-classification-task',
+      answer: { assignments: currentAssignments },
+      extra: { isCorrect: true, score: 1, maxScore: 1 },
+    });
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionId: getSessionId(),
-          userId: getUserId(),
-          courseId,
-          lessonId,
-          pageId,
-          taskId: effectiveTaskId,
-          activityType: 'scene-classification-task',
-          answer: { assignments: currentAssignments },
-          isCorrect: true,
-          score: 1,
-          maxScore: 1,
-        }),
-      });
-
-      return response.ok ? await response.json().catch(() => null) : null;
-    } catch {
-      return null;
+    const response = await fetch(`${apiBaseUrl}/api/activity-attempts`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${(await response.text()).slice(0, 300)}`);
     }
+    const saved = await response.json();
+    if (saved?.ok !== true || saved?.result?.isCorrect !== true) {
+      throw new Error(
+        `Backend did not grade the saved answer correct: ${saved?.result?.status || 'unknown'}`
+      );
+    }
+    return saved;
   }
 
   function triggerSuccess(currentAssignments) {
@@ -389,49 +364,46 @@ export default function SceneClassificationTask({
     }
   }
 
-  function checkTask() {
+  async function checkTask() {
     if (checking) return;
 
-    // Check if at least some sprites have been placed
     const totalPlaced = Object.values(assignments).reduce(
-      (acc, arr) => acc + (Array.isArray(arr) ? arr.length : 0),
-      0
+      (count, spriteIds) => count + (Array.isArray(spriteIds) ? spriteIds.length : 0), 0
     );
-
     if (totalPlaced === 0) {
       setStatus('Please place sprites into the scenes before checking.');
       setHasError(true);
       return;
     }
 
-    setChecking(true);
-
-    const allScenesCorrect = scenes.every((sc) => {
-      const actual = assignments[sc.id] || [];
-      return areSceneSpritesCorrect(sc.expectedSprites || [], actual);
-    });
-
-    if (allScenesCorrect) {
-      setStatus('Correct!');
-      setHasError(false);
-      triggerSuccess(assignments);
-      submitAttemptToBackend(assignments);
-    } else {
+    const allScenesCorrect = scenes.length > 0 && scenes.every((scene) =>
+      areSceneSpritesCorrect(scene.expectedSprites || [], assignments[scene.id] || [])
+    );
+    if (!allScenesCorrect) {
       setStatus('Almost there! Try again.');
       setHasError(true);
+      return;
     }
 
-    setChecking(false);
+    setChecking(true);
+    setStatus('Saving your answer...');
+    setHasError(false);
+    try {
+      await submitAttemptToBackend(assignments);
+      setServerConfirmed(true);
+      setStatus('Correct!');
+      triggerSuccess(assignments);
+    } catch (error) {
+      console.warn('[SceneClassificationTask] CK2 attempt was not confirmed:', error);
+      setStatus('Could not save or grade your answer. Please try again.');
+      setHasError(true);
+    } finally {
+      setChecking(false);
+    }
   }
 
-  const isSolved = Boolean(
-    isTaskDone ||
-    (scenes.length > 0 &&
-      scenes.every((sc) => {
-        const actual = assignments[sc.id] || [];
-        return areSceneSpritesCorrect(sc.expectedSprites || [], actual);
-      }))
-  );
+  // Local scene placement does not mean the attempt was saved to the backend.
+  const isSolved = Boolean(isTaskDone || serverConfirmed);
 
   return (
     <LmsActivityFrame

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import './ProjectChecklistTask.css';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   getUniqueImages,
   loadLocalTaskState,
@@ -8,8 +9,13 @@ import {
   resolveActivityMapUrl,
 } from '../lib/taskExtractors.js';
 
-const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
-const SESSION_STORAGE_KEY = 'algolms_session_id';
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL ||
+    sessionStorage.getItem('lms_backend_url') ||
+    localStorage.getItem('lms_backend_url') || ''
+  ).trim().replace(/\/+$/, '');
+}
 
 function normalizeText(value) {
   return String(value || '')
@@ -41,21 +47,6 @@ function getRuntimeIds(pageInstance) {
   };
 }
 
-function getSessionId() {
-  try {
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY);
-    if (existing) return existing;
-
-    const next = typeof crypto !== 'undefined' && crypto.randomUUID
-      ? crypto.randomUUID()
-      : `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-    localStorage.setItem(SESSION_STORAGE_KEY, next);
-    return next;
-  } catch {
-    return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
-}
 
 function getManualMapUrl(pageInstance) {
   return resolveActivityMapUrl(pageInstance?.manualActivityMap);
@@ -280,62 +271,68 @@ export default function ProjectChecklistTask({
   }
 
   async function handleCheck() {
-    if (!submission || !submission.trim()) {
+    if (isCheckLoading) return;
+    if (!submission?.trim()) {
       setStatus('Please enter a link first.');
       return;
     }
 
     setIsCheckLoading(true);
+    setStatus('Saving your submission...');
     const currentState = { panelOpen, checked, submission };
     saveLocalTaskState(storageKey, currentState);
 
     try {
-      if (API_BASE_URL) {
-        const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
-        if (courseId && lessonId && pageId && taskId) {
-          await fetch(`${API_BASE_URL}/api/activity-attempts`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              sessionId: getSessionId(),
-              courseId,
-              lessonId,
-              pageId,
-              taskId,
-              activityType: 'project-checklist-task',
-              answer: currentState,
-              isCorrect: true,
-              score: 1,
-              maxScore: 1,
-            }),
-          }).catch(() => {});
-        }
+      const base = getBackendBaseUrl();
+      if (!base) throw new Error('LMS backend URL is not configured.');
+      const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
+      const studentEmail =
+        sessionStorage.getItem('lms_student_email') ||
+        localStorage.getItem('lms_student_email') || '';
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token') || '';
+      const { headers, payload } = buildAuthenticatedActivityAttempt({
+        studentEmail, accessToken, courseId, lessonId, pageId, taskId,
+        activityType: 'project-checklist-task',
+        answer: currentState,
+      });
+      const attempt = await fetch(`${base}/api/activity-attempts`, {
+        method: 'POST', headers, body: JSON.stringify(payload),
+      });
+      if (!attempt.ok || (await attempt.json())?.ok !== true) {
+        throw new Error('Could not save the checklist submission.');
       }
-    } catch (e) {
-      console.error('[ProjectChecklistTask] Error submitting attempt:', e);
+      const completion = await fetch(`${base}/api/activity-completions`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          ...payload,
+          completionType: 'submitted',
+          metadata: { source: 'project-checklist-task' },
+        }),
+      });
+      if (!completion.ok || (await completion.json())?.ok !== true) {
+        throw new Error('Could not confirm checklist completion.');
+      }
+      if (!isAlreadyDone) {
+        setLocalCompleted(true);
+        import('../utils/lmsSounds.js').then(({ playLmsSound, LMS_SOUND_TYPES }) => {
+          playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
+        }).catch(() => {});
+        window.dispatchEvent(
+          new CustomEvent('LMS_TASK_COMPLETED', {
+            detail: { taskId: task?.id || taskId },
+          })
+        );
+      }
+      setStatus('Saved.');
+      if (!isAlreadyDone && onNextTask) setTimeout(onNextTask, 600);
+    } catch (error) {
+      console.error('[ProjectChecklistTask] Backend save failed:', error);
+      setStatus('Saved locally only. Could not sync your submission. Please retry.');
     } finally {
       setIsCheckLoading(false);
-    }
-
-    if (!isAlreadyDone) {
-      setLocalCompleted(true);
-      import('../utils/lmsSounds.js').then(({ playLmsSound, LMS_SOUND_TYPES }) => {
-        playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
-      }).catch(() => {});
-
-      window.dispatchEvent(
-        new CustomEvent('LMS_TASK_COMPLETED', {
-          detail: { taskId: task?.id || taskId },
-        })
-      );
-    }
-
-    setStatus('Saved.');
-
-    if (!isAlreadyDone && onNextTask) {
-      setTimeout(onNextTask, 600);
     }
   }
 

@@ -1,24 +1,15 @@
 import { useEffect, useState } from 'react';
 import './LinkDownloadTask.css';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import { loadLocalTaskState, saveLocalTaskState, resolveActivityMapUrl } from '../lib/taskExtractors.js';
 
-const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
-const SESSION_STORAGE_KEY = 'algolms_session_id';
-
-function getSessionId() {
-  try {
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY);
-    if (existing) return existing;
-    const next =
-      typeof crypto !== 'undefined' && crypto.randomUUID
-        ? crypto.randomUUID()
-        : `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    localStorage.setItem(SESSION_STORAGE_KEY, next);
-    return next;
-  } catch {
-    return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL ||
+    sessionStorage.getItem('lms_backend_url') ||
+    localStorage.getItem('lms_backend_url') || ''
+  ).trim().replace(/\/+$/, '');
 }
 
 function getRuntimeIds(pageInstance) {
@@ -126,67 +117,67 @@ export default function LinkDownloadTask({
   const [isCompleted, setIsCompleted] = useState(savedState.completed || false);
   const [statusText, setStatusText] = useState(savedState.completed ? 'Downloaded' : '');
 
-  function handlePictureClick() {
-    setIsCompleted(true);
-    setStatusText('Downloaded');
-
-    saveLocalTaskState(storageKey, { completed: true, status: 'Downloaded' });
-
-    // Open target link/file in a new tab or trigger download
+  async function handlePictureClick() {
+    // Downloading a file and saving LMS progress are two separate actions.
     if (linkUrl) {
-      const a = document.createElement('a');
-      a.href = linkUrl;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      if (config.downloadName) {
-        a.download = config.downloadName;
-      }
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      const anchor = document.createElement('a');
+      anchor.href = linkUrl;
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      if (config.downloadName) anchor.download = config.downloadName;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
     }
 
-    if (!isAlreadyDone && !isCompleted) {
-      import('../utils/lmsSounds.js')
-        .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
-          playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
-        })
-        .catch(() => {});
-
-      window.dispatchEvent(
-        new CustomEvent('LMS_TASK_COMPLETED', {
-          detail: { taskId },
-        })
-      );
-    }
-
-    // Record activity attempt to API
+    setStatusText('Saving download progress...');
     try {
+      const base = getBackendBaseUrl();
+      if (!base) throw new Error('LMS backend URL is not configured.');
       const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
-      const endpoint = `${API_BASE_URL}/api/activity-attempts`;
-      fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionId: getSessionId(),
-          courseId,
-          lessonId,
-          pageId,
-          taskId,
-          activityType: 'link-download-task',
-          answer: { linkUrl, downloaded: true },
-          timestamp: new Date().toISOString(),
-        }),
-      }).catch(() => {});
-    } catch {
-      // Ignore network errors
-    }
+      const studentEmail =
+        sessionStorage.getItem('lms_student_email') ||
+        localStorage.getItem('lms_student_email') || '';
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token') || '';
+      const { headers, payload } = buildAuthenticatedActivityAttempt({
+        studentEmail, accessToken, courseId, lessonId, pageId, taskId,
+        activityType: 'link-download-task',
+        answer: { linkUrl, downloaded: true },
+      });
+      const response = await fetch(`${base}/api/activity-attempts`, {
+        method: 'POST', headers, body: JSON.stringify(payload),
+      });
+      if (!response.ok || (await response.json())?.ok !== true) {
+        throw new Error('Backend did not save the download attempt.');
+      }
+      const completion = await fetch(`${base}/api/activity-completions`, {
+        method: 'POST', headers,
+        body: JSON.stringify({ ...payload, completionType: 'downloaded' }),
+      });
+      if (!completion.ok || (await completion.json())?.ok !== true) {
+        throw new Error('Backend did not confirm download completion.');
+      }
 
-    if (onNextTask) {
-      setTimeout(onNextTask, 1000);
+      setIsCompleted(true);
+      setStatusText('Downloaded');
+      saveLocalTaskState(storageKey, { completed: true, status: 'Downloaded' });
+      if (!isAlreadyDone && !isCompleted) {
+        import('../utils/lmsSounds.js')
+          .then(({ playLmsSound, LMS_SOUND_TYPES }) =>
+            playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY)
+          ).catch(() => {});
+        window.dispatchEvent(new CustomEvent('LMS_TASK_COMPLETED', {
+          detail: { taskId },
+        }));
+      }
+      if (onNextTask) setTimeout(onNextTask, 1000);
+    } catch (error) {
+      console.error('[LinkDownloadTask] Download happened, but cloud save failed:', error);
+      setStatusText('File opened, but progress was not saved. Please retry.');
     }
   }
-
 
 
   function handleReset() {
@@ -198,7 +189,7 @@ export default function LinkDownloadTask({
   return (
     <LmsActivityFrame
       title={title}
-      status=""
+      status={statusText}
       onPrevTask={onPrevTask}
       onNextTask={onNextTask}
       onCheck={handlePictureClick}

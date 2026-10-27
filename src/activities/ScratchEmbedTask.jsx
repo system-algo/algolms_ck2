@@ -1,24 +1,15 @@
 import { useState } from 'react';
 import './ScratchEmbedTask.css';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import { loadLocalTaskState, saveLocalTaskState } from '../lib/taskExtractors.js';
 
-const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
-const SESSION_STORAGE_KEY = 'algolms_session_id';
-
-function getSessionId() {
-  try {
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY);
-    if (existing) return existing;
-    const next =
-      typeof crypto !== 'undefined' && crypto.randomUUID
-        ? crypto.randomUUID()
-        : `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    localStorage.setItem(SESSION_STORAGE_KEY, next);
-    return next;
-  } catch {
-    return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL ||
+    sessionStorage.getItem('lms_backend_url') ||
+    localStorage.getItem('lms_backend_url') || ''
+  ).trim().replace(/\/+$/, '');
 }
 
 function getRuntimeIds(pageInstance) {
@@ -98,53 +89,62 @@ export default function ScratchEmbedTask({
 
   async function handleSubmit(e) {
     if (e) e.preventDefault();
-
     if (!inputValue.trim()) {
       setStatusText('Please submit the answer first.');
       return;
     }
 
-    setStatusText('Completed');
-    saveLocalTaskState(storageKey, { answer: inputValue, isRunning, status: 'Completed' });
-
-    if (!isAlreadyDone) {
-      import('../utils/lmsSounds.js')
-        .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
-          playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
-        })
-        .catch(() => {});
-
-      window.dispatchEvent(
-        new CustomEvent('LMS_TASK_COMPLETED', {
-          detail: { taskId },
-        })
-      );
-    }
-
-    // Record activity attempt to API
+    // Preserve the student answer as a local draft until cloud persistence succeeds.
+    saveLocalTaskState(storageKey, {
+      answer: inputValue, isRunning, status: 'Saved locally.',
+    });
+    setStatusText('Saving your answer...');
     try {
+      const base = getBackendBaseUrl();
+      if (!base) throw new Error('LMS backend URL is not configured.');
       const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
-      const endpoint = `${API_BASE_URL}/api/activity-attempts`;
-      fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionId: getSessionId(),
-          courseId,
-          lessonId,
-          pageId,
-          taskId,
-          activityType: 'scratch-embed-task',
-          answer: { value: inputValue },
-          timestamp: new Date().toISOString(),
+      const studentEmail =
+        sessionStorage.getItem('lms_student_email') ||
+        localStorage.getItem('lms_student_email') || '';
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token') || '';
+      const { headers, payload } = buildAuthenticatedActivityAttempt({
+        studentEmail, accessToken, courseId, lessonId, pageId, taskId,
+        activityType: 'scratch-embed-task',
+        answer: { value: inputValue },
+      });
+      const response = await fetch(`${base}/api/activity-attempts`, {
+        method: 'POST', headers, body: JSON.stringify(payload),
+      });
+      if (!response.ok || (await response.json())?.ok !== true) {
+        throw new Error('Could not save Scratch answer.');
+      }
+      const completion = await fetch(`${base}/api/activity-completions`, {
+        method: 'POST', headers, body: JSON.stringify({
+          ...payload, completionType: 'submitted',
         }),
-      }).catch(() => {});
-    } catch {
-      // Ignore network errors
-    }
-
-    if (onNextTask) {
-      setTimeout(onNextTask, 600);
+      });
+      if (!completion.ok || (await completion.json())?.ok !== true) {
+        throw new Error('Could not confirm Scratch task completion.');
+      }
+      setStatusText('Completed');
+      saveLocalTaskState(storageKey, {
+        answer: inputValue, isRunning, status: 'Completed',
+      });
+      if (!isAlreadyDone) {
+        import('../utils/lmsSounds.js')
+          .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
+            playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
+          }).catch(() => {});
+        window.dispatchEvent(new CustomEvent('LMS_TASK_COMPLETED', {
+          detail: { taskId },
+        }));
+      }
+      if (onNextTask) setTimeout(onNextTask, 600);
+    } catch (error) {
+      console.error('[ScratchEmbedTask] Could not save CK2 submission:', error);
+      setStatusText('Saved locally, but not synced. Please retry.');
     }
   }
 
