@@ -16,7 +16,8 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "sequence-order-task"
   ],
   "tasks": {
     "task-1-1hgbgc3": {
@@ -118,8 +119,8 @@
     "task-15-1lve2lr": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
-      "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "suggestedType": "sequence-order-task",
+      "selectedType": "sequence-order-task",
       "states": {
         "task-15-1lve2lr-mv0l3k": {
           "title": "initial",
@@ -173,6 +174,45 @@
           "title": "after-16-icon-control",
           "selectedType": ""
         }
+      },
+      "sequenceOrder": {
+        "title": "Part 1. My correct solution",
+        "instruction": "Put it in order",
+        "layout": "image-sequence",
+        "items": [
+          {
+            "id": "step-1",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-tfovg6.png",
+            "alt": "Step 1"
+          },
+          {
+            "id": "step-2",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-1ia1b36.png",
+            "alt": "Step 2"
+          },
+          {
+            "id": "step-3",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-sqd9vk.png",
+            "alt": "Step 3"
+          },
+          {
+            "id": "step-4",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-9llz14.png",
+            "alt": "Step 4"
+          }
+        ],
+        "initialOrder": [
+          "step-4",
+          "step-2",
+          "step-1",
+          "step-3"
+        ],
+        "correctOrder": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4"
+        ]
       }
     },
     "task-28-1emx1e0": {

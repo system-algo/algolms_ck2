@@ -17,6 +17,7 @@ const GENERIC_ACTIVITY_TYPE = 'generic-captured-task';
 
 const MANUAL_ACTIVITY_TYPES = [
   'generic-captured-task',
+  'sequence-order-task',
   'matching-connect',
   'mcq-checkbox',
   'matching-dragdrop',

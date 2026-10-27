@@ -161,8 +161,47 @@
       }
     },
     "task-15-1lve2lr": {
-      "type": "generic-captured-task",
-      "manualSelectedType": "generic-captured-task",
+      "type": "sequence-order-task",
+      "manualSelectedType": "sequence-order-task",
+      "sequenceOrder": {
+        "title": "Part 1. My correct solution",
+        "instruction": "Put it in order",
+        "layout": "image-sequence",
+        "items": [
+          {
+            "id": "step-1",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-tfovg6.png",
+            "alt": "Step 1"
+          },
+          {
+            "id": "step-2",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-1ia1b36.png",
+            "alt": "Step 2"
+          },
+          {
+            "id": "step-3",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-sqd9vk.png",
+            "alt": "Step 3"
+          },
+          {
+            "id": "step-4",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-9llz14.png",
+            "alt": "Step 4"
+          }
+        ],
+        "initialOrder": [
+          "step-4",
+          "step-2",
+          "step-1",
+          "step-3"
+        ],
+        "correctOrder": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4"
+        ]
+      },
       "states": {
         "task-15-1lve2lr-mv0l3k": {
           "type": "generic-captured-task",
@@ -448,9 +487,48 @@
       "id": "task-15-1lve2lr",
       "taskId": "task-15-1lve2lr",
       "title": "Part 1. My correct solution",
-      "activityType": "generic_captured_task",
-      "selectedType": "generic-captured-task",
-      "suggestedType": "generic-captured-task",
+      "activityType": "sequence_order_task",
+      "selectedType": "sequence-order-task",
+      "suggestedType": "sequence-order-task",
+      "sequenceOrder": {
+        "title": "Part 1. My correct solution",
+        "instruction": "Put it in order",
+        "layout": "image-sequence",
+        "items": [
+          {
+            "id": "step-1",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-tfovg6.png",
+            "alt": "Step 1"
+          },
+          {
+            "id": "step-2",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-1ia1b36.png",
+            "alt": "Step 2"
+          },
+          {
+            "id": "step-3",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-sqd9vk.png",
+            "alt": "Step 3"
+          },
+          {
+            "id": "step-4",
+            "image": "/courses/CK/CK_M3L1/pages/CK-M3L1_1/assets/task-15-1lve2lr/initial/asset-9llz14.png",
+            "alt": "Step 4"
+          }
+        ],
+        "initialOrder": [
+          "step-4",
+          "step-2",
+          "step-1",
+          "step-3"
+        ],
+        "correctOrder": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4"
+        ]
+      },
       "states": [
         {
           "id": "task-15-1lve2lr-mv0l3k",
