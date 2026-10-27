@@ -12,6 +12,8 @@ import MatchingDragdropTask from './MatchingDragdropTask.jsx';
 import MatchingConnectTask from './MatchingConnectTask.jsx';
 import McqCheckboxTask from './McqCheckboxTask.jsx';
 import CanvasDropTask from './CanvasDropTask.jsx';
+import CategoryDragTask from './CategoryDragTask.jsx';
+import CardArrangementTask from './CardArrangementTask.jsx';
 import ProjectChecklistTask from './ProjectChecklistTask.jsx';
 import SequenceOrderTask from './SequenceOrderTask.jsx';
 import SceneClassificationTask from './SceneClassificationTask.jsx';
@@ -416,6 +418,17 @@ function normalizeRendererType(value) {
     canvas_drop_task: 'canvas-drop-task',
     'canvas-drop': 'canvas-drop-task',
     'canvas-drop-task': 'canvas-drop-task',
+
+    category_drag: 'category-drag-task',
+    categorydrag: 'category-drag-task',
+    category_drag_task: 'category-drag-task',
+    'category-drag': 'category-drag-task',
+    'category-drag-task': 'category-drag-task',
+
+    card_arrangement: 'card-arrangement-task',
+    card_arrangement_task: 'card-arrangement-task',
+    'card-arrangement': 'card-arrangement-task',
+    'card-arrangement-task': 'card-arrangement-task',
 
     classification_matching: 'code-classification',
     snippet_matching: 'code-classification',
@@ -888,6 +901,14 @@ function resolveRendererType({ pageInstance, task, state }) {
     return stateSelected;
   }
 
+  if (task?.cardArrangement || task?.renderer?.cardArrangement) {
+    return 'card-arrangement-task';
+  }
+
+  if (task?.categoryDrag || task?.renderer?.categoryDrag) {
+    return 'category-drag-task';
+  }
+
   if (task?.canvasDrop || task?.renderer?.canvasDrop) {
     return 'canvas-drop-task';
   }
@@ -1330,6 +1351,14 @@ export default function ActivityRouter(props) {
 
   if (rendererType === 'image-dropzones-task') {
     return <ImageDropzonesTask key={taskKey} {...effectiveProps} task={nextTask} />;
+  }
+
+  if (rendererType === 'card-arrangement-task') {
+    return <CardArrangementTask key={taskKey} {...effectiveProps} task={nextTask} />;
+  }
+
+  if (rendererType === 'category-drag-task') {
+    return <CategoryDragTask key={taskKey} {...effectiveProps} task={nextTask} />;
   }
 
   if (rendererType === 'canvas-drop-task') {

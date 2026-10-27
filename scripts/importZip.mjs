@@ -23,6 +23,8 @@ const MANUAL_ACTIVITY_TYPES = [
   'matching-dragdrop',
   'image-dropzones-task',
   'canvas-drop-task',
+  'category-drag-task',
+  'card-arrangement-task',
   'scene-classification-task',
   'typing-practice',
   'ide-programming',

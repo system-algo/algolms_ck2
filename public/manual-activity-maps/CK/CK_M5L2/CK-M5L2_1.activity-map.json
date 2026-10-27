@@ -16,14 +16,15 @@
     "fill-blank-task",
     "video-lesson",
     "scratch-embed-task",
-    "matching-connect"
+    "matching-connect",
+    "category-drag-task"
   ],
   "tasks": {
     "task-1-q27eqq": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "category-drag-task",
       "states": {
         "task-1-q27eqq-162rgdv": {
           "title": "initial",
@@ -57,6 +58,61 @@
           "title": "after-9-Attempt- 1-2",
           "selectedType": ""
         }
+      },
+      "categoryDrag": {
+        "title": "Divide the programs into groups.",
+        "items": [
+          {
+            "id": "item-1",
+            "src": "/courses/CK/CK_M5L2/pages/CK-M5L2_1/assets/task-1-q27eqq/initial/asset-1upxq78.png",
+            "alt": "Picture 1"
+          },
+          {
+            "id": "item-2",
+            "src": "/courses/CK/CK_M5L2/pages/CK-M5L2_1/assets/task-1-q27eqq/initial/asset-j6ciij.png",
+            "alt": "Picture 2"
+          },
+          {
+            "id": "item-3",
+            "src": "/courses/CK/CK_M5L2/pages/CK-M5L2_1/assets/task-1-q27eqq/initial/asset-vfehkv.png",
+            "alt": "Picture 3"
+          },
+          {
+            "id": "item-4",
+            "src": "/courses/CK/CK_M5L2/pages/CK-M5L2_1/assets/task-1-q27eqq/initial/asset-1ydwg0.png",
+            "alt": "Picture 4"
+          },
+          {
+            "id": "item-5",
+            "src": "/courses/CK/CK_M5L2/pages/CK-M5L2_1/assets/task-1-q27eqq/initial/asset-tesat6.png",
+            "alt": "Picture 5"
+          },
+          {
+            "id": "item-6",
+            "src": "/courses/CK/CK_M5L2/pages/CK-M5L2_1/assets/task-1-q27eqq/initial/asset-1hpyczp.png",
+            "alt": "Picture 6"
+          }
+        ],
+        "categories": [
+          {
+            "id": "cat-1",
+            "answer": [
+              "item-1",
+              "item-3",
+              "item-5"
+            ],
+            "title": "Sending a message"
+          },
+          {
+            "id": "cat-2",
+            "answer": [
+              "item-2",
+              "item-4",
+              "item-6"
+            ],
+            "title": "Receiving a message"
+          }
+        ]
       }
     },
     "task-9-17flv65": {

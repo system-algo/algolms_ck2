@@ -16,7 +16,8 @@
     "fill-blank-task",
     "video-lesson",
     "scratch-embed-task",
-    "canvas-drop-task"
+    "canvas-drop-task",
+    "card-arrangement-task"
   ],
   "tasks": {
     "task-1-nh7h4p": {
@@ -140,7 +141,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "card-arrangement-task",
       "states": {
         "task-9-1dx52pd-n0gk15": {
           "title": "initial",
@@ -178,6 +179,32 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "cardArrangement": {
+        "title": "Make up an algorithm for drawing backgrounds in Scratch Jr.",
+        "slots": 3,
+        "cards": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-9-1dx52pd/initial/asset-vgsbz1.jpg",
+            "alt": "Card 1"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-9-1dx52pd/initial/asset-1m13d7h.jpg",
+            "alt": "Card 2"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-9-1dx52pd/initial/asset-mb0frq.jpg",
+            "alt": "Card 3"
+          }
+        ],
+        "answer": [
+          "2",
+          "1",
+          "3"
+        ]
       }
     }
   }
