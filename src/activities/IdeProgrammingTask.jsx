@@ -1076,16 +1076,43 @@ async function submitIdeSource({
       };
 
       try {
+        // activity_attempts.attempt_no is NOT NULL without a database default.
+        // Resolve the next number from this student's attempts for this task.
+        const progressCourseId = getProgressCourseId(courseId);
+        const attemptQuery = new URLSearchParams({
+          user_id: `eq.${studentEmail}`,
+          course_id: `eq.${progressCourseId}`,
+          lesson_id: `eq.${lessonId}`,
+          page_id: `eq.${pageId}`,
+          task_id: `eq.${taskId}`,
+          select: 'attempt_no',
+          order: 'attempt_no.desc',
+          limit: '1',
+        });
+        const previousResponse = await fetch(
+          `${supabaseUrl}/rest/v1/activity_attempts?${attemptQuery}`,
+          { headers },
+        );
+        if (!previousResponse.ok) {
+          throw new Error(`Could not read previous attempts: ${previousResponse.status}`);
+        }
+        const previousAttempts = await previousResponse.json();
+        const lastAttemptNo = Number(previousAttempts?.[0]?.attempt_no ?? 0);
+        const attemptNo = Number.isSafeInteger(lastAttemptNo) && lastAttemptNo >= 0
+          ? lastAttemptNo + 1
+          : 1;
+
         const response = await fetch(`${supabaseUrl}/rest/v1/activity_attempts`, {
           method: 'POST',
           headers,
           body: JSON.stringify({
             session_id: `user:${studentEmail}`,
             user_id: studentEmail,
-            course_id: getProgressCourseId(courseId),
+            course_id: progressCourseId,
             lesson_id: lessonId,
             page_id: pageId,
             task_id: taskId,
+            attempt_no: attemptNo,
             activity_type: 'ide-programming',
             source_code: sourceCode,
             status: isCorrect ? 'completed' : runtimeStatus || 'saved',
