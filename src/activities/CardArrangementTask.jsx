@@ -105,7 +105,7 @@ export default function CardArrangementTask({
     if (isSolved || checking || !hasData) return;
 
     if (placed.length < answer.length) {
-      setStatus(`Please fill all the places first (${placed.length}/${answer.length})`);
+      setStatus(`Please place all the cards first (${placed.length}/${answer.length})`);
       setHasError(true);
       return;
     }
@@ -117,7 +117,7 @@ export default function CardArrangementTask({
     }
 
     setChecking(true);
-    setStatus('Saving your answer...');
+    setStatus('Checking...');
     setHasError(false);
 
     const payload = { itemOrder: [...placed], order: [...placed] };

@@ -229,9 +229,13 @@ export default function CanvasDropTask({
   }
 
   function findZoneAt(point) {
-    return zones.find(
+    // Zones may overlap (e.g. 16.1): pick the one whose centre is closest to the pointer.
+    const hits = zones.filter(
       (zone) => point.x >= zone.x && point.x <= zone.x + zone.w && point.y >= zone.y && point.y <= zone.y + zone.h,
     );
+    if (hits.length <= 1) return hits[0];
+    const distance = (zone) => Math.hypot(point.x - (zone.x + zone.w / 2), point.y - (zone.y + zone.h / 2));
+    return hits.reduce((best, zone) => (distance(zone) < distance(best) ? zone : best));
   }
 
   function handlePointerDown(event, item) {
@@ -336,7 +340,7 @@ export default function CanvasDropTask({
 
     const missingPieces = zones.filter((zone) => !placements[zone.id]).length;
     if (missingPieces > 0) {
-      setStatus(`Please place all pieces first (${zones.length - missingPieces}/${zones.length})`);
+      setStatus(`Please place all the pieces first (${zones.length - missingPieces}/${zones.length})`);
       setHasError(true);
       return;
     }
@@ -360,7 +364,7 @@ export default function CanvasDropTask({
     }
 
     setChecking(true);
-    setStatus('Saving your answer...');
+    setStatus('Checking...');
     setHasError(false);
 
     const answer = {

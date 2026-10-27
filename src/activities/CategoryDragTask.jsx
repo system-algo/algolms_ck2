@@ -15,7 +15,7 @@ import './CategoryDragTask.css';
  *
  * Map config (tasks[taskId].categoryDrag):
  * {
- *   title,
+ *   title, layout: 'top' | 'side' (pool above, or pool in a left column),
  *   items:      [{ id, src?, text?, alt?, w?, h? }],
  *   categories: [{ id, title?, imageSrc?, capacity?, answer: [itemId, ...] }]
  * }
@@ -31,6 +31,7 @@ function normalizeConfig(raw) {
   const config = raw || {};
   return {
     title: String(config.title || '').trim(),
+    layout: config.layout === 'side' ? 'side' : 'top',
     items: (config.items || []).map((item, index) => ({ ...item, id: String(item.id || `item-${index + 1}`) })),
     categories: (config.categories || []).map((cat, index) => ({
       ...cat,
@@ -213,7 +214,7 @@ export default function CategoryDragTask({
     if (checking || isSolved || !hasData) return;
 
     if (poolItems.length > 0) {
-      setStatus(`Please sort all the pictures first (${items.length - poolItems.length}/${items.length})`);
+      setStatus(`Please place all the pictures first (${items.length - poolItems.length}/${items.length})`);
       setHasError(true);
       return;
     }
@@ -226,7 +227,7 @@ export default function CategoryDragTask({
     }
 
     setChecking(true);
-    setStatus('Saving your answer...');
+    setStatus('Checking...');
     setHasError(false);
 
     const answer = { assignments: Object.fromEntries(categories.map((cat) => [cat.id, [...(assignments[cat.id] || [])]])) };
@@ -299,7 +300,7 @@ export default function CategoryDragTask({
         {!hasData ? (
           <div className="category-drag-empty">This activity is not set up yet.</div>
         ) : (
-          <div className="category-drag-board">
+          <div className={`category-drag-board ${data.layout === 'side' ? 'is-side' : ''}`}>
             <div
               className={`category-drag-pool ${hoverTarget === 'pool' ? 'is-hover' : ''}`}
               data-drop-target="pool"
