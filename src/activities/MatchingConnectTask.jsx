@@ -491,7 +491,7 @@ export default function MatchingConnectTask({
         sessionStorage.getItem('lms_backend_url') ||
         localStorage.getItem('lms_backend_url') ||
         ''
-      ).trim().replace(/\\/+$/, '');
+      ).trim().replace(/\/+$/, '');
       if (!apiBaseUrl) throw new Error('LMS backend URL is not configured.');
 
       const route = new URLSearchParams(window.location.search);
