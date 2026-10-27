@@ -15,14 +15,15 @@
     "diagram-canvas-task",
     "fill-blank-task",
     "video-lesson",
-    "scratch-embed-task"
+    "scratch-embed-task",
+    "canvas-drop-task"
   ],
   "tasks": {
     "task-1-c45uj7": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-c45uj7-1a0t3wf": {
           "title": "initial",
@@ -60,13 +61,72 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Add the program so that its execution starts with receiving a message.",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M5L1/pages/CK-M5L1_1/assets/task-1-c45uj7/initial/asset-1tywoq2.png",
+            "x": 114,
+            "y": 51,
+            "w": 434,
+            "h": 190,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 0,
+            "y": 60,
+            "w": 180,
+            "h": 165,
+            "answer": "3"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M5L1/pages/CK-M5L1_1/assets/task-1-c45uj7/initial/asset-mrbyps.png",
+            "x": 738,
+            "y": 9,
+            "w": 158,
+            "h": 140,
+            "alt": "Piece 1"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M5L1/pages/CK-M5L1_1/assets/task-1-c45uj7/initial/asset-tyquxb.png",
+            "x": 736,
+            "y": 131,
+            "w": 158,
+            "h": 140,
+            "alt": "Piece 2"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M5L1/pages/CK-M5L1_1/assets/task-1-c45uj7/initial/asset-bvn0lp.png",
+            "x": 742,
+            "y": 246,
+            "w": 156,
+            "h": 145,
+            "alt": "Piece 3"
+          }
+        ]
       }
     },
     "task-10-o0pzq3": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-10-o0pzq3-o49wyn": {
           "title": "initial",
@@ -104,6 +164,98 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "In what order should the words be placed to form a sentence?",
+        "workspace": {
+          "width": 920,
+          "height": 205
+        },
+        "statics": [],
+        "labels": [
+          {
+            "id": "h1",
+            "text": "1",
+            "x": 15,
+            "y": 15,
+            "w": 120,
+            "h": 30
+          },
+          {
+            "id": "h2",
+            "text": "2",
+            "x": 135,
+            "y": 15,
+            "w": 120,
+            "h": 30
+          },
+          {
+            "id": "h3",
+            "text": "3",
+            "x": 255,
+            "y": 15,
+            "w": 120,
+            "h": 30
+          }
+        ],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 15,
+            "y": 45,
+            "w": 120,
+            "h": 60,
+            "answer": "1"
+          },
+          {
+            "id": "B",
+            "name": "B",
+            "x": 135,
+            "y": 45,
+            "w": 120,
+            "h": 60,
+            "answer": "2"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 255,
+            "y": 45,
+            "w": 120,
+            "h": 60,
+            "answer": "3"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "text": "Mia,",
+            "x": 600,
+            "y": 90,
+            "w": 90,
+            "h": 30,
+            "alt": "Mia,"
+          },
+          {
+            "id": "2",
+            "text": "i'm",
+            "x": 420,
+            "y": 60,
+            "w": 90,
+            "h": 30,
+            "alt": "i'm"
+          },
+          {
+            "id": "3",
+            "text": "back!",
+            "x": 570,
+            "y": 15,
+            "w": 90,
+            "h": 30,
+            "alt": "back!"
+          }
+        ]
       }
     }
   }

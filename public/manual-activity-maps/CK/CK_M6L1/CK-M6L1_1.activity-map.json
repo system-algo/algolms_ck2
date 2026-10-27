@@ -16,14 +16,15 @@
     "fill-blank-task",
     "video-lesson",
     "scratch-embed-task",
-    "matching-connect"
+    "matching-connect",
+    "canvas-drop-task"
   ],
   "tasks": {
     "task-1-1iq4i28": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-1iq4i28-1fgqtnj": {
           "title": "initial",
@@ -61,6 +62,101 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Assemble a button that a sprite's program can be started from.",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-1-1iq4i28/initial/asset-1av3i54.png",
+            "x": 88,
+            "y": 51,
+            "w": 271,
+            "h": 268,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 105,
+            "y": 75,
+            "w": 120,
+            "h": 105,
+            "answer": "3"
+          },
+          {
+            "id": "B",
+            "name": "B",
+            "x": 225,
+            "y": 75,
+            "w": 120,
+            "h": 105,
+            "answer": "4"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 105,
+            "y": 180,
+            "w": 120,
+            "h": 105,
+            "answer": "2"
+          },
+          {
+            "id": "D",
+            "name": "D",
+            "x": 225,
+            "y": 180,
+            "w": 120,
+            "h": 105,
+            "answer": "1"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-1-1iq4i28/initial/asset-j87yve.png",
+            "x": 638,
+            "y": 130,
+            "w": 105,
+            "h": 81,
+            "alt": "Piece 1"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-1-1iq4i28/initial/asset-16humw0.png",
+            "x": 650,
+            "y": 293,
+            "w": 106,
+            "h": 81,
+            "alt": "Piece 2"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-1-1iq4i28/initial/asset-sshevz.png",
+            "x": 776,
+            "y": 36,
+            "w": 106,
+            "h": 82,
+            "alt": "Piece 3"
+          },
+          {
+            "id": "4",
+            "src": "/courses/CK/CK_M6L1/pages/CK-M6L1_1/assets/task-1-1iq4i28/initial/asset-1nq9s63.png",
+            "x": 776,
+            "y": 197,
+            "w": 105,
+            "h": 82,
+            "alt": "Piece 4"
+          }
+        ]
       }
     },
     "task-10-p8w359": {

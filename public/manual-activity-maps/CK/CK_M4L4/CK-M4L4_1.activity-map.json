@@ -16,14 +16,15 @@
     "fill-blank-task",
     "video-lesson",
     "scratch-embed-task",
-    "matching-connect"
+    "matching-connect",
+    "canvas-drop-task"
   ],
   "tasks": {
     "task-1-119ao1d": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-119ao1d-5v6ze6": {
           "title": "initial",
@@ -61,6 +62,128 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Create a scene based on the pattern",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-1lv5139.png",
+            "x": 18,
+            "y": 15,
+            "w": 355,
+            "h": 265,
+            "alt": ""
+          },
+          {
+            "id": "static-2",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-1n6zum4.png",
+            "x": 398,
+            "y": 16,
+            "w": 357,
+            "h": 266,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 540,
+            "y": 60,
+            "w": 105,
+            "h": 135,
+            "answer": "7"
+          },
+          {
+            "id": "B",
+            "name": "B",
+            "x": 465,
+            "y": 90,
+            "w": 105,
+            "h": 120,
+            "answer": "9"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 540,
+            "y": 150,
+            "w": 60,
+            "h": 105,
+            "answer": "10"
+          },
+          {
+            "id": "D",
+            "name": "D",
+            "x": 585,
+            "y": 150,
+            "w": 135,
+            "h": 135,
+            "answer": "8"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "7",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-1uogs5p.png",
+            "x": 777,
+            "y": 16,
+            "w": 112,
+            "h": 122,
+            "alt": "Piece 7"
+          },
+          {
+            "id": "8",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-1al57ac.png",
+            "x": 748,
+            "y": 264,
+            "w": 135,
+            "h": 136,
+            "alt": "Piece 8"
+          },
+          {
+            "id": "9",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-1kayzlh.png",
+            "x": 769,
+            "y": 143,
+            "w": 118,
+            "h": 135,
+            "alt": "Piece 9"
+          },
+          {
+            "id": "10",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-1ejc1i6.png",
+            "x": 392,
+            "y": 280,
+            "w": 56,
+            "h": 119,
+            "alt": "Piece 10"
+          },
+          {
+            "id": "11",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-1wc8ziq.png",
+            "x": 466,
+            "y": 281,
+            "w": 129,
+            "h": 118,
+            "alt": "Piece 11"
+          },
+          {
+            "id": "12",
+            "src": "/courses/CK/CK_M4L4/pages/CK-M4L4_1/assets/task-1-119ao1d/initial/asset-17suoij.png",
+            "x": 606,
+            "y": 307,
+            "w": 110,
+            "h": 76,
+            "alt": "Piece 12"
+          }
+        ]
       }
     },
     "task-10-bkmoo8": {

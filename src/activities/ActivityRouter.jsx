@@ -11,6 +11,7 @@ import ImageDropzonesTask from './ImageDropzonesTask.jsx';
 import MatchingDragdropTask from './MatchingDragdropTask.jsx';
 import MatchingConnectTask from './MatchingConnectTask.jsx';
 import McqCheckboxTask from './McqCheckboxTask.jsx';
+import CanvasDropTask from './CanvasDropTask.jsx';
 import ProjectChecklistTask from './ProjectChecklistTask.jsx';
 import SequenceOrderTask from './SequenceOrderTask.jsx';
 import SceneClassificationTask from './SceneClassificationTask.jsx';
@@ -409,6 +410,12 @@ function normalizeRendererType(value) {
     mcq_checkbox: 'mcq-checkbox',
     mcqcheckbox: 'mcq-checkbox',
     'mcq-checkbox': 'mcq-checkbox',
+
+    canvas_drop: 'canvas-drop-task',
+    canvasdrop: 'canvas-drop-task',
+    canvas_drop_task: 'canvas-drop-task',
+    'canvas-drop': 'canvas-drop-task',
+    'canvas-drop-task': 'canvas-drop-task',
 
     classification_matching: 'code-classification',
     snippet_matching: 'code-classification',
@@ -881,6 +888,10 @@ function resolveRendererType({ pageInstance, task, state }) {
     return stateSelected;
   }
 
+  if (task?.canvasDrop || task?.renderer?.canvasDrop) {
+    return 'canvas-drop-task';
+  }
+
   if (
     task?.sceneClassification ||
     task?.scenesTask ||
@@ -1319,6 +1330,10 @@ export default function ActivityRouter(props) {
 
   if (rendererType === 'image-dropzones-task') {
     return <ImageDropzonesTask key={taskKey} {...effectiveProps} task={nextTask} />;
+  }
+
+  if (rendererType === 'canvas-drop-task') {
+    return <CanvasDropTask key={taskKey} {...effectiveProps} task={nextTask} />;
   }
 
   if (rendererType === 'mcq-checkbox') {

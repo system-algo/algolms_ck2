@@ -16,14 +16,15 @@
     "fill-blank-task",
     "video-lesson",
     "scratch-embed-task",
-    "matching-connect"
+    "matching-connect",
+    "canvas-drop-task"
   ],
   "tasks": {
     "task-1-1c4f7ye": {
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-1c4f7ye-rkq26o": {
           "title": "initial",
@@ -65,6 +66,127 @@
           "title": "after-11-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Put the start scene of the game together.",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [],
+        "labels": [],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 75,
+            "y": 30,
+            "w": 180,
+            "h": 180,
+            "answer": "3"
+          },
+          {
+            "id": "B",
+            "name": "B",
+            "x": 255,
+            "y": 30,
+            "w": 180,
+            "h": 180,
+            "answer": "2"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 435,
+            "y": 30,
+            "w": 180,
+            "h": 180,
+            "answer": "1"
+          },
+          {
+            "id": "D",
+            "name": "D",
+            "x": 75,
+            "y": 210,
+            "w": 180,
+            "h": 180,
+            "answer": "4"
+          },
+          {
+            "id": "E",
+            "name": "E",
+            "x": 255,
+            "y": 210,
+            "w": 180,
+            "h": 180,
+            "answer": "5"
+          },
+          {
+            "id": "F",
+            "name": "F",
+            "x": 435,
+            "y": 210,
+            "w": 180,
+            "h": 180,
+            "answer": "6"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M6L3/pages/CK-M6L3_1/assets/task-1-1c4f7ye/initial/asset-15r62mc.jpg",
+            "x": 676,
+            "y": 35,
+            "w": 95,
+            "h": 108,
+            "alt": "Piece 1"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M6L3/pages/CK-M6L3_1/assets/task-1-1c4f7ye/initial/asset-la0yx7.jpg",
+            "x": 781,
+            "y": 151,
+            "w": 99,
+            "h": 112,
+            "alt": "Piece 2"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M6L3/pages/CK-M6L3_1/assets/task-1-1c4f7ye/initial/asset-1iexry4.jpg",
+            "x": 784,
+            "y": 278,
+            "w": 95,
+            "h": 108,
+            "alt": "Piece 3"
+          },
+          {
+            "id": "4",
+            "src": "/courses/CK/CK_M6L3/pages/CK-M6L3_1/assets/task-1-1c4f7ye/initial/asset-j1wlvn.jpg",
+            "x": 678,
+            "y": 156,
+            "w": 93,
+            "h": 105,
+            "alt": "Piece 4"
+          },
+          {
+            "id": "5",
+            "src": "/courses/CK/CK_M6L3/pages/CK-M6L3_1/assets/task-1-1c4f7ye/initial/asset-hx9dcw.jpg",
+            "x": 782,
+            "y": 31,
+            "w": 97,
+            "h": 109,
+            "alt": "Piece 5"
+          },
+          {
+            "id": "6",
+            "src": "/courses/CK/CK_M6L3/pages/CK-M6L3_1/assets/task-1-1c4f7ye/initial/asset-l7xs36.jpg",
+            "x": 678,
+            "y": 279,
+            "w": 92,
+            "h": 104,
+            "alt": "Piece 6"
+          }
+        ]
       }
     },
     "task-11-1lcm1fj": {
