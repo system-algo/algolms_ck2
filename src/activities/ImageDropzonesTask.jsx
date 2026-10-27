@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import {
   loadLocalTaskState,
   saveLocalTaskState,
@@ -7,15 +8,15 @@ import {
 } from '../lib/taskExtractors.js';
 import './ImageDropzonesTask.css';
 
-const API_BASE_URL = String(
-  import.meta.env.VITE_API_BASE_URL ||
-  import.meta.env.VITE_API_URL ||
-  localStorage.getItem('lms_backend_url') ||
-  sessionStorage.getItem('lms_backend_url') ||
-  ''
-).replace(/\/+$/, '');
-
-const SESSION_STORAGE_KEY = 'algolms_session_id';
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL ||
+      import.meta.env.VITE_API_URL ||
+      sessionStorage.getItem('lms_backend_url') ||
+      localStorage.getItem('lms_backend_url') ||
+      ''
+  ).trim().replace(/\/+$/, '');
+}
 
 function normalizeText(value) {
   return String(value || '')
@@ -58,42 +59,6 @@ function getRuntimeIds(pageInstance) {
   };
 }
 
-function getSessionId() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const qSession = params.get('sessionId') || params.get('session');
-    if (qSession) return qSession;
-
-    const existing = localStorage.getItem(SESSION_STORAGE_KEY) || localStorage.getItem('lms-session-id');
-    if (existing) return existing;
-
-    const next =
-      typeof crypto !== 'undefined' && crypto.randomUUID
-        ? crypto.randomUUID()
-        : `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-    localStorage.setItem(SESSION_STORAGE_KEY, next);
-    return next;
-  } catch {
-    return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
-}
-
-function getUserId() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    return (
-      params.get('userId') ||
-      params.get('studentEmail') ||
-      params.get('email') ||
-      localStorage.getItem('lms_student_email') ||
-      sessionStorage.getItem('lms_student_email') ||
-      'student@algo.edu.vn'
-    );
-  } catch {
-    return 'student@algo.edu.vn';
-  }
-}
 
 function getImageSrc(image) {
   if (!image) return '';
@@ -525,35 +490,51 @@ export default function ImageDropzonesTask({
   }
 
   async function submitAttemptToBackend(currentPlacements) {
-    if (!API_BASE_URL) return null;
+    const apiBaseUrl = getBackendBaseUrl();
+    if (!apiBaseUrl) throw new Error('LMS backend URL is not configured.');
 
     const { courseId, lessonId, pageId } = getRuntimeIds(pageInstance);
-    const effectiveTaskId = String(task?.id || task?.taskId || taskId || 'task-3').trim();
-    if (!courseId || !lessonId || !pageId || !effectiveTaskId) return null;
+    const studentEmail =
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') ||
+      '';
+    const accessToken =
+      sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token') ||
+      '';
+    const effectiveTaskId = String(task?.id || task?.taskId || taskId || '').trim();
+    const { headers, payload } = buildAuthenticatedActivityAttempt({
+      accessToken,
+      studentEmail,
+      courseId: courseId || 'CK',
+      lessonId,
+      pageId,
+      taskId: effectiveTaskId,
+      activityType: 'image-dropzones-task',
+      answer: { placements: currentPlacements },
+      extra: { isCorrect: true, score: 1, maxScore: 1 },
+    });
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/activity-attempts`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionId: getSessionId(),
-          userId: getUserId(),
-          courseId,
-          lessonId,
-          pageId,
-          taskId: effectiveTaskId,
-          activityType: 'image-dropzones-task',
-          answer: { placements: currentPlacements },
-          isCorrect: true,
-          score: 1,
-          maxScore: 1,
-        }),
-      });
+    const response = await fetch(`${apiBaseUrl}/api/activity-attempts`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+    });
 
-      return response.ok ? await response.json().catch(() => null) : null;
-    } catch {
-      return null;
+    if (!response.ok) {
+      const responseText = await response.text();
+      throw new Error(`HTTP ${response.status}: ${responseText.slice(0, 300)}`);
     }
+    const saved = await response.json();
+    if (saved?.ok !== true) {
+      throw new Error('Backend did not confirm saving the image dropzones attempt.');
+    }
+    if (saved?.result?.isCorrect !== true) {
+      throw new Error(
+        `Backend did not grade the placements correct: ${saved?.result?.status || 'unknown'}`
+      );
+    }
+    return saved;
   }
 
   function triggerSuccess(currentPlacements) {
@@ -608,7 +589,7 @@ export default function ImageDropzonesTask({
     }
   }
 
-  function checkTask() {
+  async function checkTask() {
     if (checking) return;
 
     const filledCount = data.dropzones.filter((zone) => Boolean(placements[zone.id])).length;
@@ -618,31 +599,35 @@ export default function ImageDropzonesTask({
       return;
     }
 
-    setChecking(true);
-
-    const allCorrect = data.dropzones.every((zone) => {
-      const itemId = placements[zone.id];
-      return isPlacementCorrect(zone, itemId);
-    });
-
-    if (allCorrect) {
-      setStatus('Correct!');
-      setHasError(false);
-      triggerSuccess(placements);
-      submitAttemptToBackend(placements);
-    } else {
+    const allCorrect = data.dropzones.every((zone) =>
+      isPlacementCorrect(zone, placements[zone.id])
+    );
+    if (!allCorrect) {
       setStatus('Almost there! Try again.');
       setHasError(true);
+      return;
     }
 
-    setChecking(false);
+    setChecking(true);
+    setStatus('Saving your answer...');
+    setHasError(false);
+
+    try {
+      // Only the backend result confirms that the answer was persisted and graded.
+      await submitAttemptToBackend(placements);
+      setStatus('Correct!');
+      triggerSuccess(placements);
+    } catch (error) {
+      console.warn('[ImageDropzonesTask] Could not save CK2 answer:', error);
+      setStatus('Could not save or verify your answer. Please try again.');
+      setHasError(true);
+    } finally {
+      setChecking(false);
+    }
   }
 
-  const isSolved = Boolean(
-    isTaskDone ||
-    (data.dropzones.length > 0 &&
-      data.dropzones.every((zone) => isPlacementCorrect(zone, placements[zone.id])))
-  );
+  // Matching every dropzone locally is not proof the attempt is saved.
+  const isSolved = Boolean(isTaskDone || (status === 'Correct!' && !hasError));
 
   return (
     <LmsActivityFrame
