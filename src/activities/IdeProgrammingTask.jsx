@@ -6,6 +6,7 @@ import {
   saveLocalTaskState,
 } from '../lib/taskExtractors.js';
 import { getProgressCourseId, saveTaskCompletionToSupabase } from '../lib/supabaseProgress.js';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 
 function getApiBaseUrl() {
   const envUrl = String(
@@ -984,7 +985,8 @@ async function submitIdeSource({
   const userId = getStudentUserId(pageInstance, task);
   let savedToCloud = false;
 
-  // 1. Submit to Backend API if configured
+  // 1. Submit to Backend API with the real CK2 enrollment context.
+  // The lesson assets still use CK, but the backend enforces CK2 membership.
   if (apiBase) {
     const endpoint = getSubmitEndpoint(task, state);
     const url = endpoint.startsWith('http')
@@ -992,53 +994,58 @@ async function submitIdeSource({
       : `${apiBase}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sessionId: getSessionId(),
-          userId,
-          courseId,
-          lessonId,
-          pageId,
-          taskId,
-          activityType: 'ide-programming',
+      const studentEmail =
+        sessionStorage.getItem('lms_student_email') ||
+        localStorage.getItem('lms_student_email') || '';
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token') || '';
+      const { headers, payload } = buildAuthenticatedActivityAttempt({
+        studentEmail,
+        accessToken,
+        courseId,
+        lessonId,
+        pageId,
+        taskId,
+        activityType: 'ide-programming',
+        extra: {
           action,
           runMode: 'run',
           language: 'python',
           sourceCode,
           runtimeStatus: runtimeStatus || 'ran',
-          // Only send completion fields when explicitly submitting (not on regular saves)
           ...(isCorrect ? { isCorrect: true, status: 'completed' } : {}),
           clientSavedAt,
-          answer: {
-            code: sourceCode,
-            submittedCode: sourceCode,
-            sourceCode,
-            language: 'python',
-            runMode: 'run',
-            runtimeStatus: runtimeStatus || 'ran',
-            ...(isCorrect ? { isCorrect: true, status: 'completed' } : {}),
-            clientSavedAt,
-          },
-        }),
+        },
+        answer: {
+          code: sourceCode,
+          submittedCode: sourceCode,
+          sourceCode,
+          language: 'python',
+          runMode: 'run',
+          runtimeStatus: runtimeStatus || 'ran',
+          ...(isCorrect ? { isCorrect: true, status: 'completed' } : {}),
+          clientSavedAt,
+        },
       });
-
-      const text = await response.text();
-      let payload = null;
-
-      if (text) {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+      });
+      const responseText = await response.text();
+      let responseBody = null;
+      if (responseText) {
         try {
-          payload = JSON.parse(text);
+          responseBody = JSON.parse(responseText);
         } catch {
-          payload = text;
+          responseBody = responseText;
         }
       }
-
-      if (response.ok && payload?.ok !== false) {
+      if (response.ok && responseBody?.ok !== false) {
         savedToCloud = true;
+      } else {
+        console.warn('[IDE_PROGRAMMING_API_SAVE_WARN]', response.status, responseBody);
       }
     } catch (apiErr) {
       console.warn('[IDE_PROGRAMMING_API_SAVE_WARN]', apiErr);
@@ -1189,18 +1196,30 @@ async function fetchSavedIdeSource({
         : `${apiBase}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`
     );
 
-    url.searchParams.set('courseId', courseId);
+    const studentEmail =
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') || '';
+    const accessToken =
+      sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token') || '';
+    const authenticatedEmail = String(studentEmail).trim().toLowerCase();
+
+    url.searchParams.set('courseId', getProgressCourseId(courseId));
     url.searchParams.set('lessonId', lessonId);
     url.searchParams.set('pageId', pageId);
     url.searchParams.set('taskId', taskId);
-    url.searchParams.set('userId', userId);
-    url.searchParams.set('sessionId', getSessionId());
+    url.searchParams.set('userId', authenticatedEmail);
+    url.searchParams.set('sessionId', `user:${authenticatedEmail}`);
 
     try {
+      if (!authenticatedEmail || !accessToken || accessToken.split('.').length !== 3) {
+        throw new Error('Authenticated session is required to load saved source.');
+      }
       const response = await fetch(url.toString(), {
         method: 'GET',
         headers: {
           Accept: 'application/json',
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
