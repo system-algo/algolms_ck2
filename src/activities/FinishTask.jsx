@@ -6,6 +6,7 @@ import {
 } from 'react';
 
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
+import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 
 function getTaskId(task) {
   return String(
@@ -17,7 +18,13 @@ function getTaskId(task) {
   ).trim();
 }
 
-const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+function getBackendBaseUrl() {
+  return String(
+    import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL ||
+    sessionStorage.getItem('lms_backend_url') ||
+    localStorage.getItem('lms_backend_url') || ''
+  ).trim().replace(/\/+$/, '');
+}
 
 function getRuntimeIds(pageInstance, task) {
   let courseId = '';
@@ -457,31 +464,37 @@ export default function FinishTask({
             );
 
           try {
-            const { courseId: currentCourseId, lessonId: currentLessonId, pageId: currentPageId } = getRuntimeIds(pageInstance, task);
-            const sessionId = localStorage.getItem('algolms_session_id') || localStorage.getItem('lms-session-id') || `session-${Date.now()}`;
-            
-            if (API_BASE_URL && taskId && currentPageId) {
-              const res = await fetch(`${API_BASE_URL}/api/activity-completions`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  sessionId,
-                  userId: studentEmail || null,
-                  courseId: currentCourseId,
-                  lessonId: currentLessonId,
-                  pageId: currentPageId,
-                  taskId: taskId,
-                  activityType: 'finish-task',
-                  isCorrect: true,
-                  score: 1,
-                  maxScore: 1
-                })
-              });
-              if (!res.ok) {
-                console.error('Backend activity completion failed for FinishTask:', await res.text());
-              }
+            const base = getBackendBaseUrl();
+            if (!base) throw new Error('LMS backend URL is not configured.');
+            const {
+              courseId: currentCourseId,
+              lessonId: currentLessonId,
+              pageId: currentPageId,
+            } = getRuntimeIds(pageInstance, task);
+            const authEmail =
+              sessionStorage.getItem('lms_student_email') ||
+              localStorage.getItem('lms_student_email') || '';
+            const accessToken =
+              sessionStorage.getItem('lms_access_token') ||
+              localStorage.getItem('lms_access_token') || '';
+            const { headers, payload } = buildAuthenticatedActivityAttempt({
+              studentEmail: authEmail,
+              accessToken,
+              courseId: currentCourseId,
+              lessonId: currentLessonId,
+              pageId: currentPageId,
+              taskId,
+              activityType: 'finish-task',
+              answer: { viewedPageIndexes },
+              extra: { completionType: 'viewed-all-images', isCorrect: true, score: 1, maxScore: 1 },
+            });
+            const response = await fetch(`${base}/api/activity-completions`, {
+              method: 'POST',
+              headers,
+              body: JSON.stringify(payload),
+            });
+            if (!response.ok || (await response.json())?.ok !== true) {
+              throw new Error('Could not confirm FinishTask completion with backend.');
             }
 
             if (typeof handler === 'function') {
@@ -591,21 +604,9 @@ export default function FinishTask({
       : `${visitedImageIndexes.size}/${images.length} viewed`;
 
   function handleCheck() {
-    if (!isAlreadyDone && !isCompleted) {
-      import('../utils/lmsSounds.js')
-        .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
-          playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
-        })
-        .catch(() => {});
-
-      window.dispatchEvent(
-        new CustomEvent('LMS_TASK_COMPLETED', {
-          detail: { taskId: task?.id || taskId },
-        })
-      );
-    }
-
-    if (onNextTask) {
+    // Never mark an unfinished lesson complete just because Check was clicked.
+    // The viewing useEffect saves through the authenticated backend first.
+    if ((isCompleted || isAlreadyDone || isTaskDone) && onNextTask) {
       onNextTask();
     }
   }
