@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import TopNavigation from '../components/TopNavigation.jsx';
 import ActivityRouter from '../activities/ActivityRouter.jsx';
 
@@ -203,53 +203,6 @@ export default function GeneratedPageShell({
     } catch {}
   }, [completedTasksStorageKey]);
 
-  function handleTaskCompleted(completionOrEvent = {}) {
-    const completedId = String(
-      completionOrEvent?.detail?.taskId ||
-      completionOrEvent?.taskId ||
-      getTaskId(task) ||
-      `task-${taskIndex + 1}`
-    ).trim();
-    if (!completedId) return;
-
-    let isNew = false;
-    setCompletedTaskIds((prev) => {
-      if (prev.includes(completedId)) return prev;
-      isNew = true;
-      const next = [...prev, completedId];
-      try {
-        localStorage.setItem(completedTasksStorageKey, JSON.stringify(next));
-      } catch {}
-      return next;
-    });
-
-    if (tasks.length > 0 && taskIndex < tasks.length - 1) {
-      setTimeout(() => {
-        setTaskIndex((prev) => Math.min(tasks.length - 1, prev + 1));
-        setStateIndex(0);
-      }, 1200);
-    }
-
-    // Sync to Supabase activity_progress table (background fire-and-forget fallback)
-    import('../lib/supabaseProgress.js')
-      .then(({ saveTaskCompletionToSupabase }) => {
-        saveTaskCompletionToSupabase({
-          courseId: effectiveCourseId,
-          lessonId: effectiveLessonId,
-          pageId: effectivePageId,
-          taskId: completedId,
-        });
-      })
-      .catch(() => {});
-  }
-
-  useEffect(() => {
-    window.addEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
-    return () => {
-      window.removeEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
-    };
-  }, [completedTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId, taskIndex, tasks.length, task]);
-
   useEffect(() => {
     const cId = courseId;
     const lId = lessonId;
@@ -418,6 +371,64 @@ export default function GeneratedPageShell({
       onBackToPages(target);
     }
   };
+
+  const taskRef = useRef(task);
+  taskRef.current = task;
+  const tasksRef = useRef(tasks);
+  tasksRef.current = tasks;
+  const taskIndexRef = useRef(taskIndex);
+  taskIndexRef.current = taskIndex;
+
+  function handleTaskCompleted(completionOrEvent = {}) {
+    const currentTask = taskRef.current;
+    const currentTasks = tasksRef.current;
+    const currentTaskIndex = taskIndexRef.current;
+
+    const completedId = String(
+      completionOrEvent?.detail?.taskId ||
+      completionOrEvent?.taskId ||
+      getTaskId(currentTask) ||
+      `task-${currentTaskIndex + 1}`
+    ).trim();
+    if (!completedId) return;
+
+    let isNew = false;
+    setCompletedTaskIds((prev) => {
+      if (prev.includes(completedId)) return prev;
+      isNew = true;
+      const next = [...prev, completedId];
+      try {
+        localStorage.setItem(completedTasksStorageKey, JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+
+    if (currentTasks.length > 0 && currentTaskIndex < currentTasks.length - 1) {
+      setTimeout(() => {
+        setTaskIndex((prev) => Math.min(currentTasks.length - 1, prev + 1));
+        setStateIndex(0);
+      }, 1200);
+    }
+
+    // Sync to Supabase activity_progress table (background fire-and-forget fallback)
+    import('../lib/supabaseProgress.js')
+      .then(({ saveTaskCompletionToSupabase }) => {
+        saveTaskCompletionToSupabase({
+          courseId: effectiveCourseId,
+          lessonId: effectiveLessonId,
+          pageId: effectivePageId,
+          taskId: completedId,
+        });
+      })
+      .catch(() => {});
+  }
+
+  useEffect(() => {
+    window.addEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
+    return () => {
+      window.removeEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
+    };
+  }, [completedTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId]);
 
   if (error) {
     return (
