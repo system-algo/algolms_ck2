@@ -722,39 +722,53 @@ export default function McqCheckboxTask({
     setChecking(true);
     setStatus('Checking...');
 
-    try {
-      const payload = await submitMcqAttempt({
-        pageInstance,
-        task,
-        selected,
-        options: data.options,
-      });
+    const hasLocalKey = Array.isArray(data.correctChoices) && data.correctChoices.length > 0;
+    let isLocallyCorrect = null;
 
-      if (!payload) {
-        setStatus('Answer was not saved on the backend. Please try again.');
+    if (hasLocalKey) {
+      const selectedKey = [...selected].sort().join('|');
+      const correctKey = getCorrectKeys(data.correctChoices, data.options).sort().join('|');
+      isLocallyCorrect = selectedKey === correctKey;
+
+      if (!isLocallyCorrect) {
+        setStatus('Try again');
+        setChecking(false);
         return;
       }
+    }
 
-      const result = payload.result || payload.attempt?.result || {};
-      const nextStatus = result.status || payload.attempt?.status || '';
+    try {
+      let payload = null;
+      try {
+        payload = await submitMcqAttempt({
+          pageInstance,
+          task,
+          selected,
+          options: data.options,
+        });
+      } catch (submitErr) {
+        console.warn('[MCQ_BACKEND_SUBMIT_WARN]', submitErr);
+      }
 
-      if (result.isCorrect === true || payload.attempt?.isCorrect === true) {
+      const result = payload?.result || payload?.attempt?.result || {};
+
+      if (result.isCorrect === true || payload?.attempt?.isCorrect === true || isLocallyCorrect === true) {
         setStatus('You got it!');
+        import('../utils/lmsSounds.js')
+          .then(({ playLmsSound, LMS_SOUND_TYPES }) => {
+            playLmsSound(LMS_SOUND_TYPES.COMPLETE_ACTIVITY);
+          })
+          .catch(() => {});
         triggerSuccess();
         return;
       }
 
-      if (result.isCorrect === false || payload.attempt?.isCorrect === false) {
+      if (result.isCorrect === false || payload?.attempt?.isCorrect === false) {
         setStatus('Try again');
         return;
       }
 
-      if (nextStatus === 'missing_answer_key') {
-        setStatus('Answer saved. No backend answer key found.');
-        return;
-      }
-
-      if (result.feedback || payload.attempt?.feedback) {
+      if (result.feedback || payload?.attempt?.feedback) {
         setStatus(result.feedback || payload.attempt.feedback);
         return;
       }
@@ -762,7 +776,12 @@ export default function McqCheckboxTask({
       setStatus('Answer saved.');
     } catch (error) {
       console.error('[MCQ_SUBMIT_ERROR]', error);
-      setStatus('Answer was not saved on the backend. Please try again.');
+      if (isLocallyCorrect === true) {
+        setStatus('You got it!');
+        triggerSuccess();
+      } else {
+        setStatus('Answer was not saved on the backend. Please try again.');
+      }
     } finally {
       setChecking(false);
     }
@@ -776,6 +795,9 @@ export default function McqCheckboxTask({
   const hasVisualChoices =
     data.layout === 'image-grid' &&
     data.options.some((option) => option.imageSrc);
+
+  const displayTitle = data.prompt ? data.title : (task?.title || data.title);
+  const displayPrompt = data.prompt || (task?.title && task.title !== data.title ? data.title : '');
 
   return (
     <LmsActivityFrame
@@ -791,19 +813,33 @@ export default function McqCheckboxTask({
       isTaskDone={isTaskDone}
     >
       <article className="functional-card mcq-card">
-        <h1>{data.title}</h1>
+        <div className="mcq-header">
+          <div className="mcq-top-row">
+            <h1 className="mcq-section-title">
+              {isTaskDone && (
+                <span className="mcq-check-badge">✓</span>
+              )}
+              <span>{displayTitle || 'Part 1. My correct solution'}</span>
+            </h1>
+            <span className="mcq-collapse-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="18 15 12 9 6 15" />
+              </svg>
+            </span>
+          </div>
 
-        {data.prompt && <p className="task-prompt">{data.prompt}</p>}
+          {displayPrompt && <p className="mcq-instruction-prompt">{displayPrompt}</p>}
+        </div>
 
-        {!hasVisualChoices && data.images.length > 0 && (
-          <div className="image-strip">
+        {data.images.length > 0 && (
+          <div className="image-strip mcq-question-images">
             {data.images.slice(0, 3).map((image) => (
               <img key={getImageSrc(image)} src={getImageSrc(image)} alt={image.alt || ''} />
             ))}
           </div>
         )}
 
-        <div className={`choice-list ${hasVisualChoices ? 'mcq-visual-choice-list' : ''}`}>
+        <div className={`choice-list ${hasVisualChoices ? 'mcq-visual-choice-list' : ''} ${hasVisualChoices ? `mcq-cols-${Math.min(data.options.length, 4)}` : ''}`}>
           {data.options.map((option, index) => {
             const choiceKey = option.key || makeOptionKey(option, index);
             const isSelected = selected.includes(choiceKey);
@@ -822,7 +858,7 @@ export default function McqCheckboxTask({
                 disabled={checking}
               >
                 <span className={data.multiple ? 'checkbox-ui' : 'radio-ui'}>
-                  {isSelected ? '✓' : ''}
+                  {isSelected && data.multiple ? '✓' : ''}
                 </span>
 
                 {hasVisualChoices ? (

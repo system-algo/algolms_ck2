@@ -182,7 +182,7 @@
         }
       },
       "mcqCheckbox": {
-        "title": "Find the program",
+        "title": "Part 1. My correct solution",
         "layout": "image-grid",
         "multiple": false,
         "images": [
@@ -194,19 +194,26 @@
         "options": [
           {
             "id": "option-1",
-            "imageSrc": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-11-1lips4t/initial/asset-1xkziuf.png",
+            "imageSrc": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-11-1lips4t/initial/asset-1lba3st.png",
             "alt": "Option 1"
           },
           {
             "id": "option-2",
-            "imageSrc": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-11-1lips4t/initial/asset-1lba3st.png",
+            "imageSrc": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-11-1lips4t/initial/asset-19s0eea.png",
             "alt": "Option 2"
           },
           {
             "id": "option-3",
-            "imageSrc": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-11-1lips4t/initial/asset-19s0eea.png",
+            "imageSrc": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-11-1lips4t/initial/asset-1xkziuf.png",
             "alt": "Option 3"
           }
+        ],
+        "prompt": "Find the program",
+        "correctChoices": [
+          "option-2"
+        ],
+        "correctAnswers": [
+          "option-2"
         ]
       }
     },
