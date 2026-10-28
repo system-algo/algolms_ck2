@@ -3,6 +3,7 @@ import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
 import './MatchingConnectTask.css';
 import { getUniqueImages, loadLocalTaskState, saveLocalTaskState } from '../lib/taskExtractors.js';
 import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
+import { classifyMatchingAttempt, getWrongMatchingPairIds } from '../lib/ck2MatchingGrade.js';
 
 const DEFAULT_COLORS = [
   '#22c55e',
@@ -159,10 +160,6 @@ function isComplete(connections, leftItems) {
   return leftItems.every((item) => connections[item.id]);
 }
 
-function isCorrect(connections, answerKey, leftItems) {
-  return leftItems.every((item) => connections[item.id] === answerKey[item.id]);
-}
-
 function resolveCapturedImageItem(item, capturedImages) {
   if (item.image?.src) return item;
 
@@ -228,24 +225,16 @@ export default function MatchingConnectTask({
     if (saved?.connections && Object.keys(saved.connections).length > 0) {
       return saved.connections;
     }
-    if (isTaskDone && data.answerKey && Object.keys(data.answerKey).length > 0) {
-      return data.answerKey;
-    }
     return {};
   });
   const [activeLeftId, setActiveLeftId] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [previewLine, setPreviewLine] = useState(null);
-  const [checked, setChecked] = useState(() => {
-    const saved = loadLocalTaskState(taskId, null);
-    return Boolean(saved?.checked);
-  });
-  const [result, setResult] = useState(() => {
-    const saved = loadLocalTaskState(taskId, null);
-    // Earlier versions stored "correct" whenever a request returned ok:true,
-    // even if the official grader marked it incorrect. Do not trust that flag.
-    return saved?.result === 'correct' ? null : (saved?.result || null);
-  });
+  // Browser-local flags are not authoritative; only a fresh backend grade is.
+  // Preserve the student's connections, but never restore a cached "Correct".
+  const [checked, setChecked] = useState(false);
+  const [result, setResult] = useState(null);
+  const [wrongLeftIds, setWrongLeftIds] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
   const savePendingRef = useRef(false);
   const [lineLayout, setLineLayout] = useState({});
@@ -327,6 +316,7 @@ export default function MatchingConnectTask({
   function clearResultState() {
     setChecked(false);
     setResult(null);
+    setWrongLeftIds([]);
   }
 
   function updatePreviewLine(leftId, clientX, clientY) {
@@ -455,6 +445,7 @@ export default function MatchingConnectTask({
     setPreviewLine(null);
     setChecked(false);
     setResult(null);
+    setWrongLeftIds([]);
     localStorage.removeItem(storageKey);
   }
 
@@ -468,16 +459,11 @@ export default function MatchingConnectTask({
       return;
     }
 
-    const correct =
-      data.checkMode === 'answer-key'
-        ? isCorrect(connections, data.answerKey, data.leftItems)
-        : true;
-
+    // Only validate that every left item has a connection locally.
+    // The official Supabase answer key, through the backend grader, is the
+    // ONLY authority deciding whether those connections are correct.
     setChecked(true);
-    if (!correct) {
-      setResult('wrong');
-      return;
-    }
+    setWrongLeftIds([]);
 
     // Only mark the task as completed after the official answer is accepted
     // by the backend. A local correctness check is not proof of persistence.
@@ -512,7 +498,6 @@ export default function MatchingConnectTask({
         taskId: currentTaskId,
         activityType: 'matching-connect',
         answer: { connections, pairs: connections },
-        extra: { isCorrect: true, score: 1, maxScore: 1 },
       });
 
       const response = await fetch(`${apiBaseUrl}/api/activity-attempts`, {
@@ -529,25 +514,20 @@ export default function MatchingConnectTask({
         throw new Error('Backend did not confirm saving the activity attempt.');
       }
 
-      // A successful POST only proves persistence, not correctness.
-      // The server grades against the course's official Supabase answer key.
-      if (saved?.result?.isCorrect !== true || saved?.result?.status !== 'correct') {
-        setResult(
-          saved?.result?.status === 'missing_answer_key'
-            ? 'missing-answer-key'
-            : 'grading-mismatch'
-        );
-        console.warn('[MatchingConnectTask] Saved attempt was not graded correct:', {
-          courseId: payload.courseId,
-          lessonId: payload.lessonId,
-          pageId: payload.pageId,
-          taskId: payload.taskId,
-          status: saved?.result?.status || 'unknown',
-          isCorrect: saved?.result?.isCorrect,
-        });
+      const officialGrade = classifyMatchingAttempt(saved);
+      if (officialGrade !== 'correct') {
+        setResult(officialGrade);
+        setWrongLeftIds(getWrongMatchingPairIds(saved));
+
+        // Clear only the stale browser completion marker for this task.
+        // The actual Supabase grade and progress are controlled by the server.
+        window.dispatchEvent(new CustomEvent('LMS_TASK_GRADED', {
+          detail: { taskId: currentTaskId, isCorrect: false },
+        }));
         return;
       }
 
+      setWrongLeftIds([]);
       setResult('correct');
 
       import('../utils/lmsSounds.js')
@@ -607,32 +587,42 @@ export default function MatchingConnectTask({
     );
   }
 
-  // If the latest official attempt was rejected, stale completion flags
-  // must not conceal the server's incorrect grade.
-  const isOfficiallyRejected = result === 'grading-mismatch' || result === 'missing-answer-key';
-  const isDone = Boolean(
-    !isOfficiallyRejected && (isTaskDone || (checked && result === 'correct'))
-  );
+  const rejectedByServer = ['wrong', 'incomplete', 'missing-answer-key', 'grading-unavailable'].includes(result);
+  const isDone = Boolean(!rejectedByServer && (result === 'correct' || isTaskDone));
   const feedbackStatus = isSaving
-    ? 'Saving your answer...'
-    : result === 'save-error'
-      ? 'Your answer was not saved. Please check your connection and try again.'
-      : result === 'missing-answer-key'
-        ? 'Answer saved, but the server has no answer key for this task.'
-        : result === 'grading-mismatch'
-          ? 'Answer saved, but the server marked it incorrect. The lesson and server answer keys may differ. Please report this.'
-          : checked
-            ? (result === 'correct' ? 'Correct!' : result === 'wrong' ? 'Some connections are incorrect.' : 'Please connect all items before checking.')
-            : (isDone ? 'Correct!' : '');
+    ? 'Checking your answer...'
+    : result === 'correct'
+      ? 'Correct!'
+      : result === 'wrong'
+        ? 'Incorrect. Some connections do not match the official answer key. Try again.'
+        : result === 'incomplete'
+          ? 'Please connect all items before checking.'
+          : result === 'missing-answer-key'
+            ? 'This task has no official answer key in the database. Please report this.'
+            : result === 'grading-unavailable'
+              ? 'The server could not confirm the grade. Please try again.'
+              : result === 'save-error'
+                ? 'Your answer could not be saved. Please check your connection and try again.'
+                : '';
+  const statusVariant = isSaving
+    ? 'checking'
+    : result === 'correct'
+      ? 'success'
+      : checked && result
+        ? 'error'
+        : undefined;
 
   return (
     <LmsActivityFrame
       title={data.title}
       status={feedbackStatus}
+      statusVariant={statusVariant}
       onPrevTask={onPrevTask}
       onNextTask={onNextTask}
       onCheck={handleCheck}
       onReset={handleReset}
+      isCheckDisabled={isSaving}
+      isCheckLoading={isSaving}
       isTaskDone={isDone}
     >
       <section className="matching-connect-stage">
@@ -675,10 +665,7 @@ export default function MatchingConnectTask({
 
               const color = getConnectionColor(data.leftItems, leftId);
               const wrong =
-                checked &&
-                result === 'wrong' &&
-                data.answerKey[leftId] &&
-                data.answerKey[leftId] !== rightId;
+                checked && result === 'wrong' && wrongLeftIds.includes(leftId);
 
               return (
                 <line
@@ -725,10 +712,7 @@ export default function MatchingConnectTask({
             const rightConnected = Boolean(connectedLeftId);
 
             const leftWrong =
-              checked &&
-              result === 'wrong' &&
-              data.answerKey[leftId] &&
-              data.answerKey[leftId] !== connectedRightId;
+              checked && result === 'wrong' && wrongLeftIds.includes(leftId);
 
             return (
               <div className="matching-connect-row" key={`row-${index}`}>
@@ -823,24 +807,6 @@ export default function MatchingConnectTask({
           })}
         </div>
 
-        {checked && result ? (
-          <div
-            className={[
-              'matching-connect-feedback',
-              result === 'correct' ? 'is-correct' : '',
-              result === 'wrong' ? 'is-wrong' : '',
-              result === 'incomplete' ? 'is-incomplete' : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
-            {result === 'correct'
-              ? 'Correct!'
-              : result === 'wrong'
-                ? 'Some connections are incorrect.'
-                : 'Connect all items before checking.'}
-          </div>
-        ) : null}
 
       </div>
     </section>
