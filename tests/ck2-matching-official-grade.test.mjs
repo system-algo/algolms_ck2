@@ -24,7 +24,7 @@ test('an HTTP 201 / ok:true with isCorrect:false is WRONG, never Correct', () =>
 
 test('only official server result true/correct can complete a matching task', () => {
   assert.equal(classifyMatchingAttempt({ok: true, result: {isCorrect:true,status:'correct'}}), 'correct');
-  assert.equal(classifyMatchingAttempt({ok: true, result: {isCorrect:true,status:'incorrect'}}), 'grading-unavailable');
+  assert.equal(classifyMatchingAttempt({ok: true, result: {isCorrect:true,status:'incorrect'}}), 'wrong');
   assert.equal(classifyMatchingAttempt({ok: true, result: {isCorrect:false,status:'correct'}}), 'wrong');
   assert.equal(classifyMatchingAttempt({ok: true, result: {isCorrect:null,status:'missing_answer_key'}}), 'missing-answer-key');
   assert.equal(classifyMatchingAttempt({ok: true, result: {isCorrect:null,status:'pending_review'}}), 'grading-unavailable');
