@@ -430,6 +430,28 @@ export default function GeneratedPageShell({
     };
   }, [completedTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId]);
 
+  // A previously cached "completed" flag must not override the latest
+  // official incorrect grade. Remove that browser-only flag for the task;
+  // the backend's activity_progress record is authoritative.
+  useEffect(() => {
+    function handleOfficialGrade(event) {
+      if (event?.detail?.isCorrect !== false) return;
+      const taskId = String(event?.detail?.taskId || '').trim();
+      if (!taskId) return;
+      setCompletedTaskIds((previous) => {
+        if (!previous.includes(taskId)) return previous;
+        const updated = previous.filter((id) => id !== taskId);
+        try {
+          localStorage.setItem(completedTasksStorageKey, JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+    }
+
+    window.addEventListener('LMS_TASK_GRADED', handleOfficialGrade);
+    return () => window.removeEventListener('LMS_TASK_GRADED', handleOfficialGrade);
+  }, [completedTasksStorageKey]);
+
   if (error) {
     return (
       <main className="empty-screen">

@@ -1,84 +1,12 @@
+import { getLmsBannerDetails } from '../lib/activityFeedback.js';
 import './lms-activity-frame.css';
 
-function getPtsyBannerDetails(statusText) {
-  if (!statusText) return null;
-  const s = String(statusText).trim();
-  const lower = s.toLowerCase();
-
-  // When no answer is chosen before checking
-  if (
-    lower.includes('choose an answer') ||
-    lower.includes('pick an answer') ||
-    lower.includes('select an answer') ||
-    lower.includes('chưa chọn') ||
-    lower.includes('chọn đáp án') ||
-    lower.includes('choose your answer') ||
-    lower.includes('enter a link') ||
-    lower.includes('submit the answer') ||
-    lower.includes('submit answer') ||
-    lower.includes('please place all') ||
-    lower.includes('please complete all')
-  ) {
-    const desc = lower.includes('enter a link')
-      ? '✕ Please enter a link first.'
-      : lower.includes('submit the answer') || lower.includes('submit answer')
-      ? '✕ Please submit the answer first.'
-      : lower.includes('please place all') || lower.includes('please complete all')
-      ? (s.startsWith('✕') ? s : `✕ ${s}`)
-      : '✕ Please choose an answer before checking.';
-    return {
-      type: 'error',
-      isSuccess: false,
-      title: 'Almost there! 🌟',
-      description: desc,
-    };
-  }
-
-  if (lower === 'checking' || lower === 'checking...' || lower.startsWith('checking')) {
-    return {
-      type: 'checking',
-      title: 'Let’s see... 👀',
-      description: 'Checking your answer...',
-    };
-  }
-
-  const isSuccess =
-    lower.includes('correct') ||
-    lower.includes('đúng') ||
-    lower.includes('completed') ||
-    lower.includes('hoàn thành') ||
-    lower.includes('great job') ||
-    lower.includes('you got it') ||
-    lower.includes('saved') ||
-    lower.includes('viewed');
-
-  if (isSuccess) {
-    const desc =
-      s === 'Correct.' || s === 'Correct!' || s === 'You got it!' || s.includes('got it') || lower.includes('completed')
-        ? 'You got it!'
-        : s;
-    return {
-      type: 'success',
-      isSuccess: true,
-      title: 'Great job! 🎉',
-      description: desc.startsWith('✓') ? desc : `✓ ${desc}`,
-    };
-  }
-
-  const desc = 'Try again';
-
-  return {
-    type: 'error',
-    isSuccess: false,
-    title: 'Almost there! 🌟',
-    description: `✕ ${desc}`,
-  };
-}
 
 export default function LmsActivityFrame({
   children,
   title,
   status,
+  statusVariant,
   onNextTask,
   onPrevTask,
   nextLabel = 'Next',
@@ -98,7 +26,7 @@ export default function LmsActivityFrame({
   isCheckLoading,
 }) {
   const hasCheck = typeof onCheck === 'function';
-  const banner = getPtsyBannerDetails(status);
+  const banner = getLmsBannerDetails(status, statusVariant);
 
   const handleCheck = (e) => {
     if (!hasCheck) return;
