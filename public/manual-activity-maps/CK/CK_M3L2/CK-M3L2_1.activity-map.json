@@ -95,30 +95,30 @@
         "rightItems": [
           {
             "id": "right-1",
-            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-d5k15w.png",
+            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-1a3r6d.png",
             "alt": "Right 1"
           },
           {
             "id": "right-2",
-            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-1skvnfr.png",
+            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-enm5hg.png",
             "alt": "Right 2"
           },
           {
             "id": "right-3",
-            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-1a3r6d.png",
+            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-1skvnfr.png",
             "alt": "Right 3"
           },
           {
             "id": "right-4",
-            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-enm5hg.png",
+            "image": "/courses/CK/CK_M3L2/pages/CK-M3L2_1/assets/task-1-16czwxf/initial/asset-d5k15w.png",
             "alt": "Right 4"
           }
         ],
         "answerKey": {
-          "left-1": "right-1",
-          "left-2": "right-2",
-          "left-3": "right-3",
-          "left-4": "right-4"
+          "left-1": "right-4",
+          "left-2": "right-3",
+          "left-3": "right-1",
+          "left-4": "right-2"
         }
       }
     },
