@@ -607,7 +607,12 @@ export default function MatchingConnectTask({
     );
   }
 
-  const isDone = Boolean(isTaskDone || (checked && result === 'correct'));
+  // If the latest official attempt was rejected, stale completion flags
+  // must not conceal the server's incorrect grade.
+  const isOfficiallyRejected = result === 'grading-mismatch' || result === 'missing-answer-key';
+  const isDone = Boolean(
+    !isOfficiallyRejected && (isTaskDone || (checked && result === 'correct'))
+  );
   const feedbackStatus = isSaving
     ? 'Saving your answer...'
     : result === 'save-error'
