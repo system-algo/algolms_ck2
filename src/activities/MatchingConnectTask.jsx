@@ -242,7 +242,9 @@ export default function MatchingConnectTask({
   });
   const [result, setResult] = useState(() => {
     const saved = loadLocalTaskState(taskId, null);
-    return saved?.result || null;
+    // Earlier versions stored "correct" whenever a request returned ok:true,
+    // even if the official grader marked it incorrect. Do not trust that flag.
+    return saved?.result === 'correct' ? null : (saved?.result || null);
   });
   const [isSaving, setIsSaving] = useState(false);
   const savePendingRef = useRef(false);
@@ -527,6 +529,25 @@ export default function MatchingConnectTask({
         throw new Error('Backend did not confirm saving the activity attempt.');
       }
 
+      // A successful POST only proves persistence, not correctness.
+      // The server grades against the course's official Supabase answer key.
+      if (saved?.result?.isCorrect !== true || saved?.result?.status !== 'correct') {
+        setResult(
+          saved?.result?.status === 'missing_answer_key'
+            ? 'missing-answer-key'
+            : 'grading-mismatch'
+        );
+        console.warn('[MatchingConnectTask] Saved attempt was not graded correct:', {
+          courseId: payload.courseId,
+          lessonId: payload.lessonId,
+          pageId: payload.pageId,
+          taskId: payload.taskId,
+          status: saved?.result?.status || 'unknown',
+          isCorrect: saved?.result?.isCorrect,
+        });
+        return;
+      }
+
       setResult('correct');
 
       import('../utils/lmsSounds.js')
@@ -591,9 +612,13 @@ export default function MatchingConnectTask({
     ? 'Saving your answer...'
     : result === 'save-error'
       ? 'Your answer was not saved. Please check your connection and try again.'
-      : checked
-        ? (result === 'correct' ? 'Correct!' : result === 'wrong' ? 'Some connections are incorrect.' : 'Please connect all items before checking.')
-        : (isDone ? 'Correct!' : '');
+      : result === 'missing-answer-key'
+        ? 'Answer saved, but the server has no answer key for this task.'
+        : result === 'grading-mismatch'
+          ? 'Answer saved, but the server marked it incorrect. The lesson and server answer keys may differ. Please report this.'
+          : checked
+            ? (result === 'correct' ? 'Correct!' : result === 'wrong' ? 'Some connections are incorrect.' : 'Please connect all items before checking.')
+            : (isDone ? 'Correct!' : '');
 
   return (
     <LmsActivityFrame
