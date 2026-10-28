@@ -67,7 +67,7 @@
         }
       },
       "matchingConnect": {
-        "title": "Connect",
+        "title": "Part 1. My correct solution",
         "helperText": "Connect",
         "checkMode": "answer-key",
         "leftItems": [
@@ -95,30 +95,30 @@
         "rightItems": [
           {
             "id": "right-1",
-            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-ov10bp.png",
+            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-cuzm3r.png",
             "alt": "Right 1"
           },
           {
             "id": "right-2",
-            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-1bmqjud.jpg",
+            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-15pbei6.png",
             "alt": "Right 2"
           },
           {
             "id": "right-3",
-            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-15pbei6.png",
+            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-1bmqjud.jpg",
             "alt": "Right 3"
           },
           {
             "id": "right-4",
-            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-cuzm3r.png",
+            "image": "/courses/CK/CK_M3L3/pages/CK-M3L3_1/assets/task-1-1s2o2fy/initial/asset-ov10bp.png",
             "alt": "Right 4"
           }
         ],
         "answerKey": {
-          "left-1": "right-1",
-          "left-2": "right-2",
-          "left-3": "right-3",
-          "left-4": "right-4"
+          "left-1": "right-4",
+          "left-2": "right-3",
+          "left-3": "right-2",
+          "left-4": "right-1"
         }
       }
     },
