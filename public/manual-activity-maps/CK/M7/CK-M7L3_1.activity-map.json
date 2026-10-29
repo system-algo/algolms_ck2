@@ -22,7 +22,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-nh7h4p-jxjwx4": {
           "title": "initial",
@@ -56,6 +56,84 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Add sprites to the scene.",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-1-nh7h4p/initial/asset-4qfqn.jpg",
+            "x": 1,
+            "y": -1,
+            "w": 531,
+            "h": 398,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "B",
+            "name": "B",
+            "x": 30,
+            "y": 315,
+            "w": 105,
+            "h": 75,
+            "answer": "2"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 375,
+            "y": 210,
+            "w": 120,
+            "h": 75,
+            "answer": "3"
+          },
+          {
+            "id": "A",
+            "name": "A",
+            "x": 0,
+            "y": 60,
+            "w": 60,
+            "h": 45,
+            "answer": "1"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-1-nh7h4p/initial/sprite-1.webp",
+            "x": 754,
+            "y": 19,
+            "w": 125,
+            "h": 72,
+            "alt": "Piece 1"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-1-nh7h4p/initial/sprite-2.webp",
+            "x": 631,
+            "y": 238,
+            "w": 240,
+            "h": 154,
+            "alt": "Piece 2"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-1-nh7h4p/initial/sprite-3.webp",
+            "x": 574,
+            "y": 101,
+            "w": 255,
+            "h": 136,
+            "alt": "Piece 3"
+          }
+        ],
+        "sampleImage": "/courses/CK/CK_M7L3/pages/CK-M7L3_1/assets/task-1-nh7h4p/initial/asset-18yqfm.jpg"
       }
     },
     "task-9-1dx52pd": {
