@@ -149,65 +149,47 @@
       "matchingConnect": {
         "title": "What program does each sprite execute?",
         "helperText": "Connect",
+        "attempt": "Attempt: 1/3",
+        "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1x461mc.gif",
         "checkMode": "answer-key",
         "leftItems": [
           {
             "id": "left-1",
             "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-40958q.jpg",
-            "alt": "Left 1"
+            "alt": "Crab"
           },
           {
             "id": "left-2",
             "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-tlp2n8.jpg",
-            "alt": "Left 2"
+            "alt": "Seahorse"
           },
           {
             "id": "left-3",
             "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1qojmdo.jpg",
-            "alt": "Left 3"
+            "alt": "Starfish"
           }
         ],
         "rightItems": [
           {
             "id": "right-1",
-            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1mgird2.jpg",
-            "alt": "Right 1"
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-wof98l.jpg",
+            "alt": "Program 1 (Up arrow 9)"
           },
           {
             "id": "right-2",
-            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-wof98l.jpg",
-            "alt": "Right 2"
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1k3l7u0.jpg",
+            "alt": "Program 2 (Rotate C loop)"
           },
           {
             "id": "right-3",
-            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1k3l7u0.jpg",
-            "alt": "Right 3"
+            "image": "/courses/CK/CK_M6L2/pages/CK-M6L2_1/assets/task-13-f2bj7n/initial/asset-1mgird2.jpg",
+            "alt": "Program 3 (Flag right 14 pink)"
           }
         ],
         "answerKey": {
-          "left-1": "right-1",
-          "left-2": "right-2",
-          "left-3": "right-3"
-        }
-      }
-    },
-    "task-22-1u5og00": {
-      "title": "Part 1. My solution",
-      "rawActivityType": "code_typing_task",
-      "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
-      "states": {
-        "task-22-1u5og00-1klsj26": {
-          "title": "initial",
-          "selectedType": ""
-        },
-        "task-22-1u5og00-7gq7as": {
-          "title": "after-1-icon-control",
-          "selectedType": ""
-        },
-        "task-22-1u5og00-17oj4xe": {
-          "title": "after-2-icon-control",
-          "selectedType": ""
+          "left-1": "right-3",
+          "left-2": "right-1",
+          "left-3": "right-2"
         }
       }
     }

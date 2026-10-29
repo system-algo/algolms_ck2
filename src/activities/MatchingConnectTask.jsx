@@ -8,7 +8,7 @@ import { classifyMatchingAttempt, getWrongMatchingPairIds } from '../lib/ck2Matc
 const DEFAULT_COLORS = [
   '#22c55e',
   '#22c55e',
-  '#67d9eb',
+  '#22c55e',
   '#f472e9',
   '#f97316',
   '#22c55e',
@@ -130,6 +130,7 @@ function getMatchingData(task, state) {
     helperText: normalizeText(data.helperText || data.helper_text || ''),
     attempt: normalizeText(data.attempt || task?.attempt || 'Attempt: 1/2'),
     checkMode: data.checkMode || data.check_mode || 'answer-key',
+    image: data.image || data.sceneImage || data.referenceImage || data.headerImage || '',
     leftItems: Array.isArray(data.leftItems)
       ? data.leftItems.map((item, index) => normalizeItem(item, index, 'left'))
       : [],
@@ -655,7 +656,16 @@ export default function MatchingConnectTask({
               <p className="matching-connect-helper">{data.helperText}</p>
             ) : null}
           </div>
+          {data.attempt ? (
+            <div className="matching-connect-attempt">{data.attempt}</div>
+          ) : null}
         </div>
+
+        {data.image && (
+          <div className="matching-connect-reference-image">
+            <img src={data.image} alt="Task scene" draggable={false} />
+          </div>
+        )}
 
         <div className="matching-connect-board" ref={boardRef}>
           <svg className="matching-connect-lines" aria-hidden="true">

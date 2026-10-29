@@ -366,3 +366,18 @@
     margin-top: 24px;
   }
 }
+.matching-connect-reference-image {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 20px 0;
+}
+
+.matching-connect-reference-image img {
+  max-width: 440px;
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
