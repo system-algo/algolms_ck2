@@ -78,7 +78,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "matching-connect",
       "states": {
         "task-13-26p8vn-1sxdkbb": {
           "title": "initial",
@@ -116,6 +116,62 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "matchingConnect": {
+        "title": "Connect the sprite and its program.",
+        "helperText": "Connect",
+        "checkMode": "answer-key",
+        "leftItems": [
+          {
+            "id": "left-1",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-ztg445.png",
+            "alt": "Dog"
+          },
+          {
+            "id": "left-2",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-gxwem1.png",
+            "alt": "Bird"
+          },
+          {
+            "id": "left-3",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1mpuxdi.png",
+            "alt": "Triangle"
+          },
+          {
+            "id": "left-4",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-7o1bfk.png",
+            "alt": "Snake"
+          }
+        ],
+        "rightItems": [
+          {
+            "id": "right-1",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1oef9kx.png",
+            "alt": "Bump and switch scene 2"
+          },
+          {
+            "id": "right-2",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1n51pmb.png",
+            "alt": "Bump and send blue message"
+          },
+          {
+            "id": "right-3",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-13uxcm9.png",
+            "alt": "Tap and send yellow message"
+          },
+          {
+            "id": "right-4",
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-136p84w.png",
+            "alt": "Repeat"
+          }
+        ],
+        "answerKey": {
+          "left-1": "right-1",
+          "left-2": "right-2",
+          "left-3": "right-3",
+          "left-4": "right-4"
+        },
+        "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1jldtln.gif"
       }
     }
   }

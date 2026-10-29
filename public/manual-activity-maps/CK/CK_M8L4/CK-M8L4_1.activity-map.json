@@ -159,44 +159,44 @@
           {
             "id": "left-1",
             "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-ztg445.png",
-            "alt": "Left 1"
+            "alt": "Dog"
           },
           {
             "id": "left-2",
             "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-gxwem1.png",
-            "alt": "Left 2"
+            "alt": "Bird"
           },
           {
             "id": "left-3",
             "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1mpuxdi.png",
-            "alt": "Left 3"
+            "alt": "Triangle"
           },
           {
             "id": "left-4",
             "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-7o1bfk.png",
-            "alt": "Left 4"
+            "alt": "Snake"
           }
         ],
         "rightItems": [
           {
             "id": "right-1",
-            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1n51pmb.png",
-            "alt": "Right 1"
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1oef9kx.png",
+            "alt": "Bump and switch scene 2"
           },
           {
             "id": "right-2",
-            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-13uxcm9.png",
-            "alt": "Right 2"
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1n51pmb.png",
+            "alt": "Bump and send blue message"
           },
           {
             "id": "right-3",
-            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-136p84w.png",
-            "alt": "Right 3"
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-13uxcm9.png",
+            "alt": "Tap and send yellow message"
           },
           {
             "id": "right-4",
-            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1oef9kx.png",
-            "alt": "Right 4"
+            "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-136p84w.png",
+            "alt": "Repeat"
           }
         ],
         "answerKey": {
@@ -204,7 +204,8 @@
           "left-2": "right-2",
           "left-3": "right-3",
           "left-4": "right-4"
-        }
+        },
+        "image": "/courses/CK/CK_M8L4/pages/CK-M8L4_1/assets/task-13-26p8vn/initial/asset-1jldtln.gif"
       }
     }
   }
