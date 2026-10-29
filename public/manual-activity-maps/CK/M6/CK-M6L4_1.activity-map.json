@@ -180,7 +180,7 @@
       "title": "Part 1. My solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "card-arrangement-task",
       "states": {
         "task-10-16t3snw-1tjwuod": {
           "title": "initial",
@@ -222,6 +222,33 @@
           "title": "after-11-[object SVGAnimatedString]",
           "selectedType": ""
         }
+      },
+      "cardArrangement": {
+        "title": "What is the order the scenes are arranged in the game?",
+        "slots": 3,
+        "cards": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-10-16t3snw/initial/asset-1vieljg.jpg",
+            "alt": "Final scene"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-10-16t3snw/initial/asset-1h8bz3m.jpg",
+            "alt": "Start scene"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-10-16t3snw/initial/asset-6cw6vj.jpg",
+            "alt": "Game scene"
+          }
+        ],
+        "answer": [
+          "2",
+          "3",
+          "1"
+        ],
+        "sampleImage": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-10-16t3snw/initial/asset-bmug24.gif"
       }
     }
   }

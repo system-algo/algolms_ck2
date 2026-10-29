@@ -15,3 +15,88 @@
 .card-arrangement-card:hover:not(:disabled) { border-color: #3b6ef5; }
 .card-arrangement-empty { padding: 24px; text-align: center; color: #6b7691; }
 @media (max-width: 640px) { .card-arrangement-slot { width: 100%; } }
+
+.card-arrangement-sample-container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 6px 0 12px 0;
+}
+
+.card-arrangement-sample-image {
+  display: block;
+  max-width: 450px;
+  width: 100%;
+  height: auto;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-arrangement-sample-image:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.card-arrangement-preview-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: card-arr-fade-in 0.15s ease-out;
+}
+
+.card-arrangement-preview-dialog {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-arrangement-preview-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.15s;
+}
+
+.card-arrangement-preview-close:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.card-arrangement-preview-full {
+  max-width: 80vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+@keyframes card-arr-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

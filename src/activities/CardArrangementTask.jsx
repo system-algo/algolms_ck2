@@ -27,8 +27,19 @@ function normalizeConfig(raw) {
   const config = raw || {};
   const cards = (config.cards || []).map((card, index) => ({ ...card, id: String(card.id || index + 1) }));
   const answer = (config.answer || []).map(String);
+  const sampleMedia = String(
+    config.sampleImage ||
+    config.referenceImage ||
+    config.sampleMedia ||
+    config.referenceGif ||
+    config.image ||
+    config.gif ||
+    config.sample_image ||
+    ''
+  ).trim();
   return {
     title: String(config.title || '').trim(),
+    sampleImage: sampleMedia,
     cards,
     answer,
     slots: Number(config.slots) || answer.length || cards.length,
@@ -57,6 +68,7 @@ export default function CardArrangementTask({
   const [hasError, setHasError] = useState(false);
   const [checking, setChecking] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const isSolved = Boolean(isTaskDone || confirmed);
 
@@ -162,6 +174,43 @@ export default function CardArrangementTask({
           {isSolved && <span className="card-arrangement-badge">✓</span>}
           {data.title}
         </h1>
+        {data.sampleImage && (
+          <div className="card-arrangement-sample-container">
+            <img
+              className="card-arrangement-sample-image"
+              src={data.sampleImage}
+              alt="Sample illustration"
+              draggable={false}
+              onClick={() => setIsPreviewOpen(true)}
+              title="Click to enlarge"
+            />
+          </div>
+        )}
+
+        {isPreviewOpen && data.sampleImage && (
+          <div
+            className="card-arrangement-preview-modal"
+            onClick={() => setIsPreviewOpen(false)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="card-arrangement-preview-dialog" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="card-arrangement-preview-close"
+                onClick={() => setIsPreviewOpen(false)}
+                aria-label="Close preview"
+              >
+                ✕
+              </button>
+              <img
+                className="card-arrangement-preview-full"
+                src={data.sampleImage}
+                alt="Sample illustration enlarged"
+              />
+            </div>
+          </div>
+        )}
 
         {!hasData ? (
           <div className="card-arrangement-empty">This activity is not set up yet.</div>
