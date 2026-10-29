@@ -158,41 +158,42 @@
           {
             "id": "left-1",
             "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-3gu9ri.jpg",
-            "alt": "Left 1"
+            "alt": "Goal post"
           },
           {
             "id": "left-2",
             "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-xzvqss.jpg",
-            "alt": "Left 2"
+            "alt": "Boy"
           },
           {
             "id": "left-3",
             "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-13qqjqu.jpg",
-            "alt": "Left 3"
+            "alt": "Apple"
           }
         ],
         "rightItems": [
           {
             "id": "right-1",
-            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-juvf9l.jpg",
-            "alt": "Right 1"
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-tk56kv.jpg",
+            "alt": "Receive message and show"
           },
           {
             "id": "right-2",
-            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-tk56kv.jpg",
-            "alt": "Right 2"
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-ka1c8h.jpg",
+            "alt": "Bump and send message"
           },
           {
             "id": "right-3",
-            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-ka1c8h.jpg",
-            "alt": "Right 3"
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-juvf9l.jpg",
+            "alt": "Bump and switch scene 2"
           }
         ],
         "answerKey": {
-          "left-1": "right-1",
-          "left-2": "right-2",
-          "left-3": "right-3"
-        }
+          "left-1": "right-3",
+          "left-2": "right-1",
+          "left-3": "right-2"
+        },
+        "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-1ppwmoh.gif"
       }
     }
   }

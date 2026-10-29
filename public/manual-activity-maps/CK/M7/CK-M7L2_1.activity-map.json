@@ -82,7 +82,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
-      "selectedType": "generic-captured-task",
+      "selectedType": "matching-connect",
       "states": {
         "task-14-1ao7qqd-1tzp7ee": {
           "title": "initial",
@@ -120,6 +120,51 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "matchingConnect": {
+        "title": "What program does each sprite execute? Connect them.",
+        "helperText": "Connect",
+        "checkMode": "answer-key",
+        "leftItems": [
+          {
+            "id": "left-1",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-3gu9ri.jpg",
+            "alt": "Goal post"
+          },
+          {
+            "id": "left-2",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-xzvqss.jpg",
+            "alt": "Boy"
+          },
+          {
+            "id": "left-3",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-13qqjqu.jpg",
+            "alt": "Apple"
+          }
+        ],
+        "rightItems": [
+          {
+            "id": "right-1",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-tk56kv.jpg",
+            "alt": "Receive message and show"
+          },
+          {
+            "id": "right-2",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-ka1c8h.jpg",
+            "alt": "Bump and send message"
+          },
+          {
+            "id": "right-3",
+            "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-juvf9l.jpg",
+            "alt": "Bump and switch scene 2"
+          }
+        ],
+        "answerKey": {
+          "left-1": "right-3",
+          "left-2": "right-1",
+          "left-3": "right-2"
+        },
+        "image": "/courses/CK/CK_M7L2/pages/CK-M7L2_1/assets/task-14-1ao7qqd/initial/asset-1ppwmoh.gif"
       }
     }
   }
