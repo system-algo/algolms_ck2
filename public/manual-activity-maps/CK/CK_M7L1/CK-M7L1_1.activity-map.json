@@ -175,15 +175,15 @@
         "rightItems": [
           {
             "id": "right-1",
-            "text": "Assistant"
+            "text": "Obstacle"
           },
           {
             "id": "right-2",
-            "text": "Goal"
+            "text": "Assistant"
           },
           {
             "id": "right-3",
-            "text": "Obstacle"
+            "text": "Goal"
           }
         ],
         "answerKey": {
