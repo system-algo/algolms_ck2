@@ -130,7 +130,7 @@ function getMatchingData(task, state) {
     helperText: normalizeText(data.helperText || data.helper_text || ''),
     attempt: normalizeText(data.attempt || task?.attempt || 'Attempt: 1/2'),
     checkMode: data.checkMode || data.check_mode || 'answer-key',
-    image: data.image || data.sceneImage || data.referenceImage || data.headerImage || '',
+    image: data.image || data.sceneImage || data.referenceImage || data.sampleImage || data.sampleMedia || data.referenceGif || data.gif || data.headerImage || '',
     leftItems: Array.isArray(data.leftItems)
       ? data.leftItems.map((item, index) => normalizeItem(item, index, 'left'))
       : [],
@@ -237,6 +237,7 @@ export default function MatchingConnectTask({
   const [result, setResult] = useState(null);
   const [wrongLeftIds, setWrongLeftIds] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const savePendingRef = useRef(false);
   const [lineLayout, setLineLayout] = useState({});
 
@@ -663,7 +664,38 @@ export default function MatchingConnectTask({
 
         {data.image && (
           <div className="matching-connect-reference-image">
-            <img src={data.image} alt="Task scene" draggable={false} />
+            <img
+              src={data.image}
+              alt="Task scene"
+              draggable={false}
+              onClick={() => setIsPreviewOpen(true)}
+              title="Click to enlarge"
+            />
+          </div>
+        )}
+
+        {isPreviewOpen && data.image && (
+          <div
+            className="matching-connect-preview-modal"
+            onClick={() => setIsPreviewOpen(false)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="matching-connect-preview-dialog" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="matching-connect-preview-close"
+                onClick={() => setIsPreviewOpen(false)}
+                aria-label="Close preview"
+              >
+                ✕
+              </button>
+              <img
+                className="matching-connect-preview-full"
+                src={data.image}
+                alt="Task scene enlarged"
+              />
+            </div>
           </div>
         )}
 

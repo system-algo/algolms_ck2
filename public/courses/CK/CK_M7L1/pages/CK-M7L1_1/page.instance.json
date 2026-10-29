@@ -263,7 +263,7 @@
       "taskId": "task-13-scx7mv",
       "title": "Part 1. My correct solution",
       "activityType": "generic_captured_task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "matching-connect",
       "suggestedType": "generic-captured-task",
       "states": [
         {
@@ -329,7 +329,49 @@
           "stateName": "after-10-icon-control",
           "selectedType": "generic-captured-task"
         }
-      ]
+      ],
+      "matchingConnect": {
+        "title": "What role does each sprite have?",
+        "helperText": "Connect",
+        "checkMode": "answer-key",
+        "leftItems": [
+          {
+            "id": "left-1",
+            "image": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-13-scx7mv/initial/asset-1wcnair.jpg",
+            "alt": "Left 1"
+          },
+          {
+            "id": "left-2",
+            "image": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-13-scx7mv/initial/asset-uktkam.jpg",
+            "alt": "Left 2"
+          },
+          {
+            "id": "left-3",
+            "image": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-13-scx7mv/initial/asset-1k8cg8a.jpg",
+            "alt": "Left 3"
+          }
+        ],
+        "rightItems": [
+          {
+            "id": "right-1",
+            "text": "Assistant"
+          },
+          {
+            "id": "right-2",
+            "text": "Goal"
+          },
+          {
+            "id": "right-3",
+            "text": "Obstacle"
+          }
+        ],
+        "answerKey": {
+          "left-1": "right-2",
+          "left-2": "right-3",
+          "left-3": "right-1"
+        },
+        "image": "/courses/CK/CK_M7L1/pages/CK-M7L1_1/assets/task-13-scx7mv/initial/asset-16zz60r.gif"
+      }
     }
   ]
 }
