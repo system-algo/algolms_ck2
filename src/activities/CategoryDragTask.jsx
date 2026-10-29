@@ -11,11 +11,11 @@ import './CategoryDragTask.css';
 
 /**
  * CategoryDragTask — the "categorization" steps of the real platform (math-categorization).
- * Every picture/word is unique: dragging it into a category removes it from the pool.
+ * Every picture/word is unique: dragging it into a category places it into the target slot.
  *
  * Map config (tasks[taskId].categoryDrag):
  * {
- *   title, layout: 'top' | 'side' (pool above, or pool in a left column),
+ *   title, instruction?, attempt?, layout: 'top' | 'side', referenceImage?,
  *   items:      [{ id, src?, text?, alt?, w?, h? }],
  *   categories: [{ id, title?, imageSrc?, capacity?, answer: [itemId, ...] }]
  * }
@@ -29,9 +29,19 @@ const DRAG_THRESHOLD_PX = 4;
 
 function normalizeConfig(raw) {
   const config = raw || {};
+  const refImg =
+    config.referenceImage ||
+    config.sampleImage ||
+    config.imageSrc ||
+    config.image ||
+    (Array.isArray(config.images) && config.images[0]?.src) ||
+    '';
   return {
     title: String(config.title || '').trim(),
+    instruction: String(config.instruction || config.helperText || '').trim(),
+    attempt: String(config.attempt || 'Attempt: 1/2').trim(),
     layout: config.layout === 'side' ? 'side' : 'top',
+    referenceImage: typeof refImg === 'string' ? refImg : refImg?.src || '',
     items: (config.items || []).map((item, index) => ({ ...item, id: String(item.id || `item-${index + 1}`) })),
     categories: (config.categories || []).map((cat, index) => ({
       ...cat,
@@ -92,7 +102,7 @@ export default function CategoryDragTask({
   }, [categories]);
 
   const [assignments, setAssignments] = useState({});
-  const [drag, setDrag] = useState(null); // { id, x, y }
+  const [drag, setDrag] = useState(null); // { id, x, y, w, h }
   const [hoverTarget, setHoverTarget] = useState('');
   const [status, setStatus] = useState('');
   const [hasError, setHasError] = useState(false);
@@ -133,12 +143,13 @@ export default function CategoryDragTask({
     return node ? node.getAttribute('data-drop-target') : '';
   }
 
-  function handlePointerDown(event, item) {
+  function handlePointerDown(event, item, inCategory = false) {
     if (isSolved || checking) return;
     if (event.button !== undefined && event.button !== 0) return;
     const box = event.currentTarget.getBoundingClientRect();
     dragRef.current = {
       id: item.id,
+      inCategory,
       pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
@@ -181,7 +192,23 @@ export default function CategoryDragTask({
     dragRef.current = null;
     setDrag(null);
     setHoverTarget('');
-    if (!state.moved) return;
+
+    // If item was tapped/clicked without moving:
+    if (!state.moved) {
+      if (state.inCategory) {
+        // Clicking an item in a category removes it back to the pool
+        setAssignments((current) => {
+          const next = {};
+          Object.entries(current).forEach(([catId, ids]) => {
+            next[catId] = (ids || []).filter((id) => id !== state.id);
+          });
+          return next;
+        });
+        setStatus('');
+        setHasError(false);
+      }
+      return;
+    }
 
     const target = targetAt(event.clientX, event.clientY);
     if (!target) return; // dropped on nothing: stays where it was
@@ -196,8 +223,14 @@ export default function CategoryDragTask({
         const category = categories.find((cat) => cat.id === target);
         if (!category) return current;
         const capacity = Number(category.capacity) || Infinity;
-        if ((next[target] || []).length >= capacity) return current;
-        next[target] = [...(next[target] || []), state.id];
+        if (capacity === 1) {
+          // Replace single item slot
+          next[target] = [state.id];
+        } else if ((next[target] || []).length < capacity) {
+          next[target] = [...(next[target] || []), state.id];
+        } else {
+          return current;
+        }
       }
       return next;
     });
@@ -254,21 +287,31 @@ export default function CategoryDragTask({
     }
   }
 
-  function renderItem(item, { inCategory = false } = {}) {
+  function renderItem(item, { inCategory = false, isPlaced = false } = {}) {
     const isDragging = drag?.id === item.id;
     return (
       <div
-        key={item.id}
-        className={['category-drag-item', item.text ? 'is-text' : '', isDragging ? 'is-source' : '', isSolved ? 'is-locked' : '']
+        key={`${item.id}-${inCategory ? 'cat' : 'pool'}`}
+        className={[
+          'category-drag-item',
+          item.text ? 'is-text' : '',
+          isDragging ? 'is-source' : '',
+          isPlaced ? 'is-placed' : '',
+          isSolved ? 'is-locked' : '',
+          inCategory ? 'in-category' : '',
+        ]
           .filter(Boolean)
           .join(' ')}
         style={!item.text && item.w ? { maxWidth: inCategory ? '100%' : item.w } : undefined}
-        onPointerDown={(event) => handlePointerDown(event, item)}
+        onPointerDown={(event) => {
+          if (isPlaced) return;
+          handlePointerDown(event, item, inCategory);
+        }}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         role="button"
-        tabIndex={isSolved ? -1 : 0}
+        tabIndex={isSolved || isPlaced ? -1 : 0}
         aria-label={item.alt || item.text || `Item ${item.id}`}
       >
         {item.text ? <span>{item.text}</span> : <img src={item.src} alt={item.alt || ''} draggable={false} />}
@@ -280,7 +323,7 @@ export default function CategoryDragTask({
 
   return (
     <LmsActivityFrame
-      title={data.title}
+      title={task?.title || data.title}
       status={status}
       onPrevTask={onPrevTask}
       onNextTask={onNextTask}
@@ -292,21 +335,41 @@ export default function CategoryDragTask({
       isTaskDone={isSolved}
     >
       <article className="category-drag-task">
-        <h1 className={`category-drag-title ${isSolved ? 'is-solved' : ''}`}>
-          {isSolved && <span className="category-drag-badge">✓</span>}
-          {data.title}
-        </h1>
+        <header className="category-drag-header">
+          <div className="category-drag-top-meta">
+            <span className={`category-drag-task-title ${isSolved ? 'is-solved' : ''}`}>
+              {isSolved && <span className="category-drag-check">✓ </span>}
+              {task?.title || 'Part 1. My correct solution'}
+            </span>
+            <span className="category-drag-attempt">{data.attempt || 'Attempt: 1/2'}</span>
+          </div>
+          {data.title && (
+            <h1 className="category-drag-instruction">{data.title}</h1>
+          )}
+        </header>
+
+        {data.referenceImage && (
+          <div className="category-drag-reference">
+            <img src={data.referenceImage} alt="Reference" draggable={false} />
+          </div>
+        )}
 
         {!hasData ? (
           <div className="category-drag-empty">This activity is not set up yet.</div>
         ) : (
-          <div className={`category-drag-board ${data.layout === 'side' ? 'is-side' : ''}`}>
+          <div className={`category-drag-board ${data.layout === 'side' ? 'is-side' : 'is-top'}`}>
             <div
               className={`category-drag-pool ${hoverTarget === 'pool' ? 'is-hover' : ''}`}
               data-drop-target="pool"
+              aria-label="Item pool"
             >
-              {poolItems.map((item) => renderItem(item))}
+              {(data.layout === 'side' ? items.filter((item) => !placedIds.has(item.id)) : items).map((item) => {
+                const isPlaced = data.layout !== 'side' && placedIds.has(item.id);
+                return renderItem(item, { isPlaced, inCategory: false });
+              })}
             </div>
+
+            {data.layout !== 'side' && <div className="category-drag-divider" />}
 
             <div className="category-drag-categories" style={{ '--cat-count': categories.length }}>
               {categories.map((cat) => {
@@ -316,11 +379,16 @@ export default function CategoryDragTask({
                 return (
                   <section key={cat.id} className="category-drag-column">
                     <header className="category-drag-column-head">
-                      {cat.imageSrc ? <img src={cat.imageSrc} alt={cat.title || ''} draggable={false} /> : <span>{cat.title}</span>}
+                      {cat.imageSrc ? (
+                        <img src={cat.imageSrc} alt={cat.title || ''} draggable={false} />
+                      ) : (
+                        <span>{cat.title}</span>
+                      )}
                     </header>
                     <div
                       className={[
                         'category-drag-drop',
+                        ids.length > 0 ? 'has-item' : '',
                         hoverTarget === cat.id ? 'is-hover' : '',
                         ok ? 'is-right' : '',
                         bad ? 'is-wrong' : '',
@@ -329,7 +397,10 @@ export default function CategoryDragTask({
                         .join(' ')}
                       data-drop-target={cat.id}
                     >
-                      {ids.map((id) => itemById.get(id)).filter(Boolean).map((item) => renderItem(item, { inCategory: true }))}
+                      {ids
+                        .map((id) => itemById.get(id))
+                        .filter(Boolean)
+                        .map((item) => renderItem(item, { inCategory: true, isPlaced: false }))}
                     </div>
                   </section>
                 );

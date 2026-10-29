@@ -65,11 +65,14 @@
       },
       "categoryDrag": {
         "title": "Restore the order of scenes",
+        "attempt": "Attempt: 1/2",
+        "referenceImage": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-1focvj0.gif",
+        "layout": "top",
         "items": [
           {
-            "id": "item-1",
-            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-iryetk.png",
-            "alt": "Picture 1"
+            "id": "item-3",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-1p6sub2.png",
+            "alt": "Picture 3"
           },
           {
             "id": "item-2",
@@ -77,38 +80,37 @@
             "alt": "Picture 2"
           },
           {
-            "id": "item-3",
-            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-1p6sub2.png",
-            "alt": "Picture 3"
+            "id": "item-1",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-iryetk.png",
+            "alt": "Picture 1"
           }
         ],
         "categories": [
           {
             "id": "cat-1",
+            "title": "1",
+            "capacity": 1,
             "answer": [
               "item-1"
-            ],
-            "title": "1",
-            "capacity": 1
+            ]
           },
           {
             "id": "cat-2",
+            "title": "2",
+            "capacity": 1,
             "answer": [
               "item-2"
-            ],
-            "title": "2",
-            "capacity": 1
+            ]
           },
           {
             "id": "cat-3",
+            "title": "3",
+            "capacity": 1,
             "answer": [
               "item-3"
-            ],
-            "title": "3",
-            "capacity": 1
+            ]
           }
-        ],
-        "layout": "side"
+        ]
       }
     },
     "task-10-q5851w": {

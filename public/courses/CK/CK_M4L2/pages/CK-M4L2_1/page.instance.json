@@ -67,8 +67,8 @@
   "manifest": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/manifest.json",
   "taskRenderers": {
     "task-1-2lkma4": {
-      "type": "generic-captured-task",
-      "manualSelectedType": "generic-captured-task",
+      "type": "category-drag-task",
+      "manualSelectedType": "category-drag-task",
       "states": {
         "task-1-2lkma4-19wdkku": {
           "type": "generic-captured-task",
@@ -169,7 +169,7 @@
       "taskId": "task-1-2lkma4",
       "title": "Part 1. My correct solution",
       "activityType": "generic_captured_task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "category-drag-task",
       "suggestedType": "generic-captured-task",
       "states": [
         {
@@ -235,7 +235,57 @@
           "stateName": "after-10-icon-control",
           "selectedType": "generic-captured-task"
         }
-      ]
+      ],
+      "manualSelectedType": "category-drag-task",
+      "categoryDrag": {
+        "title": "Restore the order of scenes",
+        "attempt": "Attempt: 1/2",
+        "referenceImage": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-1focvj0.gif",
+        "layout": "top",
+        "items": [
+          {
+            "id": "item-3",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-1p6sub2.png",
+            "alt": "Picture 3"
+          },
+          {
+            "id": "item-2",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-no6n8h.png",
+            "alt": "Picture 2"
+          },
+          {
+            "id": "item-1",
+            "src": "/courses/CK/CK_M4L2/pages/CK-M4L2_1/assets/task-1-2lkma4/initial/asset-iryetk.png",
+            "alt": "Picture 1"
+          }
+        ],
+        "categories": [
+          {
+            "id": "cat-1",
+            "title": "1",
+            "capacity": 1,
+            "answer": [
+              "item-1"
+            ]
+          },
+          {
+            "id": "cat-2",
+            "title": "2",
+            "capacity": 1,
+            "answer": [
+              "item-2"
+            ]
+          },
+          {
+            "id": "cat-3",
+            "title": "3",
+            "capacity": 1,
+            "answer": [
+              "item-3"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "task-10-q5851w",
