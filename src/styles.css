@@ -507,8 +507,8 @@ button {
 }
 
 .choice-item.selected {
-  border-color: var(--purple);
-  background: #f5f0ff;
+  border-color: #22c55e;
+  background: #f0fdf4;
 }
 
 .radio-ui,
@@ -533,8 +533,9 @@ button {
 
 .choice-item.selected .radio-ui,
 .choice-item.selected .checkbox-ui {
-  background: var(--purple);
-  border-color: var(--purple);
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #ffffff;
 }
 
 .image-strip {

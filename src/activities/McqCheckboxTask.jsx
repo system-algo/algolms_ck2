@@ -858,7 +858,21 @@ export default function McqCheckboxTask({
                 disabled={checking}
               >
                 <span className={data.multiple ? 'checkbox-ui' : 'radio-ui'}>
-                  {isSelected && data.multiple ? '✓' : ''}
+                  {isSelected && (
+                    <svg
+                      viewBox="0 0 12 10"
+                      width="11"
+                      height="11"
+                      fill="none"
+                      stroke="#ffffff"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ display: 'block', flexShrink: 0 }}
+                    >
+                      <polyline points="1.5 5 4.5 8 10.5 1.5" />
+                    </svg>
+                  )}
                 </span>
 
                 {hasVisualChoices ? (
