@@ -22,7 +22,7 @@
       "title": "Part 1. My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
-      "selectedType": "generic-captured-task",
+      "selectedType": "canvas-drop-task",
       "states": {
         "task-1-1nw8x0h-erknby": {
           "title": "initial",
@@ -60,6 +60,120 @@
           "title": "after-10-icon-control",
           "selectedType": ""
         }
+      },
+      "canvasDrop": {
+        "title": "Add the required sprites to the background.",
+        "workspace": {
+          "width": 920,
+          "height": 400
+        },
+        "statics": [
+          {
+            "id": "static-1",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-1-1nw8x0h/initial/asset-1lzmkd6.jpg",
+            "x": -3,
+            "y": 1,
+            "w": 533,
+            "h": 395,
+            "alt": ""
+          }
+        ],
+        "labels": [],
+        "zones": [
+          {
+            "id": "A",
+            "name": "A",
+            "x": 390,
+            "y": 0,
+            "w": 135,
+            "h": 135,
+            "answer": "1"
+          },
+          {
+            "id": "C",
+            "name": "C",
+            "x": 150,
+            "y": 120,
+            "w": 45,
+            "h": 45,
+            "answer": "3"
+          },
+          {
+            "id": "B",
+            "name": "B",
+            "x": 90,
+            "y": 300,
+            "w": 180,
+            "h": 90,
+            "answer": "2"
+          },
+          {
+            "id": "D",
+            "name": "D",
+            "x": 45,
+            "y": 195,
+            "w": 60,
+            "h": 60,
+            "answer": "4"
+          },
+          {
+            "id": "E",
+            "name": "E",
+            "x": 420,
+            "y": 330,
+            "w": 105,
+            "h": 60,
+            "answer": "5"
+          }
+        ],
+        "draggables": [
+          {
+            "id": "1",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-1-1nw8x0h/initial/asset-12uc1bm.png",
+            "x": 762,
+            "y": 235,
+            "w": 142,
+            "h": 139,
+            "alt": "Piece 1"
+          },
+          {
+            "id": "2",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-1-1nw8x0h/initial/asset-qll3q5.png",
+            "x": 725,
+            "y": 24,
+            "w": 154,
+            "h": 73,
+            "alt": "Piece 2"
+          },
+          {
+            "id": "3",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-1-1nw8x0h/initial/asset-10g6jpi.png",
+            "x": 808,
+            "y": 142,
+            "w": 64,
+            "h": 61,
+            "alt": "Piece 3"
+          },
+          {
+            "id": "4",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-1-1nw8x0h/initial/asset-7effp4.png",
+            "x": 723,
+            "y": 141,
+            "w": 69,
+            "h": 82,
+            "alt": "Piece 4"
+          },
+          {
+            "id": "5",
+            "src": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-1-1nw8x0h/initial/asset-o2mpb5.png",
+            "x": 621,
+            "y": 278,
+            "w": 123,
+            "h": 84,
+            "alt": "Piece 5"
+          }
+        ],
+        "sampleImage": "/courses/CK/CK_M6L4/pages/CK-M6L4_1/assets/task-1-1nw8x0h/initial/asset-tcxl0y.jpg"
       }
     },
     "task-10-16t3snw": {

@@ -55,6 +55,15 @@ function normalizeConfig(raw) {
 
   return {
     title: String(config.title || '').trim(),
+    sampleImage: String(
+      config.sampleImage ||
+      config.referenceImage ||
+      config.sample_image ||
+      config.sampleImageUrl ||
+      config.referenceImageUrl ||
+      config.image ||
+      ''
+    ).trim(),
     workspace,
     statics: (config.statics || []).map((item, index) => ({
       ...item,
@@ -159,6 +168,7 @@ export default function CanvasDropTask({
   const [checking, setChecking] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [scale, setScale] = useState(1);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const fitRef = useRef(null);
   const workspaceRef = useRef(null);
@@ -462,6 +472,43 @@ export default function CanvasDropTask({
             {data.title}
           </h1>
         </header>
+        {data.sampleImage && (
+          <div className="canvas-drop-sample-container">
+            <img
+              className="canvas-drop-sample-image"
+              src={data.sampleImage}
+              alt="Sample target"
+              draggable={false}
+              onClick={() => setIsPreviewOpen(true)}
+              title="Click to enlarge"
+            />
+          </div>
+        )}
+
+        {isPreviewOpen && data.sampleImage && (
+          <div
+            className="canvas-drop-preview-modal"
+            onClick={() => setIsPreviewOpen(false)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="canvas-drop-preview-dialog" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="canvas-drop-preview-close"
+                onClick={() => setIsPreviewOpen(false)}
+                aria-label="Close preview"
+              >
+                ✕
+              </button>
+              <img
+                className="canvas-drop-preview-full"
+                src={data.sampleImage}
+                alt="Sample target enlarged"
+              />
+            </div>
+          </div>
+        )}
 
         {!hasData ? (
           <div className="canvas-drop-empty">This activity is not set up yet.</div>
