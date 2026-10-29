@@ -172,19 +172,20 @@
         "rightItems": [
           {
             "id": "right-1",
-            "image": "/courses/CK/CK_M8L1/pages/CK-M8L1_1/assets/task-13-eczxg3/initial/asset-1yx2wcd.jpg",
-            "alt": "Right 1"
+            "image": "/courses/CK/CK_M8L1/pages/CK-M8L1_1/assets/task-13-eczxg3/initial/asset-4xvoni.jpg",
+            "alt": "Fly"
           },
           {
             "id": "right-2",
-            "image": "/courses/CK/CK_M8L1/pages/CK-M8L1_1/assets/task-13-eczxg3/initial/asset-4xvoni.jpg",
-            "alt": "Right 2"
+            "image": "/courses/CK/CK_M8L1/pages/CK-M8L1_1/assets/task-13-eczxg3/initial/asset-1yx2wcd.jpg",
+            "alt": "Butterfly"
           }
         ],
         "answerKey": {
-          "left-1": "right-1",
-          "left-2": "right-2"
-        }
+          "left-1": "right-2",
+          "left-2": "right-1"
+        },
+        "image": "/courses/CK/CK_M8L1/pages/CK-M8L1_1/assets/task-13-eczxg3/initial/asset-qo8gbl.gif"
       }
     }
   }

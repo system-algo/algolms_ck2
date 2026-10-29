@@ -163,6 +163,13 @@ function isComplete(connections, leftItems) {
 
 function resolveCapturedImageItem(item, capturedImages) {
   if (item.image?.src) return item;
+  if (
+    item.useCapturedImageIndex === null ||
+    item.useCapturedImageIndex === undefined ||
+    item.useCapturedImageIndex === ''
+  ) {
+    return item;
+  }
 
   const index = Number(item.useCapturedImageIndex);
 
