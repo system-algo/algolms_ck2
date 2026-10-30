@@ -3,9 +3,9 @@
   "title": "CK",
   "generatedAt": "2026-10-26T04:24:40.068Z",
   "lessonCount": 24,
-  "pageCount": 28,
-  "taskCount": 68,
-  "stateCount": 765,
+  "pageCount": 24,
+  "taskCount": 56,
+  "stateCount": 611,
   "lessons": [
     {
       "id": "CK_M3L1",
@@ -85,9 +85,9 @@
       "title": "CK_M4L3",
       "courseId": "CK",
       "courseTitle": "CK",
-      "pageCount": 3,
-      "taskCount": 9,
-      "stateCount": 98,
+      "pageCount": 1,
+      "taskCount": 3,
+      "stateCount": 32,
       "index": "/courses/CK/CK_M4L3/index.json",
       "href": "/?course=CK&lesson=CK_M4L3"
     },
@@ -97,9 +97,9 @@
       "title": "CK_M4L4",
       "courseId": "CK",
       "courseTitle": "CK",
-      "pageCount": 3,
-      "taskCount": 9,
-      "stateCount": 121,
+      "pageCount": 1,
+      "taskCount": 3,
+      "stateCount": 33,
       "index": "/courses/CK/CK_M4L4/index.json",
       "href": "/?course=CK&lesson=CK_M4L4"
     },

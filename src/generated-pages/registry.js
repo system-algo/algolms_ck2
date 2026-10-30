@@ -5,11 +5,7 @@ import Generated_CK_CK_M3L4_CK_M3L4_1_10 from "./CK/CK_M3L4/CK-M3L4_1/LessonPage
 import Generated_CK_CK_M4L1_CK_M4L1_1_13 from "./CK/CK_M4L1/CK-M4L1_1/LessonPage.jsx";
 import Generated_CK_CK_M4L2_CK_M4L2_1_15 from "./CK/CK_M4L2/CK-M4L2_1/LessonPage.jsx";
 import Generated_CK_CK_M4L3_CK_M4L3_1_17 from "./CK/CK_M4L3/CK-M4L3_1/LessonPage.jsx";
-import Generated_CK_CK_M4L3_CK_M4L3_2_18 from "./CK/CK_M4L3/CK-M4L3_2/LessonPage.jsx";
-import Generated_CK_CK_M4L3_CK_M4L3_3_19 from "./CK/CK_M4L3/CK-M4L3_3/LessonPage.jsx";
 import Generated_CK_CK_M4L4_CK_M4L4_1_20 from "./CK/CK_M4L4/CK-M4L4_1/LessonPage.jsx";
-import Generated_CK_CK_M4L4_CK_M4L4_2_21 from "./CK/CK_M4L4/CK-M4L4_2/LessonPage.jsx";
-import Generated_CK_CK_M4L4_CK_M4L4_3_22 from "./CK/CK_M4L4/CK-M4L4_3/LessonPage.jsx";
 import Generated_CK_CK_M5L1_CK_M5L1_1_23 from "./CK/CK_M5L1/CK-M5L1_1/LessonPage.jsx";
 import Generated_CK_CK_M5L2_CK_M5L2_1_24 from "./CK/CK_M5L2/CK-M5L2_1/LessonPage.jsx";
 import Generated_CK_CK_M5L3_CK_M5L3_1_25 from "./CK/CK_M5L3/CK-M5L3_1/LessonPage.jsx";
@@ -35,11 +31,7 @@ const generatedPageRegistry = {
   "CK/CK_M4L1/CK-M4L1_1": Generated_CK_CK_M4L1_CK_M4L1_1_13,
   "CK/CK_M4L2/CK-M4L2_1": Generated_CK_CK_M4L2_CK_M4L2_1_15,
   "CK/CK_M4L3/CK-M4L3_1": Generated_CK_CK_M4L3_CK_M4L3_1_17,
-  "CK/CK_M4L3/CK-M4L3_2": Generated_CK_CK_M4L3_CK_M4L3_2_18,
-  "CK/CK_M4L3/CK-M4L3_3": Generated_CK_CK_M4L3_CK_M4L3_3_19,
   "CK/CK_M4L4/CK-M4L4_1": Generated_CK_CK_M4L4_CK_M4L4_1_20,
-  "CK/CK_M4L4/CK-M4L4_2": Generated_CK_CK_M4L4_CK_M4L4_2_21,
-  "CK/CK_M4L4/CK-M4L4_3": Generated_CK_CK_M4L4_CK_M4L4_3_22,
   "CK/CK_M5L1/CK-M5L1_1": Generated_CK_CK_M5L1_CK_M5L1_1_23,
   "CK/CK_M5L2/CK-M5L2_1": Generated_CK_CK_M5L2_CK_M5L2_1_24,
   "CK/CK_M5L3/CK-M5L3_1": Generated_CK_CK_M5L3_CK_M5L3_1_25,
