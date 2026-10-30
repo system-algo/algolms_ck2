@@ -3,9 +3,9 @@
   "title": "CK",
   "generatedAt": "2026-10-26T04:24:40.068Z",
   "lessonCount": 24,
-  "pageCount": 39,
-  "taskCount": 102,
-  "stateCount": 1156,
+  "pageCount": 36,
+  "taskCount": 90,
+  "stateCount": 1044,
   "lessons": [
     {
       "id": "CK_M3L1",
@@ -13,9 +13,9 @@
       "title": "CK_M3L1",
       "courseId": "CK",
       "courseTitle": "CK",
-      "pageCount": 4,
-      "taskCount": 16,
-      "stateCount": 165,
+      "pageCount": 1,
+      "taskCount": 4,
+      "stateCount": 53,
       "index": "/courses/CK/CK_M3L1/index.json",
       "href": "/?course=CK&lesson=CK_M3L1"
     },
