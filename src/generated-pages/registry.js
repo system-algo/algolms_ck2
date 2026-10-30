@@ -1,17 +1,9 @@
 import Generated_CK_CK_M3L1_CK_M3L1_1_0 from "./CK/CK_M3L1/CK-M3L1_1/LessonPage.jsx";
 import Generated_CK_CK_M3L2_CK_M3L2_1_4 from "./CK/CK_M3L2/CK-M3L2_1/LessonPage.jsx";
-import Generated_CK_CK_M3L2_CK_M3L2_2_5 from "./CK/CK_M3L2/CK-M3L2_2/LessonPage.jsx";
-import Generated_CK_CK_M3L2_CK_M3L2_3_6 from "./CK/CK_M3L2/CK-M3L2_3/LessonPage.jsx";
 import Generated_CK_CK_M3L3_CK_M3L3_1_7 from "./CK/CK_M3L3/CK-M3L3_1/LessonPage.jsx";
-import Generated_CK_CK_M3L3_CK_M3L3_2_8 from "./CK/CK_M3L3/CK-M3L3_2/LessonPage.jsx";
-import Generated_CK_CK_M3L3_CK_M3L3_3_9 from "./CK/CK_M3L3/CK-M3L3_3/LessonPage.jsx";
 import Generated_CK_CK_M3L4_CK_M3L4_1_10 from "./CK/CK_M3L4/CK-M3L4_1/LessonPage.jsx";
-import Generated_CK_CK_M3L4_CK_M3L4_2_11 from "./CK/CK_M3L4/CK-M3L4_2/LessonPage.jsx";
-import Generated_CK_CK_M3L4_CK_M3L4_3_12 from "./CK/CK_M3L4/CK-M3L4_3/LessonPage.jsx";
 import Generated_CK_CK_M4L1_CK_M4L1_1_13 from "./CK/CK_M4L1/CK-M4L1_1/LessonPage.jsx";
-import Generated_CK_CK_M4L1_CK_M4L1_2_14 from "./CK/CK_M4L1/CK-M4L1_2/LessonPage.jsx";
 import Generated_CK_CK_M4L2_CK_M4L2_1_15 from "./CK/CK_M4L2/CK-M4L2_1/LessonPage.jsx";
-import Generated_CK_CK_M4L2_CK_M4L2_2_16 from "./CK/CK_M4L2/CK-M4L2_2/LessonPage.jsx";
 import Generated_CK_CK_M4L3_CK_M4L3_1_17 from "./CK/CK_M4L3/CK-M4L3_1/LessonPage.jsx";
 import Generated_CK_CK_M4L3_CK_M4L3_2_18 from "./CK/CK_M4L3/CK-M4L3_2/LessonPage.jsx";
 import Generated_CK_CK_M4L3_CK_M4L3_3_19 from "./CK/CK_M4L3/CK-M4L3_3/LessonPage.jsx";
@@ -38,18 +30,10 @@ import Generated_CK_CK_M8L4_CK_M8L4_1_38 from "./CK/CK_M8L4/CK-M8L4_1/LessonPage
 const generatedPageRegistry = {
   "CK/CK_M3L1/CK-M3L1_1": Generated_CK_CK_M3L1_CK_M3L1_1_0,
   "CK/CK_M3L2/CK-M3L2_1": Generated_CK_CK_M3L2_CK_M3L2_1_4,
-  "CK/CK_M3L2/CK-M3L2_2": Generated_CK_CK_M3L2_CK_M3L2_2_5,
-  "CK/CK_M3L2/CK-M3L2_3": Generated_CK_CK_M3L2_CK_M3L2_3_6,
   "CK/CK_M3L3/CK-M3L3_1": Generated_CK_CK_M3L3_CK_M3L3_1_7,
-  "CK/CK_M3L3/CK-M3L3_2": Generated_CK_CK_M3L3_CK_M3L3_2_8,
-  "CK/CK_M3L3/CK-M3L3_3": Generated_CK_CK_M3L3_CK_M3L3_3_9,
   "CK/CK_M3L4/CK-M3L4_1": Generated_CK_CK_M3L4_CK_M3L4_1_10,
-  "CK/CK_M3L4/CK-M3L4_2": Generated_CK_CK_M3L4_CK_M3L4_2_11,
-  "CK/CK_M3L4/CK-M3L4_3": Generated_CK_CK_M3L4_CK_M3L4_3_12,
   "CK/CK_M4L1/CK-M4L1_1": Generated_CK_CK_M4L1_CK_M4L1_1_13,
-  "CK/CK_M4L1/CK-M4L1_2": Generated_CK_CK_M4L1_CK_M4L1_2_14,
   "CK/CK_M4L2/CK-M4L2_1": Generated_CK_CK_M4L2_CK_M4L2_1_15,
-  "CK/CK_M4L2/CK-M4L2_2": Generated_CK_CK_M4L2_CK_M4L2_2_16,
   "CK/CK_M4L3/CK-M4L3_1": Generated_CK_CK_M4L3_CK_M4L3_1_17,
   "CK/CK_M4L3/CK-M4L3_2": Generated_CK_CK_M4L3_CK_M4L3_2_18,
   "CK/CK_M4L3/CK-M4L3_3": Generated_CK_CK_M4L3_CK_M4L3_3_19,
