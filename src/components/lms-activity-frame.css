@@ -203,13 +203,13 @@
 }
 
 .lms-frame__floating-actions {
-  position: fixed;
-  top: 96px;
-  right: 20px;
+  position: absolute;
+  top: 16px;
+  right: -56px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  z-index: 9999;
+  z-index: 100;
 }
 
 .lms-frame__floating-actions--ide {
