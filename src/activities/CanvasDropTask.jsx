@@ -167,6 +167,7 @@ export default function CanvasDropTask({
   const [hasError, setHasError] = useState(false);
   const [checking, setChecking] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [isResetByUser, setIsResetByUser] = useState(false);
   const [scale, setScale] = useState(1);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
@@ -174,13 +175,13 @@ export default function CanvasDropTask({
   const workspaceRef = useRef(null);
   const dragRef = useRef(null);
 
-  const isSolved = Boolean(isTaskDone || confirmed);
+  const isSolved = Boolean((isTaskDone && !isResetByUser) || confirmed);
 
   // Load saved or solved state once the config is available.
   useEffect(() => {
     if (!hasData) return;
 
-    if (isTaskDone) {
+    if (isTaskDone && !isResetByUser) {
       setPlacements(solvedPlacements);
       setInputValues(solvedInputs);
       return;
@@ -189,7 +190,7 @@ export default function CanvasDropTask({
     const saved = loadLocalTaskState(storageKey, null);
     setPlacements(sanitizePlacements(saved?.placements, zones, draggables));
     setInputValues(saved?.inputs && typeof saved.inputs === 'object' ? saved.inputs : {});
-  }, [hasData, isTaskDone, storageKey, zones, draggables, solvedPlacements, solvedInputs]);
+  }, [hasData, isTaskDone, isResetByUser, storageKey, zones, draggables, solvedPlacements, solvedInputs]);
 
   useEffect(() => {
     if (!hasData || isSolved) return;
@@ -338,7 +339,9 @@ export default function CanvasDropTask({
   }
 
   function resetTask() {
-    if (checking || isSolved) return;
+    if (checking) return;
+    setIsResetByUser(true);
+    setConfirmed(false);
     setPlacements(sanitizePlacements({}, zones, draggables));
     setInputValues({});
     setStatus('');
@@ -346,7 +349,7 @@ export default function CanvasDropTask({
   }
 
   async function checkTask() {
-    if (checking || isSolved || !hasData) return;
+    if (checking || !hasData) return;
 
     const missingPieces = zones.filter((zone) => !placements[zone.id]).length;
     if (missingPieces > 0) {
@@ -388,6 +391,7 @@ export default function CanvasDropTask({
       // Only the backend result confirms that the answer was saved and graded.
       await submitGradedAttempt({ task, pageInstance, activityType: ACTIVITY_TYPE, answer });
       setConfirmed(true);
+      setIsResetByUser(false);
       setStatus('Correct!');
       notifyTaskCompleted({
         task,
@@ -460,8 +464,8 @@ export default function CanvasDropTask({
       onNextTask={onNextTask}
       onCheck={checkTask}
       onReset={resetTask}
-      isCheckDisabled={checking || isSolved}
-      isResetDisabled={checking || isSolved}
+      isCheckDisabled={checking || (isSolved && !isResetByUser)}
+      isResetDisabled={checking}
       isCheckLoading={checking}
       isTaskDone={isSolved}
     >

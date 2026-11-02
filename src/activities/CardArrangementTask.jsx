@@ -68,13 +68,14 @@ export default function CardArrangementTask({
   const [hasError, setHasError] = useState(false);
   const [checking, setChecking] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [isResetByUser, setIsResetByUser] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  const isSolved = Boolean(isTaskDone || confirmed);
+  const isSolved = Boolean((isTaskDone && !isResetByUser) || confirmed);
 
   useEffect(() => {
     if (!hasData) return;
-    if (isTaskDone) {
+    if (isTaskDone && !isResetByUser) {
       setPlaced([...answer]);
       return;
     }
@@ -82,7 +83,7 @@ export default function CardArrangementTask({
     const valid = new Set(cards.map((card) => card.id));
     const list = Array.isArray(saved?.placed) ? saved.placed.filter((id) => valid.has(id)) : [];
     setPlaced([...new Set(list)].slice(0, slots));
-  }, [hasData, isTaskDone, storageKey, cards, answer, slots]);
+  }, [hasData, isTaskDone, isResetByUser, storageKey, cards, answer, slots]);
 
   useEffect(() => {
     if (!hasData || isSolved) return;
@@ -107,14 +108,16 @@ export default function CardArrangementTask({
   }
 
   function resetTask() {
-    if (isSolved || checking) return;
+    if (checking) return;
+    setIsResetByUser(true);
     setPlaced([]);
     setStatus('');
     setHasError(false);
+    setConfirmed(false);
   }
 
   async function checkTask() {
-    if (isSolved || checking || !hasData) return;
+    if (checking || !hasData) return;
 
     if (placed.length < answer.length) {
       setStatus(`Please place all the cards first (${placed.length}/${answer.length})`);
@@ -137,6 +140,7 @@ export default function CardArrangementTask({
     try {
       await submitGradedAttempt({ task, pageInstance, activityType: ACTIVITY_TYPE, answer: payload });
       setConfirmed(true);
+      setIsResetByUser(false);
       setStatus('Correct!');
       notifyTaskCompleted({
         task,
@@ -164,8 +168,8 @@ export default function CardArrangementTask({
       onNextTask={onNextTask}
       onCheck={checkTask}
       onReset={resetTask}
-      isCheckDisabled={checking || isSolved}
-      isResetDisabled={checking || isSolved}
+      isCheckDisabled={checking || (isSolved && !isResetByUser)}
+      isResetDisabled={checking}
       isCheckLoading={checking}
       isTaskDone={isSolved}
     >

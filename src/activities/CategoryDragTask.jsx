@@ -108,19 +108,20 @@ export default function CategoryDragTask({
   const [hasError, setHasError] = useState(false);
   const [checking, setChecking] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [isResetByUser, setIsResetByUser] = useState(false);
 
   const dragRef = useRef(null);
-  const isSolved = Boolean(isTaskDone || confirmed);
+  const isSolved = Boolean((isTaskDone && !isResetByUser) || confirmed);
 
   useEffect(() => {
     if (!hasData) return;
-    if (isTaskDone) {
+    if (isTaskDone && !isResetByUser) {
       setAssignments(solvedAssignments);
       return;
     }
     const saved = loadLocalTaskState(storageKey, null);
     setAssignments(sanitizeAssignments(saved?.assignments, categories, items));
-  }, [hasData, isTaskDone, storageKey, categories, items, solvedAssignments]);
+  }, [hasData, isTaskDone, isResetByUser, storageKey, categories, items, solvedAssignments]);
 
   useEffect(() => {
     if (!hasData || isSolved) return;
@@ -237,14 +238,16 @@ export default function CategoryDragTask({
   }
 
   function resetTask() {
-    if (checking || isSolved) return;
+    if (checking) return;
+    setIsResetByUser(true);
+    setConfirmed(false);
     setAssignments(sanitizeAssignments({}, categories, items));
     setStatus('');
     setHasError(false);
   }
 
   async function checkTask() {
-    if (checking || isSolved || !hasData) return;
+    if (checking || !hasData) return;
 
     if (poolItems.length > 0) {
       setStatus(`Please place all the pictures first (${items.length - poolItems.length}/${items.length})`);
@@ -268,6 +271,7 @@ export default function CategoryDragTask({
     try {
       await submitGradedAttempt({ task, pageInstance, activityType: ACTIVITY_TYPE, answer });
       setConfirmed(true);
+      setIsResetByUser(false);
       setStatus('Correct!');
       notifyTaskCompleted({
         task,
@@ -329,8 +333,8 @@ export default function CategoryDragTask({
       onNextTask={onNextTask}
       onCheck={checkTask}
       onReset={resetTask}
-      isCheckDisabled={checking || isSolved}
-      isResetDisabled={checking || isSolved}
+      isCheckDisabled={checking || (isSolved && !isResetByUser)}
+      isResetDisabled={checking}
       isCheckLoading={checking}
       isTaskDone={isSolved}
     >
