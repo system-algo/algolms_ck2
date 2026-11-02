@@ -14,7 +14,11 @@ installPlatformTicketWidget();
 
 function hasVerifiedLmsContext() {
   try {
-    const email = String(localStorage.getItem('lms_student_email') || localStorage.getItem('lms_user_email') || '').trim().toLowerCase();
+    const viewerRole = String(localStorage.getItem('lms_viewer_role') || localStorage.getItem('lms_user_role') || '').trim().toLowerCase();
+    const identityEmail = viewerRole === 'teacher' || viewerRole === 'admin'
+      ? (localStorage.getItem('lms_user_email') || localStorage.getItem('lms_student_email'))
+      : (localStorage.getItem('lms_student_email') || localStorage.getItem('lms_user_email'));
+    const email = String(identityEmail || '').trim().toLowerCase();
     const courseId = String(localStorage.getItem('lms_course_id') || '').trim();
     const token = String(localStorage.getItem('lms_access_token') || '').trim();
     const payload = token.split('.')[1];
