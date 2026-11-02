@@ -8,6 +8,7 @@ import {
   loadLocalTaskState,
   saveLocalTaskState,
   resolveActivityMapUrl,
+  cleanActivityTitle,
 } from '../lib/taskExtractors.js';
 
 const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');

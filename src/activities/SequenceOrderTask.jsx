@@ -7,6 +7,7 @@ import {
   loadLocalTaskState,
   saveLocalTaskState,
   resolveActivityMapUrl,
+  cleanActivityTitle,
 } from '../lib/taskExtractors.js';
 
 function getBackendBaseUrl() {

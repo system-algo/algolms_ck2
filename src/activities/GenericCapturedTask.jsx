@@ -6,6 +6,7 @@ import {
   getPrimaryState,
   getUniqueImages,
   saveLocalTaskState,
+  cleanActivityTitle,
 } from '../lib/taskExtractors.js';
 
 function shouldUseReplay(task, state, rawMode, forceReplay, lines, images) {
