@@ -147,7 +147,7 @@ function toItem(rawItem, index) {
 
 function getFallbackConfig(task) {
   const lines = uniqueLines(collectTextLines(task)).filter((line) => !isNoiseLine(line));
-  const title = task?.title || lines[0] || 'Arrange in order';
+  const title = cleanActivityTitle(task?.title || lines[0] || 'Arrange in order', 'Arrange in order');
   const titleLower = title.toLowerCase();
 
   const items = lines
@@ -662,7 +662,7 @@ export default function SequenceOrderTask({
                   ✓
                 </span>
               )}
-              {config.title || 'Part 1. My correct solution'}
+              {cleanActivityTitle(config.title, 'My correct solution')}
             </h1>
             <p className="sequence-image-instruction">
               {config.instruction || 'Put it in order'}

@@ -21,7 +21,7 @@
   ],
   "tasks": {
     "task-1-1c4f7ye": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "canvas-drop-task",
@@ -190,7 +190,7 @@
       }
     },
     "task-11-1lcm1fj": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
       "selectedType": "mcq-checkbox",

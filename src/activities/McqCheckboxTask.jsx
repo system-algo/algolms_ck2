@@ -7,6 +7,7 @@ import {
   loadLocalTaskState,
   saveLocalTaskState,
   resolveActivityMapUrl,
+  cleanActivityTitle,
 } from '../lib/taskExtractors.js';
 
 const API_BASE_URL = String(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
@@ -796,7 +797,7 @@ export default function McqCheckboxTask({
     data.layout === 'image-grid' &&
     data.options.some((option) => option.imageSrc);
 
-  const displayTitle = data.prompt ? data.title : (task?.title || data.title);
+  const displayTitle = cleanActivityTitle(data.prompt ? data.title : (task?.title || data.title), 'My correct solution');
   const displayPrompt = data.prompt || (task?.title && task.title !== data.title ? data.title : '');
 
   return (
@@ -819,7 +820,7 @@ export default function McqCheckboxTask({
               {isTaskDone && (
                 <span className="mcq-check-badge">✓</span>
               )}
-              <span>{displayTitle || 'Part 1. My correct solution'}</span>
+              <span>{displayTitle || 'My correct solution'}</span>
             </h1>
             <span className="mcq-collapse-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

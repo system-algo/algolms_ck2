@@ -21,7 +21,7 @@
   ],
   "tasks": {
     "task-1-8l1s8": {
-      "title": "Part 1. My solution",
+      "title": "My solution",
       "rawActivityType": "fill_blank_task",
       "suggestedType": "fill-blank-task",
       "selectedType": "canvas-drop-task",
@@ -126,7 +126,7 @@
       }
     },
     "task-11-qeb5rh": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
       "selectedType": "mcq-checkbox",
@@ -215,7 +215,7 @@
       }
     },
     "task-23-cn98ao": {
-      "title": "Part 1.",
+      "title": "My correct solution",
       "rawActivityType": "matching_dragdrop_task",
       "suggestedType": "matching-dragdrop",
       "selectedType": "canvas-drop-task",

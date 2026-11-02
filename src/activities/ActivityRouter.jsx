@@ -28,7 +28,7 @@ import TheoryReadingTask from './TheoryReadingTask.jsx';
 import FinishTask from './FinishTask.jsx';
 import ScratchEmbedTask from './ScratchEmbedTask.jsx';
 import LinkDownloadTask from './LinkDownloadTask.jsx';
-import { resolveActivityMapUrl } from '../lib/taskExtractors.js';
+import { resolveActivityMapUrl, cleanActivityTitle } from '../lib/taskExtractors.js';
 
 function normalizeText(value) {
   return String(value || '')
@@ -1292,6 +1292,9 @@ export default function ActivityRouter(props) {
     const manualState = getManualState(manualTask, state);
 
     const nextTask = mergeManualTask(task, manualTask);
+    if (nextTask?.title) {
+      nextTask.title = cleanActivityTitle(nextTask.title, nextTask.title);
+    }
     const nextState = mergeManualState(state, manualState);
 
     // Determine if the current task is already completed

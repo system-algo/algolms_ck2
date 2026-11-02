@@ -85,7 +85,7 @@ export default function GenericCapturedTask(props) {
     );
   }
 
-  const title = lines[0] || task.title || 'Activity';
+  const title = cleanActivityTitle(lines[0] || task.title || 'Activity', 'Activity');
   const bodyLines = lines.slice(1);
 
   function handleCheck() {

@@ -5,6 +5,7 @@ import {
   loadLocalTaskState,
   saveLocalTaskState,
   resolveActivityMapUrl,
+  cleanActivityTitle,
 } from '../lib/taskExtractors.js';
 import './ImageDropzonesTask.css';
 
@@ -184,11 +185,12 @@ function getConfigFromTask(task, pageInstance) {
 function buildData(task, config = {}) {
   const safeConfig = config || {};
 
-  const title =
+  const title = cleanActivityTitle(
     safeConfig.title ||
     safeConfig.prompt ||
-    task?.title ||
-    'Part 1. My correct solution';
+    task?.title,
+    'My correct solution'
+  );
 
   const prompt =
     safeConfig.prompt ||

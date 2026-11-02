@@ -20,7 +20,7 @@
   ],
   "tasks": {
     "task-1-1nqq7vq": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
       "selectedType": "mcq-checkbox",
@@ -99,7 +99,7 @@
       }
     },
     "task-12-17w8u0z": {
-      "title": "Part 1. My solution",
+      "title": "My solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
       "selectedType": "mcq-checkbox",

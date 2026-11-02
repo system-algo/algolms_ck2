@@ -21,7 +21,7 @@
   ],
   "tasks": {
     "task-1-2lkma4": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "category-drag-task",
@@ -114,7 +114,7 @@
       }
     },
     "task-10-q5851w": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "ide_programming_task",
       "suggestedType": "ide-programming",
       "selectedType": "mcq-checkbox",

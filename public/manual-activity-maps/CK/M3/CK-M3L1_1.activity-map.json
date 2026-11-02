@@ -21,7 +21,7 @@
   ],
   "tasks": {
     "task-1-1hgbgc3": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "matching_dragdrop_task",
       "suggestedType": "matching-connect",
       "selectedType": "matching-connect",
@@ -84,7 +84,7 @@
         }
       },
       "matchingConnect": {
-        "title": "Part 1. My correct solution",
+        "title": "My correct solution",
         "helperText": "Connect",
         "attempt": "Attempt: 1/2",
         "checkMode": "answer-key",
@@ -117,7 +117,7 @@
       }
     },
     "task-15-1lve2lr": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "sequence-order-task",
       "selectedType": "sequence-order-task",
@@ -176,7 +176,7 @@
         }
       },
       "sequenceOrder": {
-        "title": "Part 1. My correct solution",
+        "title": "My correct solution",
         "instruction": "Put it in order",
         "layout": "image-sequence",
         "items": [
@@ -216,7 +216,7 @@
       }
     },
     "task-28-1emx1e0": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "image-dropzones-task",
@@ -283,7 +283,7 @@
         }
       },
       "imageDropzones": {
-        "title": "Part 1. My correct solution",
+        "title": "My correct solution",
         "prompt": "Put together according to the sample",
         "helperText": "Put together according to the sample",
         "attempt": "Attempt: 1/2",
@@ -394,7 +394,7 @@
       }
     },
     "task-43-a6jcur": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "scene-classification-task",
@@ -445,7 +445,7 @@
         }
       },
       "sceneClassification": {
-        "title": "Part 1. My correct solution",
+        "title": "My correct solution",
         "prompt": "What sprites are needed in each scene?",
         "attempt": "Attempt: 1/2",
         "sprites": [

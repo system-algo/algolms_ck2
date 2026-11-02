@@ -19,7 +19,7 @@
   ],
   "tasks": {
     "task-1-1e8rrc2": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "generic-captured-task",
@@ -63,7 +63,7 @@
       }
     },
     "task-10-1n28t8y": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "mcq_checkbox_task",
       "suggestedType": "mcq-checkbox",
       "selectedType": "generic-captured-task",

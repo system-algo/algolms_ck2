@@ -549,7 +549,7 @@ function buildDataFromConfig(config, fallbackData, task, pageInstance) {
     : configuredImages;
 
   return {
-    title: normalizeText(safeConfig.title || fallbackData?.title || task?.title || ''),
+    title: cleanActivityTitle(safeConfig.title || fallbackData?.title || task?.title || '', ''),
     prompt: normalizeText(safeConfig.prompt || fallbackData?.prompt || task?.prompt || 'Match the items.'),
     helperText: normalizeText(safeConfig.helperText || safeConfig.subtitle || ''),
     attemptLabel: normalizeText(safeConfig.attempt || ''),

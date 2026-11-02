@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
 import './MatchingConnectTask.css';
-import { getUniqueImages, loadLocalTaskState, saveLocalTaskState } from '../lib/taskExtractors.js';
+import { getUniqueImages, loadLocalTaskState, saveLocalTaskState, cleanActivityTitle } from '../lib/taskExtractors.js';
 import { buildAuthenticatedActivityAttempt } from '../lib/ck2BackendAttempt.js';
 import { classifyMatchingAttempt, getWrongMatchingPairIds } from '../lib/ck2MatchingGrade.js';
 
@@ -126,7 +126,7 @@ function getMatchingData(task, state) {
   const data = getMatchingSource(task, state);
 
   return {
-    title: normalizeText(data.title || task?.title || ''),
+    title: cleanActivityTitle(normalizeText(data.title || task?.title || ''), ''),
     helperText: normalizeText(data.helperText || data.helper_text || ''),
     attempt: normalizeText(data.attempt || task?.attempt || 'Attempt: 1/2'),
     checkMode: data.checkMode || data.check_mode || 'answer-key',

@@ -121,6 +121,14 @@ function isLikelyCssGarbage(text) {
   return false;
 }
 
+export function cleanActivityTitle(title, fallback = '') {
+  if (!title) return fallback;
+  const cleaned = String(title)
+    .replace(/^part\s*\d*\.?\s*[-–—:]?\s*/i, '')
+    .trim();
+  return cleaned || fallback;
+}
+
 export function uniqueTexts(values = []) {
   const seen = new Set();
   const result = [];

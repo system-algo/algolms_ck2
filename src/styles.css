@@ -3319,6 +3319,10 @@ body:has(.choice-item) .activity-stage {
 
 /* Hide all attempt labels across all activities */
 .task-meta,
+.code-copy-part,
+.image-dropzones-part,
+.matching-connect-part,
+.code-task-part,
 .code-copy-attempt,
 .code-task-attempt,
 .image-dropzones-attempt,

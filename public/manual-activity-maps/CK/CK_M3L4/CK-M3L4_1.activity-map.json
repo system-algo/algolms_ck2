@@ -21,7 +21,7 @@
   ],
   "tasks": {
     "task-1-1tegh55": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "category-drag-task",
@@ -133,7 +133,7 @@
       }
     },
     "task-11-1ob0qox": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
       "selectedType": "mcq-checkbox",
@@ -226,7 +226,7 @@
       }
     },
     "task-24-17jlc4c": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "code_typing_task",
       "suggestedType": "typing-practice",
       "selectedType": "mcq-checkbox",

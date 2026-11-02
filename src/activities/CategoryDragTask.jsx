@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import LmsActivityFrame from '../components/LmsActivityFrame.jsx';
-import { loadLocalTaskState, saveLocalTaskState } from '../lib/taskExtractors.js';
+import { loadLocalTaskState, saveLocalTaskState, cleanActivityTitle } from '../lib/taskExtractors.js';
 import {
   getTaskId,
   notifyTaskCompleted,
@@ -37,7 +37,7 @@ function normalizeConfig(raw) {
     (Array.isArray(config.images) && config.images[0]?.src) ||
     '';
   return {
-    title: String(config.title || '').trim(),
+    title: cleanActivityTitle(config.title || '', ''),
     instruction: String(config.instruction || config.helperText || '').trim(),
     attempt: String(config.attempt || '').trim(),
     layout: config.layout === 'side' ? 'side' : 'top',
@@ -339,7 +339,7 @@ export default function CategoryDragTask({
           <div className="category-drag-top-meta">
             <span className={`category-drag-task-title ${isSolved ? 'is-solved' : ''}`}>
               {isSolved && <span className="category-drag-check">✓ </span>}
-              {task?.title || 'Part 1. My correct solution'}
+              {cleanActivityTitle(task?.title, 'My correct solution')}
             </span>
           </div>
           {data.title && (

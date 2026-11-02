@@ -862,7 +862,7 @@ function buildMatchingConnectRendererForState(task, state) {
     return true;
   });
 
-  const title = lines.find((line) => !isRendererHelperLine(line)) || task.title || 'Part 1. My correct solution';
+  const title = lines.find((line) => !isRendererHelperLine(line)) || task.title || 'My correct solution';
   const helperText = lines.find((line) => isRendererHelperLine(line)) || 'Connect';
   const textOptions = lines.filter((line) => line !== title && line !== helperText);
 

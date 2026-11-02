@@ -5,6 +5,7 @@ import {
   loadLocalTaskState,
   saveLocalTaskState,
   resolveActivityMapUrl,
+  cleanActivityTitle,
 } from '../lib/taskExtractors.js';
 import './SceneClassificationTask.css';
 
@@ -108,7 +109,7 @@ export default function SceneClassificationTask({
   const directConfig = getConfigFromTask(task, pageInstance);
   const config = manualConfig || directConfig || {};
 
-  const title = config.title || task?.title || 'Part 1. My correct solution';
+  const title = cleanActivityTitle(config.title || task?.title, 'My correct solution');
   const prompt = config.prompt || task?.prompt || 'What sprites are needed in each scene?';
   const attempt = config.attempt || '';
 

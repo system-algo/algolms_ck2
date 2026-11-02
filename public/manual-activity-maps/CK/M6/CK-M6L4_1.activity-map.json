@@ -19,7 +19,7 @@
   ],
   "tasks": {
     "task-1-1nw8x0h": {
-      "title": "Part 1. My correct solution",
+      "title": "My correct solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "canvas-drop-task",
@@ -177,7 +177,7 @@
       }
     },
     "task-10-16t3snw": {
-      "title": "Part 1. My solution",
+      "title": "My solution",
       "rawActivityType": "generic_captured_task",
       "suggestedType": "generic-captured-task",
       "selectedType": "card-arrangement-task",
