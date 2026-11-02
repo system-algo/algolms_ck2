@@ -501,8 +501,17 @@ export default function TeacherDashboard({
     if (!activeModule || !activeModule.rawLessons) return [];
     return activeModule.rawLessons.map((item, idx) => {
       const rawId = String(item.id || item.lessonId || '');
-      const match = rawId.match(/L(\d+)/i);
-      const lessonNum = match ? parseInt(match[1], 10) : idx + 1;
+      const match = rawId.match(/_?M(\d+)L(\d+)/i) || rawId.match(/L(\d+)/i);
+      const mappedGlobalNum =
+        customNames?.globalLessonNumbers?.[rawId] ||
+        customNames?.globalLessonNumbers?.[rawId.replace(/^CK_/, '')] ||
+        (match?.[2] ? customNames?.globalLessonNumbers?.[rawId.startsWith('CK_') ? rawId : `CK_${rawId}`] : undefined);
+
+      const lessonNum = Number.isFinite(mappedGlobalNum)
+        ? mappedGlobalNum
+        : match?.[2]
+          ? 9 + (parseInt(match[1], 10) - 3) * 4 + (parseInt(match[2], 10) - 1)
+          : idx + 9;
       const mappedTitle =
         customNames?.lessons?.[rawId] ||
         (item.title && item.title !== rawId ? item.title : `Lesson ${lessonNum}`);

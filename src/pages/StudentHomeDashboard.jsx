@@ -139,7 +139,7 @@ export default function StudentHomeDashboard({
   const normalizedCourseId = String(courseIdProp || initialCourseId || 'CK').trim().toUpperCase();
   const [course, setCourse] = useState(null);
   const [pagesByLesson, setPagesByLesson] = useState({});
-  const [highestUnlocked, setHighestUnlocked] = useState(2);
+  const [highestUnlocked, setHighestUnlocked] = useState(10);
   const [selectedModuleIndex, setSelectedModuleIndex] = useState(0);
   const [selectedLessonIndex, setSelectedLessonIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -342,14 +342,17 @@ export default function StudentHomeDashboard({
     )
       .then((response) => (response.ok ? response.json() : []))
       .then((rows) => {
-        let max = 2;
+        let max = 10;
         (Array.isArray(rows) ? rows : []).forEach((row) => {
           const value = Number(row.topic_id);
-          if (Number.isInteger(value)) max = Math.max(max, value);
+          if (Number.isInteger(value) && value > 0) {
+            const lessonNum = value < 9 ? (value + 8) : value;
+            max = Math.max(max, lessonNum);
+          }
         });
         setHighestUnlocked(max);
       })
-      .catch(() => setHighestUnlocked(2));
+      .catch(() => setHighestUnlocked(10));
 
     fetch(
       `${supabaseUrl}/rest/v1/user_profiles?email=ilike.${encodeURIComponent(studentEmail)}&select=name,gender`,
@@ -423,11 +426,28 @@ export default function StudentHomeDashboard({
 
   const lessonSequence = useMemo(() => {
     const lessons = course?.lessons || [];
-    return lessons.map((lesson, index) => ({
-      ...lesson,
-      globalNumber: index + 1,
-      ...getLessonMeta(lesson.id || lesson.lessonId),
-    }));
+    return lessons.map((lesson, index) => {
+      const id = String(lesson.id || lesson.lessonId || '').trim();
+      const meta = getLessonMeta(id);
+      const mappedGlobalNum =
+        customNames?.globalLessonNumbers?.[id] ||
+        customNames?.globalLessonNumbers?.[customNames?.globalLessonNumbers?.[id]] ||
+        customNames?.globalLessonNumbers?.[id.replace(/^CK_/, '')] ||
+        customNames?.globalLessonNumbers?.[id.replace(/^CK_M/, 'M')] ||
+        customNames?.globalLessonNumbers?.[id.replace(/^M/, 'CK_M')];
+
+      const globalNumber = Number.isFinite(mappedGlobalNum)
+        ? mappedGlobalNum
+        : meta.moduleNo >= 3
+          ? 9 + (meta.moduleNo - 3) * 4 + (meta.lessonNo - 1)
+          : index + 1;
+
+      return {
+        ...lesson,
+        globalNumber,
+        ...meta,
+      };
+    });
   }, [course]);
 
   const lessonsData = useMemo(() => {
@@ -475,9 +495,9 @@ export default function StudentHomeDashboard({
         return {
           id: moduleNo === 99 ? 'CK_Graduation' : `CK_M${moduleNo}`,
           moduleNo,
-          number: moduleIndex + 1,
+          number: moduleNo === 99 ? 99 : moduleNo,
           title: moduleDisplayTitle(moduleNo),
-          displayLabel: moduleNo === 99 ? 'Graduation' : `Module ${moduleIndex + 1}`,
+          displayLabel: moduleNo === 99 ? 'Graduation' : `Module ${moduleNo}`,
           lessons,
           isLocked,
           isUnlocked: !isLocked,

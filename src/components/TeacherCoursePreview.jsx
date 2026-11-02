@@ -54,8 +54,17 @@ export default function TeacherCoursePreview({ courseId = 'GD', onOpenPage }) {
             const lessons = await Promise.all(
               mod.rawLessons.map(async (rawLesson, idx) => {
                 const lessonId = String(rawLesson.id || rawLesson.lessonId || '');
-                const match = lessonId.match(/L(\d+)/i);
-                const lessonNum = match ? parseInt(match[1], 10) : idx + 1;
+                const match = lessonId.match(/_?M(\d+)L(\d+)/i) || lessonId.match(/L(\d+)/i);
+                const mappedGlobalNum =
+                  customNames?.globalLessonNumbers?.[lessonId] ||
+                  customNames?.globalLessonNumbers?.[lessonId.replace(/^CK_/, '')] ||
+                  (match?.[2] ? customNames?.globalLessonNumbers?.[lessonId.startsWith('CK_') ? lessonId : `CK_${lessonId}`] : undefined);
+
+                const lessonNum = Number.isFinite(mappedGlobalNum)
+                  ? mappedGlobalNum
+                  : match?.[2]
+                    ? 9 + (parseInt(match[1], 10) - 3) * 4 + (parseInt(match[2], 10) - 1)
+                    : idx + 9;
                 const mappedTitle =
                   customNames?.lessons?.[lessonId] ||
                   (rawLesson.title && rawLesson.title !== lessonId ? rawLesson.title : `Lesson ${lessonNum}`);
