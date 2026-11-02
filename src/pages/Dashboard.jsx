@@ -148,7 +148,7 @@ export default function Dashboard({ initialCourseId = DEFAULT_COURSE_ID, onOpenP
       <aside className="student-sidebar">
         <div className="student-brand"><span className="brand-mark">A</span><div><strong>Algo</strong><small>LEARNING SPACE</small></div></div>
         <div className="sidebar-section-title">MY COURSES</div>
-        <button className="sidebar-course active" type="button"><span>▣</span>{courseId}</button>
+        <button className="sidebar-course active" type="button"><span>▣</span>{course?.title || (courseId === 'CK' ? 'Coding Knight' : courseId)}</button>
         <div className="sidebar-spacer" />
         <div className="student-account"><span className="student-avatar">{displayName.charAt(0) || 'S'}</span><div><strong>{displayName}</strong><small>Student</small></div></div>
       </aside>
@@ -156,7 +156,7 @@ export default function Dashboard({ initialCourseId = DEFAULT_COURSE_ID, onOpenP
       <section className="student-main">
         <header className="student-header">
           <div><p>Ready for your next challenge,</p><h1>{displayName} 👋</h1><span>Continue your learning journey today.</span></div>
-          <div className="course-chip"><small>CURRENT COURSE</small><strong>{courseId}</strong></div>
+          <div className="course-chip"><small>CURRENT COURSE</small><strong>{course?.title || (courseId === 'CK' ? 'Coding Knight' : courseId)}</strong></div>
         </header>
 
         <div className="student-grid">

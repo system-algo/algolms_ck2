@@ -716,7 +716,7 @@ export default function StudentHomeDashboard({
 
             <div className={`submenu ${myCoursesOpen ? 'open' : ''}`}>
               <button type="button" className="submenu-item active">
-                {normalizedCourseId}
+                {COURSE_TITLE}
               </button>
             </div>
           </div>

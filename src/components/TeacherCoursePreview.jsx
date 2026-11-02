@@ -157,7 +157,7 @@ export default function TeacherCoursePreview({ courseId = 'GD', onOpenPage }) {
       <header className="ts-header" style={{ marginBottom: '24px' }}>
         <div>
           <div className="ts-breadcrumbs">
-            My Courses &gt; {courseId} &gt; {activeModule?.title || 'Loading...'}
+            My Courses &gt; {customNames?.courses?.[courseId] || (courseId === 'CK' ? 'Coding Knight' : courseId)} &gt; {activeModule?.title || 'Loading...'}
           </div>
           <h1 style={{ fontSize: '28px', fontWeight: '800', marginTop: '8px' }}>
             Course Preview: {customNames?.courses?.[courseId] || courseId}
