@@ -3337,4 +3337,63 @@ body:has(.choice-item) .activity-stage {
   display: none !important;
 }
 
+/* Global Activity Typography Unification */
+.category-drag-task-title,
+.scene-classification-title,
+.image-assembly-title,
+.sequence-image-title,
+.mcq-section-title,
+.card-arrangement-title,
+.canvas-drop-title,
+.matching-connect-title,
+.tool-label-title,
+.matching-rule-header h1 {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.35 !important;
+}
 
+.category-drag-task-title.is-solved,
+.scene-classification-title.is-solved,
+.image-assembly-title.is-solved,
+.sequence-image-title.is-solved,
+.card-arrangement-title.is-solved,
+.canvas-drop-title.is-solved {
+  color: #0f172a !important;
+}
+
+.category-drag-instruction,
+.scene-classification-instruction,
+.image-assembly-instruction,
+.sequence-image-instruction,
+.mcq-instruction-prompt,
+.matching-connect-helper,
+.tool-label-helper,
+.matching-rule-header p {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  line-height: 1.4 !important;
+  margin-top: 6px !important;
+}
+
+.category-drag-check-badge,
+.scene-classification-check-badge,
+.image-assembly-check-badge,
+.sequence-image-check-badge,
+.mcq-check-badge,
+.canvas-drop-check-badge,
+.card-arrangement-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  flex-shrink: 0 !important;
+}

@@ -69,18 +69,18 @@
 .matching-rule-header h1 {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin: 0 0 16px;
-  color: #8b3ff0;
-  font-size: 18px;
-  font-weight: 800;
+  gap: 10px;
+  margin: 0 0 6px;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .matching-rule-header p {
-  margin: 0 0 20px;
-  color: #0b1329;
-  font-size: 22px;
-  font-weight: 800;
+  margin: 6px 0 16px;
+  color: #1e293b;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1.4;
 }
 

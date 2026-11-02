@@ -14,7 +14,7 @@
   gap: 10px;
   font-size: 20px;
   font-weight: 700;
-  color: #22c55e;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -39,10 +39,10 @@
 }
 
 .mcq-instruction-prompt {
-  margin: 8px 0 0 0;
-  font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
+  margin: 6px 0 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
 }
 
 /* Question images (e.g. animated GIFs or scene images) */

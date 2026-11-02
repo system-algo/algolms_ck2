@@ -11,30 +11,31 @@
 }
 
 .canvas-drop-title {
-  margin: 0;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 1.3;
-  color: #1f2a44;
+  line-height: 1.35;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .canvas-drop-title.is-solved {
-  color: #1e8e4f;
+  color: #0f172a;
 }
 
 .canvas-drop-check-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #1e8e4f;
+  background: #22c55e;
   color: #fff;
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 900;
+  flex-shrink: 0;
 }
 
 .canvas-drop-fit {

@@ -1,7 +1,7 @@
 .card-arrangement-task { display: flex; flex-direction: column; gap: 18px; width: 100%; }
-.card-arrangement-title { margin: 0; font-size: 22px; font-weight: 700; color: #1f2a44; display: flex; align-items: center; gap: 10px; }
-.card-arrangement-title.is-solved { color: #1e8e4f; }
-.card-arrangement-badge { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: #1e8e4f; color: #fff; font-size: 16px; }
+.card-arrangement-title { margin: 0; font-size: 20px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 10px; }
+.card-arrangement-title.is-solved { color: #0f172a; }
+.card-arrangement-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: #22c55e; color: #fff; font-size: 13px; font-weight: 900; flex-shrink: 0; }
 .card-arrangement-slots, .card-arrangement-tray { display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch; }
 .card-arrangement-tray { padding: 14px; border: 2px dashed #c3cce6; border-radius: 12px; background: #f7f9ff; min-height: 110px; justify-content: center; align-items: center; }
 .card-arrangement-slot { position: relative; display: flex; align-items: center; justify-content: center; width: 190px; height: 150px; padding: 8px; box-sizing: border-box; border: 2px dashed #8b9ac4; border-radius: 12px; background: rgba(139, 154, 196, 0.08); cursor: pointer; }

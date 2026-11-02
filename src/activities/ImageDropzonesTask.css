@@ -346,14 +346,14 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-  color: #1e293b;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .image-assembly-title.is-solved {
-  color: #16a34a;
+  color: #0f172a;
 }
 
 .image-assembly-check-badge {
@@ -377,10 +377,10 @@
 }
 
 .image-assembly-instruction {
-  margin: 0;
+  margin: 6px 0 0 0;
   font-size: 16px;
   font-weight: 600;
-  color: #334155;
+  color: #1e293b;
 }
 
 /* Sample Target Image (at top) */
