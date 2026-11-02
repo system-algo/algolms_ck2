@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import TopNavigation from '../components/TopNavigation.jsx';
 import ActivityRouter from '../activities/ActivityRouter.jsx';
+import { saveTaskCompletionToSupabase } from '../lib/supabaseProgress.js';
 
 function getStates(task) {
   return Array.isArray(task?.states) ? task.states : [];
@@ -143,6 +144,73 @@ function applyManualActivityMapToManifest(manifest, activityMap) {
   return nextManifest;
 }
 
+function getCompletedTasksStorageKey(courseId, lessonId, pageId, studentEmail) {
+  const user = String(studentEmail || '').trim().toLowerCase();
+  if (!user) {
+    return [
+      'lms-completed-tasks:v2:anonymous',
+      String(courseId || ''),
+      String(lessonId || ''),
+      String(pageId || ''),
+    ].join(':');
+  }
+  return [
+    'lms-completed-tasks:v2',
+    user,
+    String(courseId || ''),
+    String(lessonId || ''),
+    String(pageId || ''),
+  ].join(':');
+}
+
+function loadCompletedTaskIds(storageKey, fallbackKeys = []) {
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    if (Array.isArray(saved) && saved.length > 0) {
+      return saved.map(String).filter(Boolean);
+    }
+    for (const fb of fallbackKeys) {
+      const fbVal = JSON.parse(localStorage.getItem(fb) || '[]');
+      if (Array.isArray(fbVal) && fbVal.length > 0) {
+        return fbVal.map(String).filter(Boolean);
+      }
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+function getFetchUrl(input) {
+  if (typeof input === 'string') return input;
+  if (input instanceof URL) return input.toString();
+  return String(input?.url || '');
+}
+
+function getFetchMethod(input, init) {
+  return String(init?.method || input?.method || 'GET').toUpperCase();
+}
+
+function getFetchPayload(input, init) {
+  const body = init?.body ?? input?.body;
+  if (typeof body !== 'string' || !body.trim()) return null;
+  try {
+    return JSON.parse(body);
+  } catch {
+    return null;
+  }
+}
+
+function getGradingResult(responseData) {
+  return (
+    responseData?.result ||
+    responseData?.data?.result ||
+    responseData?.data ||
+    responseData ||
+    null
+  );
+}
+
 export default function GeneratedPageShell({
   manifestUrl,
   pageInstanceUrl,
@@ -176,32 +244,56 @@ export default function GeneratedPageShell({
   const [stateIndex, setStateIndex] = useState(0);
   const [rawMode, setRawMode] = useState(false);
 
-  const effectiveCourseId = manifest?.metadata?.courseId || courseId;
+  const studentEmail = useMemo(() => {
+    return String(
+      sessionStorage.getItem('lms_student_email') ||
+      localStorage.getItem('lms_student_email') ||
+      new URLSearchParams(window.location.search).get('studentEmail') ||
+      new URLSearchParams(window.location.search).get('email') ||
+      ''
+    ).trim().toLowerCase();
+  }, []);
+
+  const effectiveCourseId = manifest?.metadata?.courseId || courseId || 'CK';
   const effectiveLessonId = manifest?.metadata?.lessonId || lessonId;
   const effectivePageId = manifest?.metadata?.pageId || pageId;
 
   const completedTasksStorageKey = useMemo(
+    () => getCompletedTasksStorageKey(effectiveCourseId, effectiveLessonId, effectivePageId, studentEmail),
+    [effectiveCourseId, effectiveLessonId, effectivePageId, studentEmail],
+  );
+
+  const legacyTasksStorageKey = useMemo(
     () => `lms-completed-tasks:${effectiveCourseId}:${effectiveLessonId}:${effectivePageId}`,
     [effectiveCourseId, effectiveLessonId, effectivePageId],
   );
 
-  const [completedTaskIds, setCompletedTaskIds] = useState(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(`lms-completed-tasks:${courseId}:${lessonId}:${pageId}`) || '[]');
-      return Array.isArray(saved) ? saved.map(String).filter(Boolean) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [completedTaskIds, setCompletedTaskIds] = useState(() =>
+    loadCompletedTaskIds(completedTasksStorageKey, [legacyTasksStorageKey])
+  );
+  const completedTaskIdsRef = useRef(completedTaskIds);
+  completedTaskIdsRef.current = completedTaskIds;
+
+  const [justCompletedTaskId, setJustCompletedTaskId] = useState('');
+  const justCompletedTaskIdRef = useRef('');
+  justCompletedTaskIdRef.current = justCompletedTaskId;
+
+  const [progressJustIncreased, setProgressJustIncreased] = useState(false);
+  const [progressCelebrationKey, setProgressCelebrationKey] = useState(0);
+
+  const currentTaskIdRef = useRef('');
+  const autoTransitionTimerRef = useRef(null);
+  const taskIndexRef = useRef(taskIndex);
+  taskIndexRef.current = taskIndex;
+  const tasksRef = useRef([]);
 
   useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(completedTasksStorageKey) || '[]');
-      if (Array.isArray(saved)) {
-        setCompletedTaskIds(saved.map(String).filter(Boolean));
+    return () => {
+      if (autoTransitionTimerRef.current) {
+        clearTimeout(autoTransitionTimerRef.current);
       }
-    } catch {}
-  }, [completedTasksStorageKey]);
+    };
+  }, []);
 
   useEffect(() => {
     const cId = courseId;
@@ -220,6 +312,62 @@ export default function GeneratedPageShell({
       }
     } catch {}
   }, [taskIndex, courseId, lessonId, pageId]);
+
+  useEffect(() => {
+    const ids = loadCompletedTaskIds(completedTasksStorageKey, [legacyTasksStorageKey]);
+    setCompletedTaskIds(ids);
+    completedTaskIdsRef.current = ids;
+
+    const supabaseUrl =
+      sessionStorage.getItem('lms_supabase_url') ||
+      localStorage.getItem('lms_supabase_url');
+    const supabaseKey =
+      sessionStorage.getItem('lms_supabase_key') ||
+      localStorage.getItem('lms_supabase_key');
+
+    if (supabaseUrl && supabaseKey && studentEmail && effectivePageId) {
+      const url = `${supabaseUrl}/rest/v1/activity_progress?user_id=eq.${encodeURIComponent(studentEmail)}&page_id=eq.${encodeURIComponent(effectivePageId)}&select=task_id,status,is_completed`;
+      const accessToken =
+        sessionStorage.getItem('lms_access_token') ||
+        localStorage.getItem('lms_access_token');
+      const headers = {
+        apikey: supabaseKey,
+      };
+      if (accessToken && accessToken.split('.').length === 3) {
+        headers.Authorization = `Bearer ${accessToken}`;
+      }
+
+      fetch(url, { headers })
+        .then((res) => (res.ok ? res.json() : []))
+        .then((data) => {
+          if (Array.isArray(data)) {
+            const dbCompletedIds = data
+              .filter(
+                (r) =>
+                  r.is_completed === true ||
+                  String(r.is_completed) === 'true' ||
+                  r.status === 'completed' ||
+                  r.status === 'correct' ||
+                  r.status === 'passed',
+              )
+              .map((r) => String(r.task_id))
+              .filter(Boolean);
+
+            setCompletedTaskIds((prev) => {
+              const currentJustCompleted = justCompletedTaskIdRef.current ? [justCompletedTaskIdRef.current] : [];
+              const finalIds = Array.from(new Set([...prev, ...dbCompletedIds, ...currentJustCompleted]));
+              try {
+                localStorage.setItem(completedTasksStorageKey, JSON.stringify(finalIds));
+                localStorage.setItem(legacyTasksStorageKey, JSON.stringify(finalIds));
+              } catch (e) {}
+              completedTaskIdsRef.current = finalIds;
+              return finalIds;
+            });
+          }
+        })
+        .catch((err) => console.warn('[GeneratedPageShell] Failed to load Supabase page progress:', err));
+    }
+  }, [completedTasksStorageKey, legacyTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId, studentEmail]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -301,6 +449,13 @@ export default function GeneratedPageShell({
   const states = getStates(task);
   const state = states[stateIndex] || null;
 
+  useEffect(() => {
+    currentTaskIdRef.current = getTaskId(task);
+  }, [task]);
+
+  taskIndexRef.current = taskIndex;
+  tasksRef.current = tasks;
+
   const courseTitle = manifest?.metadata?.courseTitle || courseId || 'Course';
   const lessonTitle = manifest?.metadata?.lessonTitle || lessonId || 'Lesson';
   const pageTitle = manifest?.metadata?.pageTitle || pageId || 'Page';
@@ -314,18 +469,32 @@ export default function GeneratedPageShell({
     return `${taskIndex + 1}/${tasks.length}`;
   }, [task, tasks.length, taskIndex]);
 
+  const completedTaskCount = useMemo(() => {
+    if (!tasks.length) return 0;
+    const taskIdSet = new Set(tasks.map((item) => getTaskId(item)).filter(Boolean));
+    return completedTaskIds.filter((id) => taskIdSet.has(String(id))).length;
+  }, [completedTaskIds, tasks]);
+
+  const lessonProgressPercent = useMemo(() => {
+    if (!tasks.length) return 0;
+    return Math.round((completedTaskCount / tasks.length) * 100);
+  }, [completedTaskCount, tasks.length]);
+
   function gotoTask(nextTaskIndex) {
+    if (autoTransitionTimerRef.current) clearTimeout(autoTransitionTimerRef.current);
     setTaskIndex(nextTaskIndex);
     setStateIndex(0);
   }
 
   function prevTask() {
+    if (autoTransitionTimerRef.current) clearTimeout(autoTransitionTimerRef.current);
     if (!tasks.length) return;
     setTaskIndex(Math.max(0, taskIndex - 1));
     setStateIndex(0);
   }
 
   function nextTask() {
+    if (autoTransitionTimerRef.current) clearTimeout(autoTransitionTimerRef.current);
     if (!tasks.length) return;
     if (taskIndex < tasks.length - 1) {
       setTaskIndex(taskIndex + 1);
@@ -374,14 +543,50 @@ export default function GeneratedPageShell({
 
   const taskRef = useRef(task);
   taskRef.current = task;
-  const tasksRef = useRef(tasks);
-  tasksRef.current = tasks;
-  const taskIndexRef = useRef(taskIndex);
-  taskIndexRef.current = taskIndex;
+
+  function markTaskAsCompleted(taskId) {
+    const completedId = String(taskId || '').trim();
+    if (!completedId) return;
+
+    const wasAlreadyCompleted = completedTaskIdsRef.current.includes(completedId);
+    if (!wasAlreadyCompleted) {
+      setJustCompletedTaskId(completedId);
+      setProgressJustIncreased(true);
+      setProgressCelebrationKey((prev) => prev + 1);
+
+      saveTaskCompletionToSupabase({
+        courseId: effectiveCourseId,
+        lessonId: effectiveLessonId,
+        pageId: effectivePageId,
+        taskId: completedId,
+      });
+
+      setCompletedTaskIds((currentIds) => {
+        if (currentIds.includes(completedId)) return currentIds;
+        const nextIds = [...currentIds, completedId];
+        try {
+          localStorage.setItem(completedTasksStorageKey, JSON.stringify(nextIds));
+          localStorage.setItem(legacyTasksStorageKey, JSON.stringify(nextIds));
+          window.dispatchEvent(new StorageEvent('storage', { key: completedTasksStorageKey }));
+        } catch (e) {}
+        completedTaskIdsRef.current = nextIds;
+        return nextIds;
+      });
+
+      if (taskIndexRef.current < tasksRef.current.length - 1) {
+        if (autoTransitionTimerRef.current) {
+          clearTimeout(autoTransitionTimerRef.current);
+        }
+        autoTransitionTimerRef.current = setTimeout(() => {
+          setTaskIndex((prev) => Math.min(tasksRef.current.length - 1, prev + 1));
+          setStateIndex(0);
+        }, 1500);
+      }
+    }
+  }
 
   function handleTaskCompleted(completionOrEvent = {}) {
     const currentTask = taskRef.current;
-    const currentTasks = tasksRef.current;
     const currentTaskIndex = taskIndexRef.current;
 
     const completedId = String(
@@ -390,67 +595,77 @@ export default function GeneratedPageShell({
       getTaskId(currentTask) ||
       `task-${currentTaskIndex + 1}`
     ).trim();
-    if (!completedId) return;
 
-    let isNew = false;
-    setCompletedTaskIds((prev) => {
-      if (prev.includes(completedId)) return prev;
-      isNew = true;
-      const next = [...prev, completedId];
-      try {
-        localStorage.setItem(completedTasksStorageKey, JSON.stringify(next));
-      } catch {}
-      return next;
-    });
-
-    if (currentTasks.length > 0 && currentTaskIndex < currentTasks.length - 1) {
-      setTimeout(() => {
-        setTaskIndex((prev) => Math.min(currentTasks.length - 1, prev + 1));
-        setStateIndex(0);
-      }, 1200);
-    }
-
-    // Sync to Supabase activity_progress table (background fire-and-forget fallback)
-    import('../lib/supabaseProgress.js')
-      .then(({ saveTaskCompletionToSupabase }) => {
-        saveTaskCompletionToSupabase({
-          courseId: effectiveCourseId,
-          lessonId: effectiveLessonId,
-          pageId: effectivePageId,
-          taskId: completedId,
-        });
-      })
-      .catch(() => {});
+    markTaskAsCompleted(completedId);
   }
 
+  // Intercept fetch to detect successful activity attempts (matching PTSY1)
   useEffect(() => {
-    window.addEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
-    return () => {
-      window.removeEventListener('LMS_TASK_COMPLETED', handleTaskCompleted);
-    };
-  }, [completedTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId]);
+    const originalFetch = window.fetch.bind(window);
 
-  // A previously cached "completed" flag must not override the latest
-  // official incorrect grade. Remove that browser-only flag for the task;
-  // the backend's activity_progress record is authoritative.
-  useEffect(() => {
-    function handleOfficialGrade(event) {
-      if (event?.detail?.isCorrect !== false) return;
-      const taskId = String(event?.detail?.taskId || '').trim();
-      if (!taskId) return;
-      setCompletedTaskIds((previous) => {
-        if (!previous.includes(taskId)) return previous;
-        const updated = previous.filter((id) => id !== taskId);
-        try {
-          localStorage.setItem(completedTasksStorageKey, JSON.stringify(updated));
-        } catch {}
-        return updated;
-      });
+    async function trackedFetch(input, init) {
+      const response = await originalFetch(input, init);
+
+      try {
+        const requestUrl = getFetchUrl(input);
+        const requestMethod = getFetchMethod(input, init);
+
+        const isActivitySubmission =
+          response.ok &&
+          requestMethod === 'POST' &&
+          requestUrl.includes('/api/activity-attempts');
+
+        if (isActivitySubmission) {
+          let responseData = null;
+
+          try {
+            responseData = await response.clone().json();
+          } catch {
+            responseData = null;
+          }
+
+          const gradingResult = getGradingResult(responseData);
+
+          if (gradingResult?.isCorrect === true || gradingResult?.status === 'correct' || responseData?.ok === true && (responseData?.result?.isCorrect === true || responseData?.isCorrect === true)) {
+            const payload = getFetchPayload(input, init);
+
+            const submittedTaskId = String(
+              payload?.taskId ||
+              payload?.answer?.taskId ||
+              currentTaskIdRef.current ||
+              '',
+            ).trim();
+
+            if (submittedTaskId) {
+              markTaskAsCompleted(submittedTaskId);
+            }
+          }
+        }
+      } catch (trackingError) {
+        console.warn('Could not update completed task indicator:', trackingError);
+      }
+
+      return response;
     }
 
-    window.addEventListener('LMS_TASK_GRADED', handleOfficialGrade);
-    return () => window.removeEventListener('LMS_TASK_GRADED', handleOfficialGrade);
-  }, [completedTasksStorageKey]);
+    window.fetch = trackedFetch;
+
+    return () => {
+      if (window.fetch === trackedFetch) {
+        window.fetch = originalFetch;
+      }
+    };
+  }, [completedTasksStorageKey, legacyTasksStorageKey, effectiveCourseId, effectiveLessonId, effectivePageId]);
+
+  useEffect(() => {
+    function handleCustomEvent(e) {
+      handleTaskCompleted(e);
+    }
+    window.addEventListener('LMS_TASK_COMPLETED', handleCustomEvent);
+    return () => {
+      window.removeEventListener('LMS_TASK_COMPLETED', handleCustomEvent);
+    };
+  }, []);
 
   if (error) {
     return (
@@ -484,11 +699,17 @@ export default function GeneratedPageShell({
         courseId={`${courseTitle} / ${lessonTitle}`}
         lessonTitle={lessonTitle}
         pageTitle={pageTitle}
-        lessonId={manifest?.metadata?.lessonId || lessonId}
-        pageId={manifest?.metadata?.pageId || pageId}
+        lessonId={manifest?.metadata?.lessonId || effectiveLessonId}
+        pageId={manifest?.metadata?.pageId || effectivePageId}
         tasks={tasks}
         currentTaskIndex={taskIndex}
         completedTaskIds={completedTaskIds}
+        completedTaskCount={completedTaskCount}
+        totalTaskCount={tasks.length}
+        lessonProgressPercent={lessonProgressPercent}
+        justCompletedTaskId={justCompletedTaskId}
+        progressJustIncreased={progressJustIncreased}
+        progressCelebrationKey={progressCelebrationKey}
         onSelectTask={gotoTask}
         onBackToCatalog={handleBackToCourse}
       />
@@ -501,6 +722,7 @@ export default function GeneratedPageShell({
         stateIndex={stateIndex}
         rawMode={rawMode}
         completedTaskIds={completedTaskIds}
+        isTaskCompleted={completedTaskIds.includes(String(getTaskId(task) || task?.id || task?.taskId || ''))}
         onNextTask={nextTask}
         onPrevTask={prevTask}
         onNextState={nextState}
