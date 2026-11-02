@@ -3384,16 +3384,7 @@ body:has(.choice-item) .activity-stage {
 .sequence-image-check-badge,
 .mcq-check-badge,
 .canvas-drop-check-badge,
-.card-arrangement-badge {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 22px !important;
-  height: 22px !important;
-  border-radius: 50% !important;
-  background-color: #22c55e !important;
-  color: #ffffff !important;
-  font-size: 13px !important;
-  font-weight: 900 !important;
-  flex-shrink: 0 !important;
+.card-arrangement-badge,
+.category-drag-check {
+  display: none !important;
 }

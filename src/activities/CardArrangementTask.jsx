@@ -171,7 +171,7 @@ export default function CardArrangementTask({
     >
       <article className="card-arrangement-task">
         <h1 className={`card-arrangement-title ${isSolved ? 'is-solved' : ''}`}>
-          {isSolved && <span className="card-arrangement-badge">✓</span>}
+          
           {data.title}
         </h1>
         {data.sampleImage && (

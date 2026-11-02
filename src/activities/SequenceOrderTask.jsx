@@ -645,24 +645,7 @@ export default function SequenceOrderTask({
         <article className="sequence-image-task">
           <header className="sequence-image-header">
             <h1 className={`sequence-image-title ${isSolved ? 'is-solved' : ''}`}>
-              {isSolved && (
-                <span
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 22,
-                    height: 22,
-                    borderRadius: '50%',
-                    backgroundColor: '#22c55e',
-                    color: '#ffffff',
-                    fontSize: 13,
-                    fontWeight: 900,
-                  }}
-                >
-                  ✓
-                </span>
-              )}
+              
               {cleanActivityTitle(config.title, 'My correct solution')}
             </h1>
             <p className="sequence-image-instruction">

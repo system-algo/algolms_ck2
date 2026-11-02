@@ -124,7 +124,9 @@ function isLikelyCssGarbage(text) {
 export function cleanActivityTitle(title, fallback = '') {
   if (!title) return fallback;
   const cleaned = String(title)
+    .replace(/^[✓✔]\s*/, '')
     .replace(/^part\s*\d*\.?\s*[-–—:]?\s*/i, '')
+    .replace(/^[✓✔]\s*/, '')
     .trim();
   return cleaned || fallback;
 }

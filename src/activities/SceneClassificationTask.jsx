@@ -424,7 +424,7 @@ export default function SceneClassificationTask({
         <header className="scene-classification-header">
           <div className="scene-classification-title-row">
             <h1 className={`scene-classification-title ${isSolved ? 'is-solved' : ''}`}>
-              {isSolved && <span className="scene-classification-check-badge">✓</span>}
+              
               {title}
             </h1>
           </div>

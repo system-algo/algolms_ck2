@@ -639,24 +639,7 @@ export default function MatchingConnectTask({
         <div className="matching-connect-header">
           <div className="matching-connect-heading">
             <h1 className="matching-connect-title" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              {isDone && (
-                <span
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 22,
-                    height: 22,
-                    borderRadius: '50%',
-                    backgroundColor: '#22c55e',
-                    color: '#ffffff',
-                    fontSize: 13,
-                    fontWeight: 900,
-                  }}
-                >
-                  ✓
-                </span>
-              )}
+              
               <span>{data.title}</span>
             </h1>
 

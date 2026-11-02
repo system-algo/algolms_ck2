@@ -338,7 +338,7 @@ export default function CategoryDragTask({
         <header className="category-drag-header">
           <div className="category-drag-top-meta">
             <span className={`category-drag-task-title ${isSolved ? 'is-solved' : ''}`}>
-              {isSolved && <span className="category-drag-check-badge">✓</span>}
+              
               {cleanActivityTitle(task?.title, 'My correct solution')}
             </span>
           </div>

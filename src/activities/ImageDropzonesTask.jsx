@@ -651,9 +651,7 @@ export default function ImageDropzonesTask({
           <header className="image-assembly-header">
             <div className="image-assembly-title-row">
               <h1 className={`image-assembly-title ${isSolved ? 'is-solved' : ''}`}>
-                {isSolved && (
-                  <span className="image-assembly-check-badge">✓</span>
-                )}
+                
                 {data.title}
               </h1>
             </div>

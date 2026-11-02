@@ -817,9 +817,7 @@ export default function McqCheckboxTask({
         <div className="mcq-header">
           <div className="mcq-top-row">
             <h1 className="mcq-section-title">
-              {isTaskDone && (
-                <span className="mcq-check-badge">✓</span>
-              )}
+              
               <span>{displayTitle || 'My correct solution'}</span>
             </h1>
             <span className="mcq-collapse-icon" aria-hidden="true">

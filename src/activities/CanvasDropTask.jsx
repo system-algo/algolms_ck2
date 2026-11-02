@@ -468,7 +468,7 @@ export default function CanvasDropTask({
       <article className="canvas-drop-task">
         <header className="canvas-drop-header">
           <h1 className={`canvas-drop-title ${isSolved ? 'is-solved' : ''}`}>
-            {isSolved && <span className="canvas-drop-check-badge">✓</span>}
+            
             {data.title}
           </h1>
         </header>
