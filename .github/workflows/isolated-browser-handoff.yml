@@ -1,0 +1,35 @@
+name: Isolated Secure LMS Browser E2E
+
+on:
+  push:
+    branches:
+      - fix/verified-pre-mount-handoff-20261102
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-handoff:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      CI: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Validate browser harness syntax
+        run: node --check scripts/handoffBrowserE2E.mjs
+      - name: Install app (no production credentials)
+        run: npm ci
+      - name: Install browser test dependency (no lockfile changes)
+        run: npm install --no-save --package-lock=false playwright@1.56.1
+      - name: Install isolated Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build candidate branch
+        run: npm run build
+      - name: Browser E2E — only localhost allowed
+        run: node scripts/handoffBrowserE2E.mjs
