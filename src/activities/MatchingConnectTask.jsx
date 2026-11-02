@@ -664,9 +664,6 @@ export default function MatchingConnectTask({
               <p className="matching-connect-helper">{data.helperText}</p>
             ) : null}
           </div>
-          {data.attempt ? (
-            <div className="matching-connect-attempt">{data.attempt}</div>
-          ) : null}
         </div>
 
         {data.image && (

@@ -110,7 +110,7 @@ export default function SceneClassificationTask({
 
   const title = config.title || task?.title || 'Part 1. My correct solution';
   const prompt = config.prompt || task?.prompt || 'What sprites are needed in each scene?';
-  const attempt = config.attempt || 'Attempt: 1/2';
+  const attempt = config.attempt || '';
 
   const sprites = useMemo(() => {
     return Array.isArray(config.sprites) ? config.sprites : [];
@@ -426,7 +426,6 @@ export default function SceneClassificationTask({
               {isSolved && <span className="scene-classification-check-badge">✓</span>}
               {title}
             </h1>
-            {attempt && <span className="scene-classification-attempt">{attempt}</span>}
           </div>
           <p className="scene-classification-instruction">{prompt}</p>
         </header>

@@ -3322,9 +3322,14 @@ body:has(.choice-item) .activity-stage {
 .code-copy-attempt,
 .code-task-attempt,
 .image-dropzones-attempt,
+.image-assembly-attempt,
+.category-drag-attempt,
 .matching-connect-attempt,
 .matching-rule-attempt,
-.matching-rule-toolbar {
+.scene-classification-attempt,
+.matching-rule-toolbar,
+[class*="-attempt"],
+[class*="_attempt"] {
   display: none !important;
 }
 

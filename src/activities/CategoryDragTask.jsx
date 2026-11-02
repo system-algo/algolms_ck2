@@ -39,7 +39,7 @@ function normalizeConfig(raw) {
   return {
     title: String(config.title || '').trim(),
     instruction: String(config.instruction || config.helperText || '').trim(),
-    attempt: String(config.attempt || 'Attempt: 1/2').trim(),
+    attempt: String(config.attempt || '').trim(),
     layout: config.layout === 'side' ? 'side' : 'top',
     referenceImage: typeof refImg === 'string' ? refImg : refImg?.src || '',
     items: (config.items || []).map((item, index) => ({ ...item, id: String(item.id || `item-${index + 1}`) })),
@@ -341,7 +341,6 @@ export default function CategoryDragTask({
               {isSolved && <span className="category-drag-check">✓ </span>}
               {task?.title || 'Part 1. My correct solution'}
             </span>
-            <span className="category-drag-attempt">{data.attempt || 'Attempt: 1/2'}</span>
           </div>
           {data.title && (
             <h1 className="category-drag-instruction">{data.title}</h1>

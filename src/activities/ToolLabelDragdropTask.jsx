@@ -31,7 +31,7 @@ function getConfig(task) {
       normalizeText(task?.title) ||
       'Fill in the blanks with the correct names of the instruments.',
     helperText: normalizeText(config.helperText || config.helper_text || ''),
-    attempt: normalizeText(config.attempt || task?.attempt || 'Attempt: 1/2'),
+    attempt: normalizeText(config.attempt || task?.attempt || ''),
     items: Array.isArray(config.items)
       ? config.items
       : [

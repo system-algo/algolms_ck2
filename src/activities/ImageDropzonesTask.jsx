@@ -654,9 +654,6 @@ export default function ImageDropzonesTask({
                 )}
                 {data.title}
               </h1>
-              {data.attempt && (
-                <span className="image-assembly-attempt">{data.attempt}</span>
-              )}
             </div>
             <p className="image-assembly-instruction">{data.prompt}</p>
           </header>
