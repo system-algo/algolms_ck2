@@ -1,7 +1,11 @@
+import { getMainPlatformUrl } from './lib/authConfig';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import StudentHomeDashboard from './pages/StudentHomeDashboard.jsx';
 import TeacherDashboard from './pages/TeacherDashboard.jsx';
 import generatedPageRegistry from './generated-pages/registry.js';
+import { installTabIsolatedLmsStorage } from './security/secureLmsHandoffReceiver.js';
+
+installTabIsolatedLmsStorage();
 
 const DEFAULT_COURSE_ID = 'CK';
 // The CK2 LMS serves lesson assets under /courses/CK, but schedules are recorded as CK2.
@@ -19,7 +23,11 @@ const LMS_SCHEDULE_COURSE_CODE = 'CK2';
     const accessToken = params.get('accessToken');
     const backendUrl = params.get('backendUrl');
 
-    if (email) localStorage.setItem('lms_student_email', email.trim().toLowerCase());
+    if (email) {
+      const normalizedEmail = email.trim().toLowerCase();
+      localStorage.setItem('lms_student_email', normalizedEmail);
+      localStorage.setItem('lms_user_email', normalizedEmail);
+    }
     if (incomingCourseId) localStorage.setItem('lms_course_id', incomingCourseId);
     if (supabaseUrl) localStorage.setItem('lms_supabase_url', supabaseUrl);
     if (supabaseKey) localStorage.setItem('lms_supabase_key', supabaseKey);
@@ -79,9 +87,7 @@ const CHILD_SESSION_CHECK_INTERVAL_MS = 1000;
 const CHILD_SESSION_DEADLINE_KEY = 'algo_child_session_deadline';
 const CHILD_SESSION_EXPIRED_KEY = 'algo_child_session_expired';
 
-const MAIN_LOGIN_URL =
-  import.meta.env.VITE_MAIN_LOGIN_URL ||
-  'https://learn.algo.edu.vn';
+const MAIN_LOGIN_URL = getMainPlatformUrl();
 
 const COURSE_MODULE_ORDER = {
   CK: [
@@ -408,13 +414,16 @@ export default function App() {
         'lms_student_email',
         email,
       );
+      localStorage.setItem('lms_user_email', email);
     } else if (
-      !localStorage.getItem('lms_student_email')
+      !localStorage.getItem('lms_student_email') &&
+      !localStorage.getItem('lms_user_email')
     ) {
       localStorage.setItem(
         'lms_student_email',
         'guest@algo.edu.vn',
       );
+      localStorage.setItem('lms_user_email', 'guest@algo.edu.vn');
     }
 
     if (incomingCourseId) {
@@ -730,6 +739,9 @@ export default function App() {
       );
 
       localStorage.removeItem('lms_user_role');
+      localStorage.removeItem('lms_viewer_role');
+      localStorage.removeItem('lms_user_email');
+      localStorage.removeItem('lms_platform_origin');
 
       const separator = MAIN_LOGIN_URL.includes('?')
         ? '&'

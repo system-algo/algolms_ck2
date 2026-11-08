@@ -23,14 +23,17 @@
       (function() {
         try {
           var p = new URLSearchParams(window.location.search);
-          var sensitiveKeys = ['studentEmail', 'supabaseUrl', 'supabaseKey', 'accessToken', 'backendUrl'];
+          var sensitiveKeys = ['studentEmail', 'courseId', 'supabaseUrl', 'supabaseKey', 'accessToken', 'backendUrl'];
           var hasSensitive = false;
           for (var i = 0; i < sensitiveKeys.length; i++) {
             if (p.has(sensitiveKeys[i])) { hasSensitive = true; break; }
           }
           
           if (hasSensitive) {
-            if (p.get('studentEmail')) localStorage.setItem('lms_student_email', p.get('studentEmail'));
+            if (p.get('studentEmail')) {
+              localStorage.setItem('lms_student_email', p.get('studentEmail'));
+              localStorage.setItem('lms_user_email', p.get('studentEmail'));
+            }
             if (p.get('courseId')) localStorage.setItem('lms_course_id', p.get('courseId'));
             if (p.get('supabaseUrl')) localStorage.setItem('lms_supabase_url', p.get('supabaseUrl'));
             if (p.get('supabaseKey')) localStorage.setItem('lms_supabase_key', p.get('supabaseKey'));

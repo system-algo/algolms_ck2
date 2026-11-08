@@ -1,3 +1,5 @@
+import { requestFreshLmsHandoff } from '../security/secureLmsHandoffReceiver.js';
+
 function normalize(value) {
   return String(value || '').trim();
 }
@@ -33,13 +35,56 @@ function getConfiguredBackendUrls() {
     .filter(Boolean);
 }
 
+function getAccessToken() {
+  return normalize(
+    sessionStorage.getItem('lms_access_token') ||
+      localStorage.getItem('lms_access_token'),
+  );
+}
+
+function getRequestMethod(input, init) {
+  return String(
+    init?.method ||
+      (input instanceof Request ? input.method : '') ||
+      'GET',
+  ).toUpperCase();
+}
+
+function rewriteLegacyIdeAnswerKeyUrl(url, input, init) {
+  if (getRequestMethod(input, init) !== 'GET') return url;
+
+  if (!url.pathname.endsWith('/api/admin/answer-keys')) {
+    return url;
+  }
+
+  const nextUrl = new URL(url.toString());
+  nextUrl.pathname = nextUrl.pathname.replace(
+    /\/api\/admin\/answer-keys$/,
+    '/api/answer-keys/ide',
+  );
+  return nextUrl;
+}
+
+function buildAuthorizedHeaders(input, init, token) {
+  const headers = new Headers(
+    input instanceof Request ? input.headers : undefined,
+  );
+
+  new Headers(init.headers || {}).forEach((value, key) =>
+    headers.set(key, value),
+  );
+
+  headers.set('Authorization', `Bearer ${token}`);
+  return headers;
+}
+
 export function installBackendAuthFetch() {
   if (window.__algoBackendAuthFetchInstalled) return;
   window.__algoBackendAuthFetchInstalled = true;
 
   const originalFetch = window.fetch.bind(window);
 
-  window.fetch = (input, init = {}) => {
+  window.fetch = async (input, init = {}) => {
     let url;
     try {
       url = new URL(
@@ -58,27 +103,59 @@ export function installBackendAuthFetch() {
       return originalFetch(input, init);
     }
 
-    const token = normalize(
-      sessionStorage.getItem('lms_access_token') ||
-        localStorage.getItem('lms_access_token'),
-    );
+    // Legacy activity maps still point IDE answer-key reads at the protected
+    // admin path. Keep those reads on the learner-safe endpoint.
+    url = rewriteLegacyIdeAnswerKeyUrl(url, input, init);
 
-    if (!isJwt(token)) {
-      return originalFetch(input, init);
+    const sendWithToken = (token) => {
+      const requestUrl = url.toString();
+
+      if (!isJwt(token)) {
+        if (input instanceof Request) {
+          return originalFetch(new Request(requestUrl, input), init);
+        }
+        return originalFetch(requestUrl, init);
+      }
+
+      const headers = buildAuthorizedHeaders(input, init, token);
+
+      if (input instanceof Request) {
+        return originalFetch(new Request(requestUrl, input), { ...init, headers });
+      }
+
+      return originalFetch(requestUrl, { ...init, headers });
+    };
+
+    let token = getAccessToken();
+
+    // A popup can mount before the trusted parent handoff is ready. Ask for
+    // fresh context before the first protected request instead of generating a
+    // predictable 401.
+    if (!isJwt(token) && window.opener) {
+      const refreshed = await requestFreshLmsHandoff();
+      if (refreshed) {
+        token = getAccessToken();
+      }
     }
 
-    const headers = new Headers(
-      input instanceof Request ? input.headers : undefined,
-    );
-    new Headers(init.headers || {}).forEach((value, key) =>
-      headers.set(key, value),
-    );
-    headers.set('Authorization', `Bearer ${token}`);
+    const response = await sendWithToken(token);
 
-    if (input instanceof Request) {
-      return originalFetch(new Request(input, { ...init, headers }));
+    // If the backend rejects a previously valid-looking token, request a fresh
+    // trusted handoff and retry replay-safe string URL requests exactly once.
+    if (
+      response.status === 401 &&
+      !(input instanceof Request) &&
+      window.opener &&
+      isJwt(token)
+    ) {
+      const refreshed = await requestFreshLmsHandoff();
+      const freshToken = getAccessToken();
+
+      if (refreshed && isJwt(freshToken) && freshToken !== token) {
+        return sendWithToken(freshToken);
+      }
     }
 
-    return originalFetch(input, { ...init, headers });
+    return response;
   };
 }
