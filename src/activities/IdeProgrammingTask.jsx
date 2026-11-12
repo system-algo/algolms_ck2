@@ -257,7 +257,8 @@ const EMBEDDED_STYLES = `
   padding: 12px 18px 40px 0;
   border: 0;
   outline: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: "Consolas", "Menlo", "Liberation Mono", monospace;
+  font-variant-ligatures: none;
   font-size: 14px;
   line-height: 24px;
   tab-size: 4;
@@ -2610,7 +2611,11 @@ export default function IdeProgrammingTask({
                   onChange={(event) => {
                     updateCode(event.target.value.replace(/\r/g, '').replace(/[\u200B-\u200D\uFEFF\u00AD]/g, ''));
                   }}
-                  onKeyDown={handleKeyDown}
+                  onKeyDown={(event) => {
+                    // The editor should not send keystrokes to Pygame's global handler.
+                    event.stopPropagation();
+                    handleKeyDown(event);
+                  }}
                   onScroll={syncScroll}
                   rows={visibleLineCount}
                   placeholder="# Write your code here"
