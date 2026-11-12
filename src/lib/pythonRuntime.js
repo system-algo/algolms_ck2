@@ -3,6 +3,7 @@ export async function runPythonCode(code, options = {}) {
 
   const source = String(code || '');
   const outputLines = [];
+  const hasPygame = /\bimport\s+pygame\b/.test(source) || /\bfrom\s+pygame\b/.test(source);
 
   function emit(value) {
     const text = String(value ?? '');
@@ -19,7 +20,7 @@ export async function runPythonCode(code, options = {}) {
       await loadScript('https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js');
     }
 
-    return new Promise((resolve) => {
+    return await new Promise((resolve) => {
       // Clear graphics containers if they exist
       const turtleContainer = document.getElementById("turtle-canvas-container");
       if (turtleContainer) {
@@ -27,9 +28,31 @@ export async function runPythonCode(code, options = {}) {
       }
 
       const hasTurtle = /\bimport\s+turtle\b/.test(source) || /\bfrom\s+turtle\b/.test(source);
-      const hasPygame = /\bimport\s+pygame\b/.test(source) || /\bfrom\s+pygame\b/.test(source);
 
       if (typeof window.Sk !== 'undefined') {
+        if (hasPygame && !window.Sk._hasPatchedPygameAbstr) {
+          // Match the already deployed PTSY1 Skulpt/Pygame compatibility layer.
+          window.Sk._hasPatchedPygameAbstr = true;
+          const origGattr = window.Sk.abstr.gattr;
+          window.Sk.abstr.gattr = function(obj, pyName, canSuspend) {
+            if (typeof pyName === 'string') pyName = new window.Sk.builtin.str(pyName);
+            return origGattr.call(this, obj, pyName, canSuspend);
+          };
+          const origSattr = window.Sk.abstr.sattr;
+          window.Sk.abstr.sattr = function(obj, pyName, data, canSuspend) {
+            if (typeof pyName === 'string') pyName = new window.Sk.builtin.str(pyName);
+            return origSattr.call(this, obj, pyName, data, canSuspend);
+          };
+          const OrigTuple = window.Sk.builtin.tuple;
+          function PatchedTuple(...args) {
+            return new OrigTuple(...args);
+          }
+          PatchedTuple.prototype = OrigTuple.prototype;
+          Object.setPrototypeOf(PatchedTuple, OrigTuple);
+          Object.assign(PatchedTuple, OrigTuple);
+          window.Sk.builtin.tuple = PatchedTuple;
+        }
+
         if (hasTurtle) {
           window.Sk.TurtleGraphics = window.Sk.TurtleGraphics || {};
           window.Sk.TurtleGraphics.target = 'turtle-canvas-container';
@@ -60,7 +83,9 @@ export async function runPythonCode(code, options = {}) {
           for (const mod of pygameModules) {
             const fileName = mod === 'pygame' ? '__init__.js' : mod.split('.')[1] + '.js';
             window.Sk.externalLibraries[mod] = {
-              path: `https://cdn.jsdelivr.net/gh/Petlja/pygame4skulpt@master/pygame/${fileName}`
+              path: (mod === 'pygame' || mod === 'pygame.font')
+                ? `/pygame/${fileName}`
+                : `https://cdn.jsdelivr.net/gh/Petlja/pygame4skulpt@master/pygame/${fileName}`
             };
           }
         }
@@ -173,6 +198,15 @@ export async function runPythonCode(code, options = {}) {
       stdout: outputLines.join(''),
       stderr: error?.message || 'Runtime setup error.',
     };
+  } finally {
+    // Clear Pygame keyboard capture after a game ends without pygame.quit().
+    if (hasPygame && typeof window !== 'undefined') {
+      if (typeof window.__algoPygameStop === 'function') {
+        window.__algoPygameStop();
+      } else if (window.PygameLib) {
+        window.PygameLib.running = false;
+      }
+    }
   }
 }
 
